@@ -15,8 +15,8 @@ export async function GET(req: NextRequest) {
         const User = verifyTokenJWT(Token);
         // Jika token tidak valid maka akan throw error
 
-        const { limit, page } = await req.json();
-        const input = gudangItem.safeParse({ limit, page });
+        const { limit, page, search } = await req.json();
+        const input = gudangItem.safeParse({ limit, page, search });
         if (!input.success) return NextResponse.json({ status: false, msg: JSON.parse(input.error.message) });
 
         const Board = await prisma.warehouseCupBoard.findMany({
@@ -24,7 +24,8 @@ export async function GET(req: NextRequest) {
             skip: input.data.limit * input.data.page - input.data.limit,
             orderBy: {
                 name: "asc"// Mengurutkan dari terkecil ke terbesar Contoh (a,b,c,d,...)
-            }
+            },
+            ...(input.data.search ? { where: { name: input.data.search } } : {})
         });
 
         return NextResponse.json({ status: true, data: Board });
@@ -94,7 +95,7 @@ export async function POST(req: NextResponse) {
             });
 
             if (!isExists) return new Error("Board tidak ditemukan!");
-            
+
             const Board = await tx.warehouseCupBoard.update({
                 where: { id: input.data.id },
                 data: { name: input.data.name }

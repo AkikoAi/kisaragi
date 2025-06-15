@@ -52,7 +52,8 @@ export const gudangItemDelete = z.object({
 export const gudangItem = z.object({
     page: z.number("Input harus berupa number").gte(1, "Page paling kecil adalah 1"),
     limit: z.number("Input harus berupa number").gte(10, "Minimal data yang dapat ditampilkan adalah 10")
-        .lte(100, "Maximal data yang dapat ditampilkan adalah 100")
+        .lte(100, "Maximal data yang dapat ditampilkan adalah 100"),
+    search:z.string("Input harus berupa string").min(3,"Minimal 3 karakter").trim().optional()
 })
 
 export const gudangBoard = z.object({
