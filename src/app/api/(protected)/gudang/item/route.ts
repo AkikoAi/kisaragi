@@ -133,9 +133,36 @@ export async function POST(req: NextRequest) {
 }
 
 // Delete
-export async function DELETE() {
+export async function DELETE(req: NextRequest) {
     try {
+        const cookie = await cookies();
+        const Token = cookie.get("Auth")?.value;
+        if (!Token) return NextResponse.json({ status: false, msg: ksr_status.token_invalid });
+        const User = verifyTokenJWT(Token);
+        // Jika token tidak valid maka akan throw
 
+        const { ItemId } = await req.json()
+        const input = gudangItemUpdate.safeParse({ ItemId });
+        if (!input.success) return NextResponse.json({ status: false, msg: JSON.parse(input.error.message) });
+        // Jika data yang dibutuhkan untuk menambahkan item tidak cukup/tidak valid maka akan memberikan respon error
+
+        const proses = await prisma.$transaction(async (tx) => {
+            const Item = await tx.warehouseItem.findUnique({ where: { id: input.data.ItemId } });
+            if (!Item) return new Error("Item Tidak ada");
+
+            const hapusItem = await tx.warehouseItem.update({
+                where: {
+                    id: ItemId,
+                },
+                data: {
+                    isDeleted: true
+                }
+            });
+
+            return { hapusItem, Item };
+        });
+
+        return NextResponse.json({ status: true, data: proses });
     } catch (e) {
         addLogsFE(e);
         return NextResponse.json({ status: false, msg: ksr_status[500] });

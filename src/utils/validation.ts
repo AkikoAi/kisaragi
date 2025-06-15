@@ -45,6 +45,10 @@ export const gudangItemUpdate = gudangItemBaru.extend({
     ItemId: z.string("Input harus berupa string").min(8, "Id tidak valid").trim()
 });
 
+export const gudangItemDelete = z.object({
+    ItemId: z.string("Input harus berupa string").min(8, "Id tidak valid").trim()
+})
+
 export const gudangItem = z.object({
     page: z.number("Input harus berupa number").gte(1, "Page paling kecil adalah 1"),
     limit: z.number("Input harus berupa number").gte(10, "Minimal data yang dapat ditampilkan adalah 10")
