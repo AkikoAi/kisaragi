@@ -63,7 +63,7 @@ export async function PUT(req: NextResponse) {
 
             return Board;
         });
-
+        if (proses instanceof Error) return NextResponse.json({ status: false, msg: proses.message });
         return NextResponse.json({ status: true, data: proses });
 
     } catch (e) {
