@@ -7,15 +7,19 @@ export default function Gudang() {
 
     function refreshList() {
         if (isRefreshing) return;
+        setRefreshing(true);
         console.log("Refreshing list");
+        setRefreshing(false);
     }
 
     return (<>
         {/* Grid Card Section */}
         <div className="mt-10 flex justify-end">
             <button
+                className="flex gap-2 items-center"
                 onClick={refreshList}>
-                <RiRefreshLine />
+                <RiRefreshLine className={isRefreshing ? "animate-spin" : ""} />
+                <span>Segarkan</span>
             </button>
         </div>
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-7">
