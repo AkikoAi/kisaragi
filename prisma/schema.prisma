@@ -47,6 +47,8 @@ model Profile {
   updatedAt DateTime @updatedAt
 }
 
+/**
+
 /// Tabel Group (Role)
 model Group {
   name       String           @id // Primary Key: nama group
@@ -103,6 +105,8 @@ model GroupPrivilege {
 
   @@id([groupName, privilegeId]) // Composite PK: satu privilege unik per group
 }
+
+**/
 
 /// Riwayat aktivitas gudang
 model WarehouseLog {
