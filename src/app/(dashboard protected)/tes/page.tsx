@@ -199,6 +199,38 @@ export default function Page() {
         </p>
       </section>
 
+      <section className="mt-10">
+        <h1 className="text-2xl font-bold mb-6">Modal Template Demo</h1>
+
+        {/* Trigger Button (for example purpose only) */}
+        <label htmlFor="my-modal" className="cursor-pointer bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
+          Open Modal
+        </label>
+
+        {/* Hidden checkbox toggle for modal */}
+        <input type="checkbox" id="my-modal" className="peer z-[90]" />
+
+        {/* Modal Overlay */}
+        <div className="fixed inset-0  bg-opacity-50 hidden peer-checked:flex items-center justify-center z-50">
+          {/* Modal Content */}
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg w-11/12 max-w-md p-6 space-y-4 relative">
+            <h2 className="text-xl font-semibold">Example Modal</h2>
+            <p className="text-gray-600 dark:text-gray-300">
+              This is a reusable modal template using only TailwindCSS and native checkbox toggle.
+            </p>
+            <div className="flex justify-end space-x-2">
+              {/* Close Button */}
+              <label htmlFor="my-modal" className="cursor-pointer bg-gray-300 dark:bg-gray-700 px-4 py-2 rounded-md hover:bg-gray-400 dark:hover:bg-gray-600 transition">
+                Cancel
+              </label>
+              <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer Note */}
       <p className="mt-8 text-center text-gray-500 dark:text-gray-400 text-sm">© 2025 Kisaragi. All rights reserved.</p>
     </>
