@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
                 }
             });
 
-            return { id: createUser.id, username: createUser.username, password: createUser.password, name: createUser.name, role: createUser.role };
+            return { id: createUser.id, username: createUser.username, password: createUser.password, name: createUser.name, role: createUser.role, privilege: createUser.privilege };
         });
 
         const cookie = await cookies();

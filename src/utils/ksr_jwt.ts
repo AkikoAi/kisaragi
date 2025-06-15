@@ -27,6 +27,7 @@ export type verifyToken = {
     id: string;
     name: string;
     role: string;
+    privilege: number;
 };
 
 export function verifyTokenJWT(token: string) {

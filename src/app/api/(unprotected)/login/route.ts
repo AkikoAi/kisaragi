@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
         // mencari username
         const userData = await prisma.user.findUnique({
             where: { username }, select:
-                { id: true, password: true, username: true, name: true, role: true }
+                { id: true, password: true, username: true, name: true, role: true, privilege: true }
         })
         if (!userData) return NextResponse.json({ status: false, msg: ksr_status.user_not_found });
 
