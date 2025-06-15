@@ -44,7 +44,7 @@ export async function PUT(req: NextRequest) {
             return { menambahkanItem, menambahkanLog };
         });
 
-        return NextResponse.json({ status: true, data: { ItemId: proses.menambahkanItem.id, LogId: proses.menambahkanLog.id } });
+        return NextResponse.json({ status: true, data: proses });
     } catch (e) {
         addLogsFE(e);
         return NextResponse.json({ status: false, msg: ksr_status[500] });
