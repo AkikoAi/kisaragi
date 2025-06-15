@@ -7,6 +7,36 @@ export default function Page() {
     { title: "Reports", description: "View analytics", icon: <FaChartBar size={30} /> },
     { title: "Messages", description: "Check inbox", icon: <FaEnvelope size={30} /> },
   ];
+  const cards2 = [
+    {
+      id: 1,
+      title: "Produk A",
+      description: "Deskripsi singkat produk A yang menarik.",
+      price: "Rp 120.000",
+      image: "https://via.placeholder.com/300x200",
+    },
+    {
+      id: 2,
+      title: "Produk B",
+      description: "Deskripsi singkat produk B untuk pelanggan.",
+      price: "Rp 95.000",
+      image: "https://via.placeholder.com/300x200",
+    },
+    {
+      id: 3,
+      title: "Produk C",
+      description: "Produk ini sangat diminati di pasar.",
+      price: "Rp 150.000",
+      image: "https://via.placeholder.com/300x200",
+    },
+    {
+      id: 4,
+      title: "Produk D",
+      description: "Produk unggulan kami dengan fitur terbaik.",
+      price: "Rp 200.000",
+      image: "https://via.placeholder.com/300x200",
+    },
+  ];
 
   return (
     <>
@@ -229,6 +259,39 @@ export default function Page() {
             </div>
           </div>
         </div>
+      </section>
+
+      <section className="mt-10">
+        <h1 className="text-2xl font-bold mb-6 text-center">Katalog Produk</h1>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {cards2.map((card) => (
+            <div
+              key={card.id}
+              className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow hover:shadow-lg transition-shadow flex flex-col"
+            >
+              <img
+                src={card.image}
+                alt={card.title}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4 flex flex-col flex-grow">
+                <h2 className="font-semibold text-lg mb-2">{card.title}</h2>
+                <p className="text-sm flex-grow text-gray-600 dark:text-gray-300">
+                  {card.description}
+                </p>
+                <p className="font-semibold mt-4">{card.price}</p>
+                <button className="mt-4 w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+                  Beli Sekarang
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <p className="mt-8 text-center text-sm text-gray-500 dark:text-gray-400">
+          Total Produk: {cards.length}
+        </p>
       </section>
 
       {/* Footer Note */}
