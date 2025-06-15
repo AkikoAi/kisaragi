@@ -161,7 +161,7 @@ export async function DELETE(req: NextRequest) {
 
             return { hapusItem, Item };
         });
-
+        if (proses instanceof Error) return NextResponse.json({ status: false, msg: proses.message });
         return NextResponse.json({ status: true, data: proses });
     } catch (e) {
         addLogsFE(e);
