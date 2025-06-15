@@ -35,8 +35,14 @@ export const ChangePasswordValidation = z.object({
 })
 
 export const gudangItemBaru = z.object({
-    name: z.string("Input harus berupa string").min(3,"Nama item minimal 3 karakter").trim(),
+    name: z.string("Input harus berupa string").min(3, "Nama item minimal 3 karakter").trim(),
     description: z.string("Input harus berupa string").trim(),
     expired: z.date("Input harus berupa tanggal").optional(),
     cupBoardId: z.string("Input harus berupa string").trim()
 });
+
+export const gudangItem = z.object({
+    page: z.number("Input harus berupa number").gte(1, "Page paling kecil adalah 1"),
+    limit: z.number("Input harus berupa number").gte(10, "Minimal data yang dapat ditampilkan adalah 10")
+        .lte(100, "Maximal data yang dapat ditampilkan adalah 100")
+})

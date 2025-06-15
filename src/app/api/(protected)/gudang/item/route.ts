@@ -4,7 +4,7 @@ import prisma from "@/utils/db";
 import { verifyTokenJWT } from "@/utils/ksr_jwt";
 import { addLogsFE } from "@/utils/ksr_logs";
 import ksr_status from "@/utils/ksr_status";
-import { gudangItemBaru } from "@/utils/validation";
+import { gudangItem, gudangItemBaru } from "@/utils/validation";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -52,8 +52,28 @@ export async function PUT(req: NextRequest) {
 }
 
 // READ
-export async function GET() {
+export async function GET(req: NextRequest) {
     try {
+        const cookie = await cookies();
+        const Token = cookie.get("Auth")?.value;
+        if (!Token) return NextResponse.json({ status: false, msg: ksr_status.token_invalid });
+        const User = verifyTokenJWT(Token);
+        // Jika token tidak valid maka akan throw
+
+        const { page, limit } = await req.json();
+        const input = gudangItem.safeParse({ page, limit });
+        if (!input.success) return NextResponse.json({ status: false, msg: JSON.parse(input.error.message) });
+        // Jika input yang dimasukkan tidak valid maka akan mengirim respon
+
+        const Item = await prisma.warehouseItem.findMany({
+            take: input.data.limit,
+            skip: input.data.limit * input.data.page - input.data.limit,
+            orderBy: {
+                createdAt: 'desc'// Diurutkan dari yang terbaru ditambahkan
+            }
+        });
+
+        return NextResponse.json({ status: false, data: Item });
 
     } catch (e) {
         addLogsFE(e);
