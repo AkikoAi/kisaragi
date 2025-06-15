@@ -54,3 +54,7 @@ export const gudangItem = z.object({
     limit: z.number("Input harus berupa number").gte(10, "Minimal data yang dapat ditampilkan adalah 10")
         .lte(100, "Maximal data yang dapat ditampilkan adalah 100")
 })
+
+export const gudangBoard = z.object({
+    name:z.string("Input harus berupa string").min(3,"Nama board minmal 3 karakter")
+})
