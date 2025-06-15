@@ -84,6 +84,14 @@ export async function GET(req: NextRequest) {
 // Update
 export async function POST() {
     try {
+        const cookie = await cookies();
+        const Token = cookie.get("Auth")?.value;
+        if (!Token) return NextResponse.json({ status: false, msg: ksr_status.token_invalid });
+        const User = verifyTokenJWT(Token);
+        // Jika token tidak valid maka akan throw
+
+        const {itemId,}
+
 
     } catch (e) {
         addLogsFE(e);

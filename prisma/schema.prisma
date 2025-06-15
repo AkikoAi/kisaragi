@@ -131,6 +131,7 @@ model WarehouseItem {
   expired     DateTime? // Kapan Item Expired
   inCupBoard  Boolean? // Apakah item masih ada di lemari
   lastCheck   DateTime? // Terakhir kali dicek
+  isDeleted   Boolean   @default(false)
 
   CupBoard     WarehouseCupBoard? @relation(fields: [cupBoardId], references: [name])
   createdAt    DateTime           @default(now())
