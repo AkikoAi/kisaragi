@@ -134,7 +134,7 @@ model WarehouseItem {
   lastCheck   DateTime? // Terakhir kali dicek
   isDeleted   Boolean   @default(false)
 
-  CupBoard     WarehouseCupBoard? @relation(fields: [cupBoardId], references: [name])
+  CupBoard     WarehouseCupBoard? @relation(fields: [cupBoardId], references: [id])
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   WarehouseLog WarehouseLog[]
