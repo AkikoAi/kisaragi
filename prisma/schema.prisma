@@ -117,7 +117,7 @@ model WarehouseLog {
 
 /// Tabel Lemari gudang
 model WarehouseCupBoard {
-  id   String          @id @unique
+  id   String          @id @unique @default(uuid())
   name String          @unique // nama Lemari Contoh "Pisau Komando"
   item WarehouseItem[] // Item
 }
