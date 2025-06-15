@@ -18,7 +18,7 @@ export default function Login() {
 
     async function submit(e: FormEvent) {
         e.preventDefault();
-        if(!terms) return alert("Kamu harus menyetujui persyaratan dan resiko pekerja");
+        if (!terms) return alert("Kamu harus menyetujui persyaratan dan resiko pekerja");
         if (!username || !password) return alert(`${username ? "Username" : "Password"} tidak boleh kosong`);
         fetch("/api/login", {
             method: "post",
@@ -56,6 +56,7 @@ export default function Login() {
                         onChange={(r) => setUsername(r.currentTarget.value)}
                         placeholder="Enter your username employee"
                         className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
                     />
                 </div>
 
@@ -76,6 +77,7 @@ export default function Login() {
                             onChange={(r) => setPassword(r.currentTarget.value)}
                             placeholder="••••••••"
                             className="pr-10 w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            required
                         />
                     </div>
                 </div>
@@ -84,7 +86,7 @@ export default function Login() {
                 <div className="flex items-center space-x-2">
                     <input
                         id="terms"
-                        onChange={(r)=>{setTerms(r.currentTarget.checked)}}
+                        onChange={(r) => { setTerms(r.currentTarget.checked) }}
                         checked={!!terms}
                         type="checkbox"
                         className="accent-blue-600 w-4 h-4"
