@@ -114,6 +114,91 @@ export default function Page() {
         </p>
       </section>
 
+      <section className="mt-10">
+        <h1 className="text-2xl font-bold mb-6">Form Input Template Demo</h1>
+
+        <form className="w-full max-w-md bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md space-y-4">
+          {/* Text Input */}
+          <div>
+            <label htmlFor="name" className="block mb-1 font-medium">
+              Name
+            </label>
+            <input
+              id="name"
+              type="text"
+              placeholder="Enter your name"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Email Input */}
+          <div>
+            <label htmlFor="email" className="block mb-1 font-medium">
+              Email
+            </label>
+            <input
+              id="email"
+              type="email"
+              placeholder="you@example.com"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Password Input */}
+          <div>
+            <label htmlFor="password" className="block mb-1 font-medium">
+              Password
+            </label>
+            <input
+              id="password"
+              type="password"
+              placeholder="••••••••"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Select */}
+          <div>
+            <label htmlFor="role" className="block mb-1 font-medium">
+              Role
+            </label>
+            <select
+              id="role"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Select role</option>
+              <option value="admin">Admin</option>
+              <option value="user">User</option>
+              <option value="guest">Guest</option>
+            </select>
+          </div>
+
+          {/* Checkbox */}
+          <div className="flex items-center space-x-2">
+            <input
+              id="terms"
+              type="checkbox"
+              className="accent-blue-600 w-4 h-4"
+            />
+            <label htmlFor="terms" className="text-sm">
+              I agree to the terms and conditions
+            </label>
+          </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          >
+            Submit
+          </button>
+        </form>
+
+        <p className="mt-8 text-sm text-gray-500 dark:text-gray-400 text-center">
+          This is a reusable input form template supporting light & dark mode.
+        </p>
+      </section>
+
       {/* Footer Note */}
       <p className="mt-8 text-center text-gray-500 dark:text-gray-400 text-sm">© 2025 Kisaragi. All rights reserved.</p>
     </>
