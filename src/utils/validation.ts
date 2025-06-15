@@ -58,3 +58,7 @@ export const gudangItem = z.object({
 export const gudangBoard = z.object({
     name:z.string("Input harus berupa string").min(3,"Nama board minmal 3 karakter")
 })
+
+export const gudangBoardUpdate = gudangBoard.extend({
+    id: z.string("Input harus berupa string").min(8, "Id tidak valid").trim()
+})
