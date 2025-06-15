@@ -81,6 +81,39 @@ export default function Page() {
         </p>
       </section>
 
+
+      <section className="mt-10">
+        <h1 className="text-2xl font-bold">Button Template Demo</h1>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <button className="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition-colors">
+            Primary
+          </button>
+          <button className="px-4 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700 transition-colors">
+            Secondary
+          </button>
+          <button className="px-4 py-2 rounded-md border border-gray-300 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            Outline
+          </button>
+          <button className="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 transition-colors">
+            Danger
+          </button>
+          <button className="px-4 py-2 rounded-md bg-transparent text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            Ghost
+          </button>
+          <button className="px-4 py-2 rounded-md bg-blue-600 text-white opacity-50 cursor-not-allowed">
+            Loading...
+          </button>
+          <button className="px-4 py-2 rounded-md bg-blue-600 text-white opacity-50 cursor-not-allowed">
+            Disabled
+          </button>
+        </div>
+
+        <p className="text-sm text-gray-500 dark:text-gray-400 text-center mt-8">
+          All button variants are reusable and styled for both light & dark modes.
+        </p>
+      </section>
+
       {/* Footer Note */}
       <p className="mt-8 text-center text-gray-500 dark:text-gray-400 text-sm">© 2025 Kisaragi. All rights reserved.</p>
     </>
