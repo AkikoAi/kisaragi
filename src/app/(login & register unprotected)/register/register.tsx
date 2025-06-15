@@ -18,6 +18,7 @@ export default function Register() {
 
     async function daftar(e: React.FormEvent) {
         e.preventDefault();
+        if (!terms) return alert("Anda harus menyetujui syarat dan ketentuan dari menjadi kisaragi employee");
         fetch("/api/register", {
             method: "post",
             body: JSON.stringify({ username, password, name, confirmPassword }),
