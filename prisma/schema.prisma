@@ -16,16 +16,17 @@ datasource db {
 
 /// Tabel utama User
 model User {
-  id       String  @id @default(uuid()) // Primary Key UUID unik untuk tiap user
-  username String  @unique // Username unik
-  email    String? @unique // Email boleh null tapi tetap unik jika diisi
-  password String // Password hash
-  name     String  @default("Kisaragi Employe")
-  role     String  @default("Pengguna")
+  id        String  @id @default(uuid()) // Primary Key UUID unik untuk tiap user
+  username  String  @unique // Username unik
+  email     String? @unique // Email boleh null tapi tetap unik jika diisi
+  password  String // Password hash
+  name      String  @default("Kisaragi Employe")
+  role      String  @default("Pengguna")
+  privilege Int     @default(1)
 
-  groups     UserGroup[] // Relasi: User bisa masuk banyak Group (Many-to-Many via pivot UserGroup)
-  privileges UserPrivilege[] // Relasi: User bisa punya Privilege langsung (Many-to-Many via pivot UserPrivilege)
-  profile    Profile? // Relasi: One-to-One dengan Profile (optional, bisa null)
+  //groups     UserGroup[] // Relasi: User bisa masuk banyak Group (Many-to-Many via pivot UserGroup)
+  //privileges UserPrivilege[] // Relasi: User bisa punya Privilege langsung (Many-to-Many via pivot UserPrivilege)
+  profile Profile? // Relasi: One-to-One dengan Profile (optional, bisa null)
 
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
@@ -48,65 +49,53 @@ model Profile {
 }
 
 /**
-
-/// Tabel Group (Role)
-model Group {
-  name       String           @id // Primary Key: nama group
-  users      UserGroup[] // Relasi: Group punya banyak User (Many-to-Many via pivot UserGroup)
-  privileges GroupPrivilege[] // Relasi: Group bisa punya banyak Privilege (Many-to-Many via pivot GroupPrivilege)
-  createdAt  DateTime         @default(now())
-  updatedAt  DateTime         @updatedAt
-}
-
-/// Tabel Privilege (Hak akses tertentu)
-model Privilege {
-  prefix     String           @id // Primary Key: prefix privilege (misalnya 'read', 'write', 'delete')
-  userLinks  UserPrivilege[] // Relasi: Bisa diberikan langsung ke User
-  groupLinks GroupPrivilege[] // Relasi: Bisa diberikan ke Group
-  createdAt  DateTime         @default(now())
-  updatedAt  DateTime         @updatedAt
-}
-
-/// Pivot table User ⇄ Group (Many-to-Many)
-model UserGroup {
-  userId    String
-  groupName String
-
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade) // FK ke User
-  group     Group    @relation(fields: [groupName], references: [name], onDelete: Cascade) // FK ke Group
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@id([userId, groupName]) // Composite PK: satu user tidak bisa join ke group yang sama lebih dari 1x
-}
-
-/// Pivot table User ⇄ Privilege (Many-to-Many)
-model UserPrivilege {
-  userId      String
-  privilegeId String
-
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade) // FK ke User
-  privilege Privilege @relation(fields: [privilegeId], references: [prefix], onDelete: Cascade) // FK ke Privilege
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-
-  @@id([userId, privilegeId]) // Composite PK: satu privilege unik per user
-}
-
-/// Pivot table Group ⇄ Privilege (Many-to-Many)
-model GroupPrivilege {
-  groupName   String
-  privilegeId String
-
-  group     Group     @relation(fields: [groupName], references: [name], onDelete: Cascade) // FK ke Group
-  privilege Privilege @relation(fields: [privilegeId], references: [prefix], onDelete: Cascade) // FK ke Privilege
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-
-  @@id([groupName, privilegeId]) // Composite PK: satu privilege unik per group
-}
-
-**/
+ * /// Tabel Group (Role)
+ * model Group {
+ * name       String           @id // Primary Key: nama group
+ * users      UserGroup[] // Relasi: Group punya banyak User (Many-to-Many via pivot UserGroup)
+ * privileges GroupPrivilege[] // Relasi: Group bisa punya banyak Privilege (Many-to-Many via pivot GroupPrivilege)
+ * createdAt  DateTime         @default(now())
+ * updatedAt  DateTime         @updatedAt
+ * }
+ * /// Tabel Privilege (Hak akses tertentu)
+ * model Privilege {
+ * prefix     String           @id // Primary Key: prefix privilege (misalnya 'read', 'write', 'delete')
+ * userLinks  UserPrivilege[] // Relasi: Bisa diberikan langsung ke User
+ * groupLinks GroupPrivilege[] // Relasi: Bisa diberikan ke Group
+ * createdAt  DateTime         @default(now())
+ * updatedAt  DateTime         @updatedAt
+ * }
+ * /// Pivot table User ⇄ Group (Many-to-Many)
+ * model UserGroup {
+ * userId    String
+ * groupName String
+ * user      User     @relation(fields: [userId], references: [id], onDelete: Cascade) // FK ke User
+ * group     Group    @relation(fields: [groupName], references: [name], onDelete: Cascade) // FK ke Group
+ * createdAt DateTime @default(now())
+ * updatedAt DateTime @updatedAt
+ * @@id([userId, groupName]) // Composite PK: satu user tidak bisa join ke group yang sama lebih dari 1x
+ * }
+ * /// Pivot table User ⇄ Privilege (Many-to-Many)
+ * model UserPrivilege {
+ * userId      String
+ * privilegeId String
+ * user      User      @relation(fields: [userId], references: [id], onDelete: Cascade) // FK ke User
+ * privilege Privilege @relation(fields: [privilegeId], references: [prefix], onDelete: Cascade) // FK ke Privilege
+ * createdAt DateTime  @default(now())
+ * updatedAt DateTime  @updatedAt
+ * @@id([userId, privilegeId]) // Composite PK: satu privilege unik per user
+ * }
+ * /// Pivot table Group ⇄ Privilege (Many-to-Many)
+ * model GroupPrivilege {
+ * groupName   String
+ * privilegeId String
+ * group     Group     @relation(fields: [groupName], references: [name], onDelete: Cascade) // FK ke Group
+ * privilege Privilege @relation(fields: [privilegeId], references: [prefix], onDelete: Cascade) // FK ke Privilege
+ * createdAt DateTime  @default(now())
+ * updatedAt DateTime  @updatedAt
+ * @@id([groupName, privilegeId]) // Composite PK: satu privilege unik per group
+ * }
+ */
 
 /// Riwayat aktivitas gudang
 model WarehouseLog {
