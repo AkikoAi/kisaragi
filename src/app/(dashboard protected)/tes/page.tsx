@@ -294,6 +294,131 @@ export default function Page() {
         </p>
       </section>
 
+      <section className="mt-10">
+        <h1 className="text-2xl font-bold mb-6 text-center">Form Input Lengkap</h1>
+
+        <form className="max-w-xl mx-auto bg-white dark:bg-gray-800 p-6 rounded-xl shadow space-y-6">
+
+          {/* Text Input */}
+          <div>
+            <label className="block mb-1 font-medium">Text Input</label>
+            <input type="text" placeholder="Masukkan teks..." className="w-full px-3 py-2 border rounded-md bg-gray-50 dark:bg-gray-700" />
+          </div>
+
+          {/* Email */}
+          <div>
+            <label className="block mb-1 font-medium">Email</label>
+            <input type="email" placeholder="email@contoh.com" className="w-full px-3 py-2 border rounded-md bg-gray-50 dark:bg-gray-700" />
+          </div>
+
+          {/* Password */}
+          <div>
+            <label className="block mb-1 font-medium">Password</label>
+            <input type="password" placeholder="••••••••" className="w-full px-3 py-2 border rounded-md bg-gray-50 dark:bg-gray-700" />
+          </div>
+
+          {/* Input + Icon */}
+          <div>
+            <label className="block mb-1 font-medium">Input dengan Icon</label>
+            <div className="relative">
+              <span className="absolute left-3 top-2.5 text-gray-400">@</span>
+              <input type="text" placeholder="username" className="w-full pl-8 px-3 py-2 border rounded-md bg-gray-50 dark:bg-gray-700" />
+            </div>
+          </div>
+
+          {/* Input Group (Addon) */}
+          <div>
+            <label className="block mb-1 font-medium">Input Group</label>
+            <div className="flex">
+              <span className="inline-flex items-center px-3 bg-gray-200 dark:bg-gray-600 border border-r-0 rounded-l-md text-gray-600 dark:text-gray-300">https://</span>
+              <input type="text" placeholder="domain.com" className="w-full px-3 py-2 border rounded-r-md bg-gray-50 dark:bg-gray-700" />
+            </div>
+          </div>
+
+          {/* Textarea */}
+          <div>
+            <label className="block mb-1 font-medium">Textarea</label>
+            <textarea placeholder="Tulis sesuatu..." className="w-full px-3 py-2 border rounded-md bg-gray-50 dark:bg-gray-700"></textarea>
+          </div>
+
+          {/* Select */}
+          <div>
+            <label className="block mb-1 font-medium">Select Dropdown</label>
+            <select className="w-full px-3 py-2 border rounded-md bg-gray-50 dark:bg-gray-700">
+              <option>Pilih opsi</option>
+              <option>Opsi 1</option>
+              <option>Opsi 2</option>
+            </select>
+          </div>
+
+          {/* Radio */}
+          <div>
+            <label className="block mb-1 font-medium">Radio Group</label>
+            <div className="flex space-x-4">
+              <label className="flex items-center">
+                <input type="radio" name="radio" className="mr-2" /> Pria
+              </label>
+              <label className="flex items-center">
+                <input type="radio" name="radio" className="mr-2" /> Wanita
+              </label>
+            </div>
+          </div>
+
+          {/* Checkbox */}
+          <div>
+            <label className="block mb-1 font-medium">Checkbox</label>
+            <div className="flex space-x-4">
+              <label className="flex items-center">
+                <input type="checkbox" className="mr-2" /> Setuju
+              </label>
+              <label className="flex items-center">
+                <input type="checkbox" className="mr-2" /> Ingat Saya
+              </label>
+            </div>
+          </div>
+
+          {/* Switch/Toggle */}
+          <div>
+            <label className="block mb-1 font-medium">Toggle Switch</label>
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" value="" className="sr-only peer" />
+              <div className="w-11 h-6 bg-gray-200 dark:bg-gray-600 rounded-full peer peer-checked:bg-blue-600"></div>
+            </label>
+          </div>
+
+          {/* Range Slider */}
+          <div>
+            <label className="block mb-1 font-medium">Range Slider</label>
+            <input type="range" min="0" max="100" className="w-full" />
+          </div>
+
+          {/* File Upload */}
+          <div>
+            <label className="block mb-1 font-medium">File Upload</label>
+            <input type="file" className="w-full" />
+          </div>
+
+          {/* Disabled + Readonly */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block mb-1 font-medium">Disabled Input</label>
+              <input type="text" disabled value="Tidak bisa diisi" className="w-full px-3 py-2 border rounded-md bg-gray-200 dark:bg-gray-700 cursor-not-allowed" />
+            </div>
+            <div>
+              <label className="block mb-1 font-medium">Readonly Input</label>
+              <input type="text" readOnly value="Hanya Baca" className="w-full px-3 py-2 border rounded-md bg-gray-50 dark:bg-gray-700" />
+            </div>
+          </div>
+
+          {/* Buttons */}
+          <div className="flex justify-between space-x-4">
+            <button type="submit" className="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Submit</button>
+            <button type="reset" className="w-full py-2 bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-md hover:bg-gray-400">Reset</button>
+          </div>
+
+        </form>
+      </section>
+
       {/* Footer Note */}
       <p className="mt-8 text-center text-gray-500 dark:text-gray-400 text-sm">© 2025 Kisaragi. All rights reserved.</p>
     </>
