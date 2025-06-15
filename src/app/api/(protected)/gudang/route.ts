@@ -71,3 +71,41 @@ export async function PUT(req: NextResponse) {
         return NextResponse.json({ status: false, msg: ksr_status[500] });
     }
 }
+
+export async function DELETE(req: NextResponse) {
+    try {
+
+        const cookie = await cookies();
+        const Token = cookie.get("Auth")?.value;
+        if (!Token) return NextResponse.json({ status: false, msg: ksr_status.token_invalid });
+        const User = verifyTokenJWT(Token);
+        // Jika token tidak valid maka akan throw error
+
+        const { name } = await req.json();
+        const input = gudangBoard.safeParse({ name });
+        if (!input.success) return NextResponse.json({ status: false, msg: JSON.parse(input.error.message) });
+
+        const proses = prisma.$transaction(async (tx) => {
+
+            const isAlreadyExists = await tx.warehouseCupBoard.findUnique({
+                where: {
+                    name: input.data.name
+                }
+            })
+            if (!isAlreadyExists) return new Error("Board tidak ditemukan !");
+
+            const Board = await tx.warehouseCupBoard.delete({
+                where: { name: input.data.name }
+            });
+
+            return Board;
+        });
+
+        if (proses instanceof Error) return NextResponse.json({ status: false, msg: proses.message });
+        return NextResponse.json({ status: true, data: proses });
+
+    } catch (e) {
+        addLogsFE(e);
+        return NextResponse.json({ status: false, msg: ksr_status[500] });
+    }
+}
