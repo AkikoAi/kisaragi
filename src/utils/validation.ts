@@ -38,7 +38,7 @@ export const gudangItemBaru = z.object({
     name: z.string("Input harus berupa string").min(3, "Nama item minimal 3 karakter").trim(),
     description: z.string("Input harus berupa string").trim(),
     expired: z.date("Input harus berupa tanggal").optional(),
-    cupBoardId: z.string("Input harus berupa string").trim()
+    cupBoardId: z.string("Input harus berupa string").min(8, "Id tidak valid").trim()
 });
 
 export const gudangItemUpdate = gudangItemBaru.extend({
