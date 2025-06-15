@@ -10,7 +10,7 @@ export default function Gudang() {
         setRefreshing(true);
         console.log("Refreshing list");
         setRefreshing(false);
-    }
+    }//
 
     return (<>
         {/* Grid Card Section */}
