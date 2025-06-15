@@ -45,3 +45,10 @@ Invalid `prisma.user.findUnique()` invocation:
 Can't reach database server at `localhost:5432`
 
 Please make sure your database server is running at `localhost:5432`.
+[2025-06-15T14:59:58.716Z] : 
+Invalid `prisma.user.count()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
