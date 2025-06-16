@@ -14,6 +14,7 @@ async function seed() {
                 limit: 3
             },
             create: {
+                isVerified: true,
                 username: process.env.ADMIN_USERNAME || "AkikoAi",
                 password: pass,
                 name: process.env.ADMIN_NAME || "Hadi Firmansya",
@@ -31,6 +32,7 @@ async function seed() {
                 limit: 3
             },
             create: {
+                isVerified: true,
                 username: "AkikoAi-Admin",
                 password: pass,
                 name: "Hadi Firmansya - Admin",
@@ -48,6 +50,7 @@ async function seed() {
                 limit: 3
             },
             create: {
+                isVerified: true,
                 username: "AkikoAi-Moderator",
                 password: pass,
                 name: "Hadi Firmansya - Moderator",
@@ -65,6 +68,7 @@ async function seed() {
                 limit: 3
             },
             create: {
+                isVerified: true,
                 username: "AkikoAi-User",
                 password: pass,
                 name: "Hadi Firmansya - User",

@@ -37,6 +37,20 @@
 	},
 	"Auth": {
 		"prefix": "ksrAuth",
-		"body": ["try {\r\tconst cookie = await cookies();\r\tconst token = cookie.get(\"Auth\")?.value as string;\r\tconst data = verifyTokenJWT(token);\r\r$0\r\r} catch (e) {\r\treturn redirect(\"/login\");\r\t}"]
-		}
+		"body": [
+			"try {\r\tconst cookie = await cookies();\r\tconst token = cookie.get(\"Auth\")?.value as string;\r\tconst data = verifyTokenJWT(token);\r\r$0\r\r} catch (e) {\r\treturn redirect(\"/login\");\r\t}"
+		]
+	},
+	"falseResponse": {
+		"prefix": "ksrFalse",
+		"body": [
+			"return NextResponse.json({status:false,msg:ksr_status$0})"
+		]
+	},
+	"trueResponse": {
+		"prefix": "ksrTrue",
+		"body": [
+			"return NextResponse.json({status:true,data:$0})"
+		]
 	}
+}
