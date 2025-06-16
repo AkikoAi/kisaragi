@@ -21,6 +21,17 @@ import ksr_status from "./ksr_status"
 
 const secret = "FOX CAME WITH TWO, ARE SENKO AND KUSOGAKI"
 
+/**
+ * privilege 
+| Level Range | Dibagi Oleh         | Privilege                  | Contoh Keterangan                       |
+| ----------- | ------------------- | -------------------------- | --------------------------------------- |
+| 1–10        | %2==0 (Genap)       | **Guest / Public**         | Bisa lihat data umum                    |
+| 11–30       | %3==0 (Kelipatan 3) | **User**                   | Bisa baca dan ubah data diri sendiri    |
+| 31–60       | %5==0 (Kelipatan 5) | **Supervisor / Moderator** | Bisa kelola data sebagian user          |
+| 61–90       | %7==0 (Kelipatan 7) | **Manager / Admin**        | Bisa kelola seluruh data                |
+| 91–100      | All angka           | **Super Admin / Owner**    | Akses penuh, termasuk pengaturan sistem |
+
+ */
 export type verifyToken = {
     username: string;
     password: string;
