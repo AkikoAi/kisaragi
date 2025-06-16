@@ -59,7 +59,7 @@ export default function Navigation({ data }: { data: verifyToken }) {
                 {/* User Info */}
                 <div className="text-sm text-gray-700 dark:text-gray-200">
                     <p>{data.name}</p>
-                    <p className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">{data.role} {data.privilege >= 90 ? <FaCrown /> : data.privilege >= 50 ? <FaStar /> : data.privilege >= 20 ? <FaIdBadge /> : <FaLock />}</p>
+                    <p className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">{data.role} {data.privilege >= 91 ? <FaCrown /> : data.privilege >= 61 ? <FaStar /> : data.privilege >= 31 ? <FaIdBadge /> : <FaLock />}</p>
                 </div>
             </div>
 
@@ -76,7 +76,7 @@ export default function Navigation({ data }: { data: verifyToken }) {
 
                 <div className="text-sm text-gray-700 dark:text-gray-200 text-right">
                     <p>{data.name}</p>
-                    <p className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">{data.role} {data.privilege >= 90 ? <FaCrown /> : data.privilege >= 50 ? <FaStar /> : data.privilege >= 20 ? <FaIdBadge /> : <FaLock />}</p>
+                    <p className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">{data.role} {data.privilege >= 91 ? <FaCrown /> : data.privilege >= 61 ? <FaStar /> : data.privilege >= 31 ? <FaIdBadge /> : <FaLock />}</p>
                 </div>
             </div>
 
