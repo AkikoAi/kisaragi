@@ -6,3 +6,30 @@
 [2025-06-16T12:06:22.738Z] : AkikoAi-Admin Berhasil login
 [2025-06-16T12:08:10.688Z] : AkikoAi-Admin Logout
 [2025-06-16T12:08:20.084Z] : AkikoAi Berhasil login
+[2025-06-16T12:40:11.830Z] : AkikoAi Logout
+[2025-06-16T12:40:26.024Z] : AkikoAi-Admin Berhasil login
+[2025-06-16T12:40:53.566Z] : AkikoAi Melakukan percobaan login, password salah
+[2025-06-16T12:41:02.493Z] : AkikoAi Melakukan percobaan login, password salah
+[2025-06-16T12:41:03.735Z] : AkikoAi Melakukan percobaan login, password salah
+[2025-06-16T12:41:04.752Z] : AkikoAi Melakukan percobaan login, password salah
+[2025-06-16T12:49:43.796Z] : AkikoAi-Admin Logout
+[2025-06-16T12:49:57.761Z] : AkikoAi Melakukan percobaan login, password salah sisa percobaan 2
+[2025-06-16T12:50:41.431Z] : AkikoAi Melakukan percobaan login, password salah sisa percobaan 1
+[2025-06-16T12:50:43.750Z] : AkikoAi Melakukan percobaan login, password salah sisa percobaan 0
+[2025-06-16T13:02:19.581Z] : AkikoAi Melakukan percobaan login, password salah sisa percobaan 2
+[2025-06-16T13:02:23.341Z] : AkikoAi Melakukan percobaan login, password salah sisa percobaan 1
+[2025-06-16T13:02:27.755Z] : AkikoAi Berhasil login
+[2025-06-16T13:02:54.235Z] : AkikoAi Logout
+[2025-06-16T13:03:09.207Z] : AkikoAi Melakukan percobaan login, password salah sisa percobaan 2
+[2025-06-16T13:03:11.711Z] : AkikoAi Melakukan percobaan login, password salah sisa percobaan 1
+[2025-06-16T13:03:15.835Z] : AkikoAi Melakukan percobaan login, password salah sisa percobaan 0
+[2025-06-16T13:12:52.330Z] : AkikoAi-Admin Seluruh percobaan login diblokir, tidak dapat melakukan login! *tidak berpengaruh ke session yang telah berjalan
+[2025-06-16T13:12:57.252Z] : AkikoAi-Admin Berhasil login
+[2025-06-16T13:14:23.443Z] : AkikoAi-User Melakukan percobaan login, password salah sisa percobaan 2
+[2025-06-16T13:14:29.539Z] : AkikoAi-Admin Berhasil login
+[2025-06-16T13:15:30.894Z] : AkikoAi Berhasil login
+[2025-06-16T14:52:36.707Z] : AkikoAi Berhasil login
+[2025-06-16T16:00:27.687Z] : AkikoAi-User Berhasil login
+[2025-06-16T16:16:56.250Z] : AkikoAi Berhasil login
+[2025-06-16T16:17:24.903Z] : AkikoAi-User Berhasil login
+[2025-06-16T16:32:11.823Z] : AkikoAi Berhasil login
