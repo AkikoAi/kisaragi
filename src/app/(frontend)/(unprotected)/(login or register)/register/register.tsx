@@ -35,7 +35,7 @@ export default function Register() {
     return (<>
         <div className="text-center mt-10">
             <h1 className="text-2xl">Daftar</h1>
-            <small className="italic">Kisaragi weaponized organization system </small>
+            <small className="italic">Kisaragi obfuscated organization system </small>
         </div>
 
         <div className="flex justify-center">

@@ -41,7 +41,7 @@ export default function Login() {
 
         <div className="text-center mt-10">
             <h1 className="text-2xl">Login</h1>
-            <small className="italic">Kisaragi weaponized organization system </small>
+            <small className="italic">Kisaragi obfuscated organization system </small>
         </div>
         <div className="flex justify-center">
             <form className="mt-10 w-[90%] max-w-md bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md space-y-4" onSubmit={submit}>

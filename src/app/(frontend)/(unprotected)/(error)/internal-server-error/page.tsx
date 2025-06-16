@@ -9,9 +9,9 @@ export default function ServerError() {
     return (
         <>
             <GiFox size={80} className="text-red-500 dark:text-red-400 mb-4 animate-bounce" />
-            <h1 className="text-4xl font-bold mb-2">Waaah~ Shirakami Fubuki Lagi Minum Teh!</h1>
+            <h1 className="text-4xl font-bold mb-2">Waaah~ Fubuki Lagi Minum Teh!</h1>
             <p className="text-gray-600 dark:text-gray-400 mb-4 max-w-md">
-                Sepertinya server sedang beristirahat di teras sambil menyeruput teh hijau... atau mungkin Kurokami Fubuki lagi usil!
+                Sepertinya server sedang beristirahat di teras sambil menyeruput teh hijau... atau mungkin Kurokami lagi usil!
                 Cobalah beberapa saat lagi ya~ 🦊🍵
             </p>
             <button

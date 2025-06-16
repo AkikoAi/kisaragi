@@ -17,7 +17,7 @@ export default function NotFound() {
 
             <h1 className="text-6xl font-extrabold text-gray-800 dark:text-white">404</h1>
             <p className="text-xl text-gray-700 dark:text-gray-300 max-w-md">
-                Wah! Shirakami Fubuki si rubah putih dan Kurokami Fubuki si rubah hitam tersesat ke dimensi yang salah~
+                Wah! Fubuki si rubah putih dan Kurokami si rubah hitam tersesat ke dimensi yang salah~
             </p>
 
             <div className="flex items-center justify-center space-x-4">
@@ -30,7 +30,7 @@ export default function NotFound() {
             </div>
 
             <p className="text-gray-600 dark:text-gray-400 max-w-xs">
-                Sepertinya portal ini tidak terhubung. Yuk, kembali ke beranda sebelum Shirakami Fubuki ketakutan!
+                Sepertinya portal ini tidak terhubung. Yuk, kembali ke beranda sebelum Fubuki ketakutan!
             </p>
 
             <button
