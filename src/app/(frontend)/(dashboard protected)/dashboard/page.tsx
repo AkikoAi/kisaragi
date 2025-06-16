@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { FaCrown } from "react-icons/fa";
-import Dashboard90 from "./Dashboard-90";
+import Dashboard90 from "./Dashboard-61";
 
 
 export const metadata: Metadata = {
