@@ -24,7 +24,6 @@ export default async function Page() {
         </>)
 
     } catch (e) {
-        console.log(e);
         return redirect("/login");
     }
 
