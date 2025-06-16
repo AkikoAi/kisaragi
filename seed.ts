@@ -11,7 +11,8 @@ async function seed() {
             },
             update: {
                 password: pass,
-                limit: 3
+                limit: 3,
+                isVerified: true
             },
             create: {
                 isVerified: true,
@@ -29,7 +30,8 @@ async function seed() {
             },
             update: {
                 password: pass,
-                limit: 3
+                limit: 3,
+                isVerified: true
             },
             create: {
                 isVerified: true,
@@ -47,7 +49,8 @@ async function seed() {
             },
             update: {
                 password: pass,
-                limit: 3
+                limit: 3,
+                isVerified: true
             },
             create: {
                 isVerified: true,
@@ -66,7 +69,7 @@ async function seed() {
             update: {
                 password: pass,
                 limit: 3,
-                isVerified:false
+                isVerified: false
             },
             create: {
                 isVerified: true,
