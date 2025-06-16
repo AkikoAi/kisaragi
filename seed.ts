@@ -10,7 +10,8 @@ async function seed() {
                 username: process.env.ADMIN_USERNAME || "AkikoAi"
             },
             update: {
-                password: pass
+                password: pass,
+                limit: 3
             },
             create: {
                 username: process.env.ADMIN_USERNAME || "AkikoAi",
@@ -26,7 +27,8 @@ async function seed() {
                 username: "AkikoAi-Admin"
             },
             update: {
-                password: pass
+                password: pass,
+                limit: 3
             },
             create: {
                 username: "AkikoAi-Admin",
@@ -42,7 +44,8 @@ async function seed() {
                 username: "AkikoAi-Moderator"
             },
             update: {
-                password: pass
+                password: pass,
+                limit: 3
             },
             create: {
                 username: "AkikoAi-Moderator",
@@ -58,7 +61,8 @@ async function seed() {
                 username: "AkikoAi-User"
             },
             update: {
-                password: pass
+                password: pass,
+                limit: 3
             },
             create: {
                 username: "AkikoAi-User",
