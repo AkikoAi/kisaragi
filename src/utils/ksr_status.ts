@@ -7,4 +7,5 @@ export default {
     oldpass_not_same: "Password lama salah",
     success_change_password: "Password telah diganti",
     token_invalid: "Sorry, your authentication expired or not valid",
+    unauthorized: "Sorry, your not have authorization",
 }
