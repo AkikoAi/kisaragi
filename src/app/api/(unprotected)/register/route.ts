@@ -1,6 +1,6 @@
 import prisma from "@/utils/db";
 import { checkPassword, hashPassword, signTokenJWT } from "@/utils/ksr_jwt";
-import { addLogsFE } from "@/utils/ksr_logs";
+import { addLogsFE, addLogsUser } from "@/utils/ksr_logs";
 import ksr_status from "@/utils/ksr_status";
 import { RegisterValidation } from "@/utils/validation";
 import { cookies } from 'next/headers'
@@ -52,6 +52,7 @@ export async function POST(req: NextRequest) {
         const cookie = await cookies();
         const token = signTokenJWT(transaksi);
         cookie.set("Auth", token, { httpOnly: true });
+        addLogsUser(`${transaksi.username} Berhasil melakukan registrasi dan otomatis masuk`);
 
         return NextResponse.json({ status: true, data: "OK" });
     } catch (e) {

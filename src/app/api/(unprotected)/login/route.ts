@@ -1,6 +1,6 @@
 import prisma from "@/utils/db";
 import { checkPassword, signTokenJWT } from "@/utils/ksr_jwt";
-import { addLogsFE } from "@/utils/ksr_logs";
+import { addLogsFE, addLogsUser } from "@/utils/ksr_logs";
 import ksr_status from "@/utils/ksr_status";
 import { LoginValidation } from "@/utils/validation";
 import { cookies } from 'next/headers'
@@ -26,12 +26,16 @@ export async function POST(req: NextRequest) {
         if (!userData) return NextResponse.json({ status: false, msg: ksr_status.user_not_found });
 
         const isValidPassword = await checkPassword(userData.password, password);
-        if (!isValidPassword) return NextResponse.json({ status: false, msg: ksr_status.pass_incorrect });
+        if (!isValidPassword) {
+            addLogsUser(`${userData.username} Melakukan percobaan login, password salah`);
+            return NextResponse.json({ status: false, msg: ksr_status.pass_incorrect });
+        }
 
         const cookie = await cookies();
         const token = signTokenJWT(userData)
         cookie.set("Auth", token, { httpOnly: true });
 
+        addLogsUser(`${userData.username} Berhasil login`);
         return NextResponse.json({ status: true, data: "OK" });
     } catch (e) {
         addLogsFE(e)
