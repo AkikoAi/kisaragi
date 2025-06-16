@@ -418,6 +418,24 @@ export default function Page() {
 
         </form>
       </section>
+      <section className="mt-10">
+           {/* Info Card */}
+                <div className="mb-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow text-center">
+                        <h2 className="font-semibold text-lg">Level</h2>
+                        <p className="text-blue-500 text-xl">61 - 90</p>
+                    </div>
+                    <div className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow text-center">
+                        <h2 className="font-semibold text-lg">Privilege</h2>
+                        <p>Manage Users, View Logs, Limited Settings</p>
+                    </div>
+                    <div className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow text-center">
+                        <h2 className="font-semibold text-lg">Status</h2>
+                        <p className="text-green-500">Active</p>
+                    </div>
+                </div>
+
+      </section>
 
       {/* Footer Note */}
       <p className="mt-8 text-center text-gray-500 dark:text-gray-400 text-sm">© 2025 Kisaragi. All rights reserved.</p>
