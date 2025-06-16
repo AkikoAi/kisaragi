@@ -1,14 +1,17 @@
+"use client"
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { GiFox } from "react-icons/gi";
 
 export default function NotFound() {
+    const router = useRouter()
     return (
         <div className="min-h-screen bg-gradient-to-tr from-indigo-100 via-blue-200 to-purple-300 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 flex flex-col items-center justify-center text-center p-6 space-y-6">
-            
+
             <div className="relative">
                 <div className="absolute -top-6 -left-6 w-20 h-20 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full blur-2xl opacity-30 animate-ping"></div>
                 <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full blur-2xl opacity-30 animate-pulse"></div>
-                
+
                 <GiFox size={80} className="text-orange-500 drop-shadow-lg animate-bounce" />
             </div>
 
@@ -30,9 +33,11 @@ export default function NotFound() {
                 Sepertinya portal ini tidak terhubung. Yuk, kembali ke beranda sebelum Shirakami Fubuki ketakutan!
             </p>
 
-            <Link href="/" className="mt-4 px-5 py-2 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full shadow-lg hover:scale-105 transform transition-all">
-                Kembali ke Beranda
-            </Link>
+            <button
+                onClick={() => router.back()}
+                className="cursor-pointer mt-4 px-5 py-2 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full shadow-lg hover:scale-105 transform transition-all">
+                Kembali ke Halaman Sebelumnya
+            </button>
         </div>
     );
 }
