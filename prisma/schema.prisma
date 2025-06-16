@@ -16,14 +16,15 @@ datasource db {
 
 /// Tabel utama User
 model User {
-  id        String  @id @default(uuid()) // Primary Key UUID unik untuk tiap user
-  username  String  @unique // Username unik
-  email     String? @unique // Email boleh null tapi tetap unik jika diisi
-  password  String // Password hash
-  name      String  @default("Kisaragi Employe")
-  role      String  @default("Pengguna")
-  privilege Int     @default(1)
-  limit     Int     @default(3)
+  id         String  @id @default(uuid()) // Primary Key UUID unik untuk tiap user
+  username   String  @unique // Username unik
+  email      String? @unique // Email boleh null tapi tetap unik jika diisi
+  password   String // Password hash
+  name       String  @default("Kisaragi Employe")
+  role       String  @default("Pengguna")
+  privilege  Int     @default(1)
+  limit      Int     @default(3)
+  isVerified Boolean @default(false)
 
   //groups     UserGroup[] // Relasi: User bisa masuk banyak Group (Many-to-Many via pivot UserGroup)
   //privileges UserPrivilege[] // Relasi: User bisa punya Privilege langsung (Many-to-Many via pivot UserPrivilege)
