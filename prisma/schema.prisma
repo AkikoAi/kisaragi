@@ -23,6 +23,7 @@ model User {
   name      String  @default("Kisaragi Employe")
   role      String  @default("Pengguna")
   privilege Int     @default(1)
+  limit     Int     @default(3)
 
   //groups     UserGroup[] // Relasi: User bisa masuk banyak Group (Many-to-Many via pivot UserGroup)
   //privileges UserPrivilege[] // Relasi: User bisa punya Privilege langsung (Many-to-Many via pivot UserPrivilege)
