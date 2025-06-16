@@ -65,7 +65,8 @@ async function seed() {
             },
             update: {
                 password: pass,
-                limit: 3
+                limit: 3,
+                isVerified:false
             },
             create: {
                 isVerified: true,
