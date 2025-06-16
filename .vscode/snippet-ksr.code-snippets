@@ -15,22 +15,28 @@
 	// 	],
 	// 	"description": "Log output to console"
 	// }
-
-	"layout":{
+	"layout": {
 		"prefix": "ksrLayout",
 		"body": [
 			"export default function RootLayout({children}: Readonly<{children: React.ReactNode;}>) {\n\treturn ($0)\n}"
 		],
 		"description": "Buat fungsi Layout dengan cepat"
 	},
-	"page":{
+	"page": {
 		"prefix": "ksrPage",
-		"body": ["export default function Page() {\n\treturn (<>$0</>)\n}"],
+		"body": [
+			"export default function Page() {\n\treturn (<>$0</>)\n}"
+		],
 		"description": "Buat fungsi page dengan cepat"
 	},
-	"post":{
+	"post": {
 		"prefix": "ksrPost",
-		"body": ["import { NextRequest } from \"next/server\";\n\nexport async function POST(req:NextRequest){\n\t$0\n}"]
+		"body": [
+			"import { NextRequest } from \"next/server\";\n\nexport async function POST(req:NextRequest){\n\t$0\n}"
+		]
+	},
+	"Auth": {
+		"prefix": "ksrAuth",
+		"body": ["try {\r\tconst cookie = await cookies();\r\tconst token = cookie.get(\"Auth\")?.value as string;\r\tconst data = verifyTokenJWT(token);\r\r$0\r\r} catch (e) {\r\treturn redirect(\"/login\");\r\t}"]
+		}
 	}
-}
-
