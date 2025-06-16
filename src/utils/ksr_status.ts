@@ -31,7 +31,8 @@ export default {
     feature_not_ready: "Fitur ini belum siap, Fubuki masih masak di dapur~ Tunggu ya!",
     database_error: "Aduh! Fubuki tersandung di ruang database... Coba lagi nanti ya~",
     unknown_error: "Wah, terjadi sesuatu yang aneh... Kurokami mungkin iseng lagi~",
-    
+
     maintenance: "Shhh... Fubuki sedang membersihkan server, harap bersabar~",
+    privilege_escalation_attempt: "Oops! Kamu mencoba memberikan privilege sebesar atau lebih dari kekuatanmu sendiri. Fubuki melarang ini untuk mencegah kekacauan!"
 }
 

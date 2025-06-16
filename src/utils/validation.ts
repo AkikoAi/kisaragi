@@ -53,13 +53,42 @@ export const gudangItem = z.object({
     page: z.number("Input harus berupa number").gte(1, "Page paling kecil adalah 1"),
     limit: z.number("Input harus berupa number").gte(10, "Minimal data yang dapat ditampilkan adalah 10")
         .lte(100, "Maximal data yang dapat ditampilkan adalah 100"),
-    search:z.string("Input harus berupa string").min(3,"Minimal 3 karakter").trim().optional()
+    search: z.string("Input harus berupa string").min(3, "Minimal 3 karakter").trim().optional()
 })
 
 export const gudangBoard = z.object({
-    name:z.string("Input harus berupa string").min(3,"Nama board minmal 3 karakter")
+    name: z.string("Input harus berupa string").min(3, "Nama board minmal 3 karakter")
 })
 
 export const gudangBoardUpdate = gudangBoard.extend({
     id: z.string("Input harus berupa string").min(8, "Id tidak valid").trim()
+})
+
+export const userSearch = z.object({
+    page: z.number("Input harus berupa number").gte(1, "Page paling kecil adalah 1"),
+    limit: z.number("Input harus berupa number").gte(10, "Minimal data yang dapat ditampilkan adalah 10")
+        .lte(100, "Maximal data yang dapat ditampilkan adalah 100"),
+    username: z.string("Input harus berupa string").min(3, "Minimal 3 karakter").trim().optional()
+});
+
+const deleteUserActionEnum = ["restore", "delete"];
+export const deleteUser = z.object({
+    username: z.string("Input harus berupa string").trim(),
+    action: z.string("Input harus berupa string").trim().toLowerCase(),
+}).check((ctx) => {
+    if (!deleteUserActionEnum.includes(ctx.value.action)) {
+        ctx.issues.push({
+            code: "custom",
+            path: ["action"],
+            message: "Action tidak valid. Gunakan 'restore' atau 'delete'.",
+            input: ctx.value
+        });
+    }
+});
+
+export const updateUser = z.object({
+    username: z.string("Input harus berupa string").trim(),
+    isVerified: z.boolean("Input harus berupa boolean"),
+    privilege:z.number("Input harus berupa angka").gte(11, "Minimal data yang dapat ditampilkan adalah 10")
+        .lte(100, "Maximal data yang dapat ditampilkan adalah 100"),
 })
