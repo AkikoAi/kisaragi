@@ -1,208 +1,105 @@
 "use client";
-import { useState, useEffect } from "react";
-import { RiRefreshLine } from "react-icons/ri";
 
-export default function PostgresInfoDashboard() {
-    const [data, setData] = useState<null | {
-        serverTime: Date;
-        serverVersion: string;
-        tables: string[];
-        activeQueries: {
-            pid: number;
-            usename: string;
-            application_name: string;
-            state: string;
-            query: string;
-            backend_start: Date;
-            query_start: Date;
-        }[];
-    }>(null);
-    const [serverData, setServerData] = useState<null | {
-        platform: NodeJS.Platform;
-        arch: string;
-        cpuCount: number;
-        cpuModel: string;
-        memoryInfo: {
-            total: number;
-            free: number;
-        };
-        uptimeSeconds: number;
-    }>(null);
-    const [loading, setLoading] = useState<("database" | "server")[]>(["database", "server"]);
-    const [error, setError] = useState<null | string>(null);
-    const [errorServer, setErrorServer] = useState<null | string>(null);
+import { useEffect, useState } from "react";
 
-    function Loading(id: "database" | "server", act: "DEL" | "ADD") {
-        if (act === "ADD" && !loading.includes(id)) {
-            setLoading((prev) => [...prev, id]); // Tambahkan id
-        } else if (act === "DEL") {
-            setLoading((prev) => prev.filter(item => item !== id)); // Hapus id
-        }
+export default function AdminPage() {
+    const [selectedMenu, setSelectedMenu] = useState<"users" | "logs" | "settings">("users");
+    const [loadingUserLogs, setLoadingUserLogs] = useState<Boolean>(false);
+    const [userLogs, setUserLogs] = useState<string[]>([]);
+
+    function getUserLogs() {
+        if (loadingUserLogs) return;
+        setLoadingUserLogs(true);
+        fetch("/api/user-logs").then(r => r.json()).then(r => {
+            if (r.status) {
+                const data = r.data.reverse();
+                return setUserLogs(data);
+            }
+            return alert(r.msg);
+        }).catch(e => {
+            return alert("Gagal mengambil data user logs");
+        }).finally(() => {
+            setLoadingUserLogs(false);
+        });
     }
-
-
-    async function getDatabaseInformation() {
-        try {
-            Loading("database", "ADD")
-            const res = await fetch("/api/database-information");
-            const json = await res.json();
-            if (json.status) return setData(json.data);
-            return setError("Failed to load data");
-        } catch (err) {
-            setError("Failed to load data");
-        } finally {
-            Loading("database", "DEL");
-        }
-    }
-
-    async function getServerInformation() {
-        try {
-            Loading("server", "ADD")
-            const res = await fetch("/api/server-information");
-            const json = await res.json();
-            if (json.status) return setServerData(json.data);
-            return setErrorServer("Failed to load data");
-        } catch (err) {
-            setErrorServer("Failed to load data");
-        } finally {
-            Loading("server", "DEL");
-        }
-    }
-
 
     useEffect(() => {
-        getServerInformation();
-        getDatabaseInformation();
-    }, []);
+        getUserLogs();
+    }, [])
 
     return (
         <>
             <section className="mt-10">
-                <div className="flex justify-between">
-                    <h2 className="text-xl font-semibold">Postgres Server Info</h2>
-                    <button
-                        className="flex gap-2 items-center px-4 py-2 rounded-md border border-gray-300 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer disabled:opacity-50"
-                        onClick={getDatabaseInformation}
-                        disabled={loading.includes("database")}
-                    >
-                        <RiRefreshLine className={loading.includes("database") ? "animate-spin" : ""} />
-                        <span>Segarkan</span>
-                    </button>
-                </div>
-                <div className="mt-4 p-6 space-y-6 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-md shadow-md">
-                    {loading.includes("database") || !data ? <div className="p-4">Loading Postgres Info...</div> :
-                        error ? <div className="p-4 text-red-600">{error}</div> :
-                            <>
-                                <div className="md:grid md:grid-cols-2 md:gap-4 space-y-6">
-                                    <div>
-                                        <h3 className="font-medium">Server Time</h3>
-                                        <p>{new Date(data.serverTime).toLocaleString()}</p>
-                                    </div>
 
-                                    <div>
-                                        <h3 className="font-medium">Server Version</h3>
-                                        <p>{data.serverVersion}</p>
-                                    </div>
-
-                                    <div>
-                                        <h3 className="font-medium">Tables</h3>
-                                        <ul className="list-disc list-inside">
-                                            {data.tables.length > 1 ? data.tables.map((table, idx) => (
-                                                <li key={idx}>{table}</li>
-                                            )) : "-"}
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h3 className="font-medium">Active Queries</h3>
-                                    {data.activeQueries.length === 0 ? (
-                                        <p>No active queries</p>
-                                    ) : (
-                                        <table className="table-auto w-full text-sm mt-2">
-                                            <thead>
-                                                <tr>
-                                                    <th>PID</th>
-                                                    <th>User</th>
-                                                    <th>State</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {data.activeQueries.map((query, idx) => (
-                                                    <tr key={idx} className="border-t text-center">
-                                                        <td>{query.pid}</td>
-                                                        <td>{query.usename}</td>
-                                                        <td>{query.state}</td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    )}
-                                </div>
-                            </>
-                    }
+                {/* Info Card */}
+                <div className="mb-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow text-center">
+                        <h2 className="font-semibold text-lg">Level</h2>
+                        <p className="text-blue-500 text-xl">61 - 90</p>
+                    </div>
+                    <div className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow text-center">
+                        <h2 className="font-semibold text-lg">Privilege</h2>
+                        <p>Manage Users, View Logs, Limited Settings</p>
+                    </div>
+                    <div className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow text-center">
+                        <h2 className="font-semibold text-lg">Status</h2>
+                        <p className="text-green-500">Active</p>
+                    </div>
                 </div>
-            </section >
 
-            <section className="mt-10">
-                <div className="flex justify-between">
-                    <h2 className="text-xl font-semibold">Server Info</h2>
-                    <button
-                        className="flex gap-2 items-center px-4 py-2 rounded-md border border-gray-300 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer disabled:opacity-50"
-                        onClick={getServerInformation}
-                        disabled={loading.includes("server")}
-                    >
-                        <RiRefreshLine className={loading.includes("server") ? "animate-spin" : ""} />
-                        <span>Segarkan</span>
-                    </button>
+                {/* Menu */}
+                <div className="flex justify-center space-x-4 mb-6">
+                    {["users", "logs", "settings"].map((menu) => (
+                        <button
+                            key={menu}
+                            onClick={() => setSelectedMenu(menu as "users" | "logs" | "settings")}
+                            className={`px-4 py-2 rounded-md text-sm font-medium 
+                        ${selectedMenu === menu
+                                    ? "bg-blue-600 text-white"
+                                    : "bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200"} 
+                        hover:bg-blue-500 hover:text-white transition-colors`}
+                        >
+                            {menu.charAt(0).toUpperCase() + menu.slice(1)}
+                        </button>
+                    ))}
                 </div>
-                <div className="mt-4 p-6 space-y-6 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-md shadow-md">
-                    {loading.includes("server") || !serverData ? <div className="p-4">Loading Server Info...</div> :
-                        errorServer ? <div className="p-4 text-red-600">{errorServer}</div> :
-                            <>
-                                <div className="md:grid md:grid-cols-2 md:gap-4 space-y-6">
-                                    <div>
-                                        <h3 className="font-medium">Platform</h3>
-                                        <p>{serverData.platform}</p>
-                                    </div>
-                                    <div>
-                                        <h3 className="font-medium">Arch</h3>
-                                        <p>{serverData.arch}</p>
-                                    </div>
-                                    <div>
-                                        <h3 className="font-medium">Cpu Count</h3>
-                                        <p>{serverData.cpuCount}</p>
-                                    </div>
-                                    <div>
-                                        <h3 className="font-medium">Cpu Model</h3>
-                                        <p>{serverData.cpuModel}</p>
-                                    </div>
-                                    <div>
-                                        <h3 className="font-medium">Uptime Seconds</h3>
-                                        <p>{serverData.uptimeSeconds}</p>
-                                    </div>
-                                </div>
 
-                                <div>
-                                    <h3 className="font-medium">Memory Info</h3>
-                                    <table className="table-auto w-full text-sm mt-2">
-                                        <thead>
-                                            <tr>
-                                                <th>free</th>
-                                                <th>total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr className="border-t text-center">
-                                                <td>{serverData.memoryInfo.free}</td>
-                                                <td>{serverData.memoryInfo.total}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </>
-                    }
+                {/* Content */}
+                <div className="p-4 bg-white dark:bg-gray-700 rounded-md shadow min-h-[200px]">
+                    {selectedMenu === "users" && (
+                        <div>
+                            <h3 className="text-lg font-semibold mb-2">User Management</h3>
+                            <p>View, promote, or disable users here.</p>
+                            {/* Dummy Content */}
+                            <ul className="mt-2 space-y-1">
+                                <li className="p-2 bg-gray-100 dark:bg-gray-600 rounded">User A (Active)</li>
+                                <li className="p-2 bg-gray-100 dark:bg-gray-600 rounded">User B (Disabled)</li>
+                            </ul>
+                        </div>
+                    )}
+                    {selectedMenu === "logs" && (
+                        <div>
+                            <h3 className="text-lg font-semibold mb-2">System Logs</h3>
+                            <p>View recent activities.</p>
+                            {/* Dummy Logs */}
+                            <ul className="mt-2 space-y-1 text-sm">
+                                {userLogs.map((value, index) => <li key={index}>{value}</li>)}
+                            </ul>
+                        </div>
+                    )}
+                    {selectedMenu === "settings" && (
+                        <div>
+                            <h3 className="text-lg font-semibold mb-2">Admin Settings</h3>
+                            <p>Adjust admin-specific settings (limited).</p>
+                            {/* Dummy Settings */}
+                            <div className="mt-2">
+                                <label className="flex items-center gap-2">
+                                    <input type="checkbox" className="w-4 h-4" />
+                                    Enable Email Notifications
+                                </label>
+                            </div>
+                        </div>
+                    )}
                 </div>
-            </section >
-        </>
-    );
+            </section></>);
 }
