@@ -12,7 +12,8 @@ export async function GET() {
         const token = cookie.get("Auth")?.value as string;
         const data = verifyTokenJWT(token);
 
-        if (data.privilege < 90) return NextResponse.json({ status: false, msg: ksr_status.unauthorized });
+        // 61 Manager/Admin
+        if (data.privilege < 61) return NextResponse.json({ status: false, msg: ksr_status.unauthorized });
         try {
             const cpuInfo = os.cpus();
             const memoryInfo = {
