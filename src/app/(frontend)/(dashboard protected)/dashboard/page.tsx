@@ -3,11 +3,12 @@ import { Metadata } from "next";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { FaCrown } from "react-icons/fa";
-import Dashboard90 from "./Dashboard-61";
+import Dashboard91 from "./Dashboard-91";
+import Dashboard61 from "./Dashboard-61";
 
 
 export const metadata: Metadata = {
-    title:"Dashboard"
+    title: "Dashboard"
 }
 
 export default async function Page() {
@@ -17,9 +18,11 @@ export default async function Page() {
         const data = verifyTokenJWT(token);
 
 
-        if(data.privilege > 90) return <Dashboard90/>
+
         return (<>
-        
+            {data.privilege >= 91 && <Dashboard91 />}
+            {data.privilege >= 61 && <Dashboard61 />}
+
             <p className="flex items-center gap-2">
                 Hello {data.name} {data.privilege > 90 ? <FaCrown /> : <></>}
             </p>
