@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { RiRefreshLine } from "react-icons/ri";
 
 export default function AdminPage() {
     const [selectedMenu, setSelectedMenu] = useState<"users" | "logs" | "settings">("users");
@@ -31,29 +32,13 @@ export default function AdminPage() {
         <>
             <section className="mt-10">
 
-                {/* Info Card */}
-                <div className="mb-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow text-center">
-                        <h2 className="font-semibold text-lg">Level</h2>
-                        <p className="text-blue-500 text-xl">61 - 90</p>
-                    </div>
-                    <div className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow text-center">
-                        <h2 className="font-semibold text-lg">Privilege</h2>
-                        <p>Manage Users, View Logs, Limited Settings</p>
-                    </div>
-                    <div className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow text-center">
-                        <h2 className="font-semibold text-lg">Status</h2>
-                        <p className="text-green-500">Active</p>
-                    </div>
-                </div>
-
                 {/* Menu */}
                 <div className="flex justify-center space-x-4 mb-6">
                     {["users", "logs", "settings"].map((menu) => (
                         <button
                             key={menu}
                             onClick={() => setSelectedMenu(menu as "users" | "logs" | "settings")}
-                            className={`px-4 py-2 rounded-md text-sm font-medium 
+                            className={`px-4 py-2 rounded-md text-sm font-medium cursor-pointer
                         ${selectedMenu === menu
                                     ? "bg-blue-600 text-white"
                                     : "bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200"} 
@@ -79,11 +64,25 @@ export default function AdminPage() {
                     )}
                     {selectedMenu === "logs" && (
                         <div>
-                            <h3 className="text-lg font-semibold mb-2">System Logs</h3>
-                            <p>View recent activities.</p>
+                            <div className="flex justify-between items-center">
+                                <div>
+                                    <h3 className="text-lg font-semibold mb-2 inset-y-0">System Logs</h3>
+                                    <small className="italic">
+                                        View recent activities.</small>
+                                </div>
+                                <button
+                                    className="flex gap-2 items-center px-4 py-2 rounded-md border border-gray-300 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer disabled:opacity-50"
+                                    disabled={!!loadingUserLogs}
+                                    onClick={getUserLogs}
+                                >
+                                    <RiRefreshLine className={loadingUserLogs ? "animate-spin" : ""} />
+                                    <span>Segarkan</span>
+                                </button>
+                            </div>
+                            <hr className="my-4 border-gray-300 dark:border-gray-600" />
                             {/* Dummy Logs */}
-                            <ul className="mt-2 space-y-1 text-sm">
-                                {userLogs.map((value, index) => <li key={index}>{value}</li>)}
+                            <ul className="mt-2 space-y-1 text-sm overflow-y-auto max-h-40">
+                                {loadingUserLogs ? "Loading logs user..." : userLogs.map((value, index) => <li key={index}>{value}</li>)}
                             </ul>
                         </div>
                     )}

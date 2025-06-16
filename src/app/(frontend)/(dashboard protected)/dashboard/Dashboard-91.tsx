@@ -28,7 +28,7 @@ export default function PostgresInfoDashboard() {
         };
         uptimeSeconds: number;
     }>(null);
-    const [loading, setLoading] = useState<("database" | "server")[]>(["database", "server"]);
+    const [loading, setLoading] = useState<("database" | "server")[]>([]);
     const [error, setError] = useState<null | string>(null);
     const [errorServer, setErrorServer] = useState<null | string>(null);
 
@@ -43,6 +43,7 @@ export default function PostgresInfoDashboard() {
 
     async function getDatabaseInformation() {
         try {
+            if(loading.includes("database")) return;
             Loading("database", "ADD")
             const res = await fetch("/api/database-information");
             const json = await res.json();
@@ -57,6 +58,7 @@ export default function PostgresInfoDashboard() {
 
     async function getServerInformation() {
         try {
+            if(loading.includes("server")) return
             Loading("server", "ADD")
             const res = await fetch("/api/server-information");
             const json = await res.json();
