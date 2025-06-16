@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
                 // Password tidak valid, mengurangi sisa percobaan
                 const attempRemaining = userData.limit - 1;
                 await tx.user.update({ where: { username }, data: { limit: attempRemaining } });
-                addLogsUser(attempRemaining <= 0 ? `${userData.username} Melakukan percobaan login, password salah sisa percobaan ${attempRemaining}` : `${userData.username} Seluruh percobaan login diblokir, tidak dapat melakukan login! *tidak berpengaruh ke session yang telah berjalan`);
+                addLogsUser(attempRemaining > 0 ? `${userData.username} Melakukan percobaan login, password salah sisa percobaan ${attempRemaining}` : `${userData.username} Seluruh percobaan login diblokir, tidak dapat melakukan login! *tidak berpengaruh ke session yang telah berjalan`);
                 return { status: false, msg: ksr_status.pass_incorrect };
             }
 
