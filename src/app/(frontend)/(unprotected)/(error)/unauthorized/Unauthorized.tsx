@@ -11,10 +11,10 @@ export default function Unauthorized() {
     return (
         <>
             <GiFox size={64} className="text-orange-400 dark:text-orange-300 mb-4 animate-bounce" />
-            <h1 className="text-3xl font-bold mb-2 flex items-center gap-2">Oops! Ekor Fubuki Tidak Mengizinkan <IoMdWarning className="not-md:hidden"/></h1>
+            <h1 className="text-3xl font-bold mb-2 flex items-center gap-2">Oops! Ekor Shirakami Fubuki Tidak Mengizinkan <IoMdWarning className="not-md:hidden"/></h1>
             <p className="text-gray-600 dark:text-gray-400 mb-4 max-w-md">
-                Sepertinya kamu mencoba masuk ke area rahasia yang hanya bisa diakses oleh Fubuki atau ekor yang lebih tinggi.
-                Tenang saja... tidak semua ekor bisa menjelajah ke sana. Mungkin kamu butuh izin dari Kurokami?
+                Sepertinya kamu mencoba masuk ke area rahasia yang hanya bisa diakses oleh Shirakami Fubuki atau ekor yang lebih tinggi.
+                Tenang saja... tidak semua ekor bisa menjelajah ke sana. Mungkin kamu butuh izin dari Kurokami Fubuki?
             </p>
             <button
                 onClick={() => router.back()}
