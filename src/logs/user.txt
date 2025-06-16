@@ -1,0 +1,8 @@
+[2025-06-16T11:44:21.963Z] : AkikoAi-Admin Logout
+[2025-06-16T12:01:32.518Z] : AkikoAi Berhasil login
+[2025-06-16T12:05:25.320Z] : AkikoAi Logout
+[2025-06-16T12:05:56.784Z] : AkikoAi-User Berhasil login
+[2025-06-16T12:06:10.379Z] : AkikoAi-User Logout
+[2025-06-16T12:06:22.738Z] : AkikoAi-Admin Berhasil login
+[2025-06-16T12:08:10.688Z] : AkikoAi-Admin Logout
+[2025-06-16T12:08:20.084Z] : AkikoAi Berhasil login
