@@ -33,6 +33,10 @@ export default {
     unknown_error: "Wah, terjadi sesuatu yang aneh... Kurokami Fubuki mungkin iseng lagi~",
 
     maintenance: "Shhh... Shirakami Fubuki sedang membersihkan server, harap bersabar~",
-    privilege_escalation_attempt: "Oops! Kamu mencoba memberikan privilege sebesar atau lebih dari kekuatanmu sendiri. Shirakami Fubuki melarang ini untuk mencegah kekacauan!"
+    privilege_escalation_attempt: "Oops! Kamu mencoba memberikan privilege sebesar atau lebih dari kekuatanmu sendiri. Shirakami Fubuki melarang ini untuk mencegah kekacauan!",
+    user_not_verified: "Ehh? Fubuki mendeteksi bahwa ekormu belum terdaftar resmi di dunia ini! Silakan verifikasi dulu sebelum melanjutkan petualangan, ya~",
+
+    user_not_verified2: "Kurokami mengawasi... Identitasmu masih samar. Selesaikan proses verifikasi untuk membuka gerbang dunia gelap ini.",
+    user_not_verified3: "Fubuki dan Kurokami tidak bisa membiarkan pengunjung tak dikenal lewat begitu saja! Lengkapi verifikasi terlebih dahulu agar portal terbuka untukmu."
 }
 

@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
             // mencari username
             const userData = await tx.user.findUnique({
                 where: { username }, select:
-                    { id: true, password: true, username: true, name: true, role: true, privilege: true, limit: true }
+                    { id: true, password: true, username: true, name: true, role: true, privilege: true, limit: true, isVerified: true }
             })
             // Memeriksa apakah user ada?
             if (!userData) return { status: false, msg: ksr_status.user_not_found };
@@ -42,6 +42,10 @@ export async function POST(req: NextRequest) {
 
             // Password valid, jika sisa percobaan kurang dari 3 maka reset kembali menjadi 3
             if (userData.limit < 3) await tx.user.update({ where: { username }, data: { limit: 3 } });
+
+            // Jika user belum terverifikasi maka batalkan login
+            if (!userData.isVerified) return { status: false, msg: ksr_status.user_not_verified };
+
 
             // Memfilter hanya data yang diperlukan saya
             const { limit, ...userDataFiltered } = userData;
