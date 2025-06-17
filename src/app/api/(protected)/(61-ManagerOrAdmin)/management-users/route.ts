@@ -26,7 +26,13 @@ export async function POST(req: NextRequest) {
             }
 
             const updateResult = await prisma.user.update({
-                where: { username: validationResult.data.username },
+                where: {
+                    ...(data.privilege < 91 ? {
+                        privilege: {
+                            lt: 61
+                        }
+                    } : {}), username: validationResult.data.username
+                },
                 data: {
                     isVerified: validationResult.data.isVerified,
                     privilege: validationResult.data.privilege,
@@ -64,6 +70,11 @@ export async function DELETE(req: NextRequest) {
 
             const updateResult = await prisma.user.update({
                 where: {
+                    ...(data.privilege < 91 ? {
+                        privilege: {
+                            lt: 61
+                        }
+                    } : {}),
                     username: validationResult.data.username
                 },
                 data: {
@@ -101,7 +112,7 @@ export async function GET(req: NextRequest) {
             if (!validationResult.success) return NextResponse.json({ status: false, msg: JSON.parse(validationResult.error.message) });
             const users = await prisma.user.findMany({
                 where: {
-                    ...(data.privilege < 61 ? {
+                    ...(data.privilege < 91 ? {
                         privilege: {
                             lt: 61
                         }
