@@ -21,7 +21,6 @@ export async function POST(req: NextRequest) {
             if (data.privilege < 91 && validationResult.data.privilege >= 61) {
                 // privilege bukanlah super admin
                 // User memberikan privilege lebih besar dari dirinya
-                console.log("Gate ajkqwerqj", data.privilege, validationResult.data.privilege);
                 return NextResponse.json({ status: false, msg: ksr_status.privilege_escalation_attempt });
             }
 
