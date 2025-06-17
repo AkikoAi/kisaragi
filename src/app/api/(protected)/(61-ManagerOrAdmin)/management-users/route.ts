@@ -15,8 +15,8 @@ export async function POST(req: NextRequest) {
         if (data.privilege < 61) return NextResponse.json({ status: false, msg: ksr_status.unauthorized });
 
         try {
-            const { username, isVerified, privilege } = await req.json();
-            const validationResult = updateUser.safeParse({ username, isVerified, privilege });
+            const { username, isVerified, privilege, name, email, newUsername } = await req.json();
+            const validationResult = updateUser.safeParse({ username, isVerified, privilege, name, email, newUsername });
             if (!validationResult.success) return NextResponse.json({ status: false, msg: JSON.parse(validationResult.error.message) });
             if (data.privilege < 91 && validationResult.data.privilege >= 61) {
                 // privilege bukanlah super admin
@@ -29,7 +29,10 @@ export async function POST(req: NextRequest) {
                 where: { username: validationResult.data.username },
                 data: {
                     isVerified: validationResult.data.isVerified,
-                    privilege: validationResult.data.privilege
+                    privilege: validationResult.data.privilege,
+                    name: validationResult.data.name,
+                    email: validationResult.data.email,
+                    ...(validationResult.data.newUsername ? { username: validationResult.data.newUsername } : {})
                 }
             });
 

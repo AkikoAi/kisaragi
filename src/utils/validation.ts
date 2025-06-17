@@ -57,7 +57,7 @@ export const gudangItem = z.object({
 })
 
 export const gudangBoard = z.object({
-    name: z.string("Input harus berupa string").min(3, "Nama board minmal 3 karakter")
+    name: z.string("Input harus berupa string").min(3, "Nama board minmal 3 karakter").trim()
 })
 
 export const gudangBoardUpdate = gudangBoard.extend({
@@ -87,7 +87,10 @@ export const deleteUser = z.object({
 });
 
 export const updateUser = z.object({
+    email: z.email("email yang dimasukkan tidak valid").trim().optional(),
+    name: z.string("Input harus berupa string").min(3, "Nama board minmal 3 karakter").trim(),
     username: z.string("Input harus berupa string").min(3, "username tidak boleh kurang dari 3 karakter").trim(),
+    newUsername: z.string("Input harus berupa string").min(3, "username tidak boleh kurang dari 3 karakter").trim().optional(),
     isVerified: z.boolean("Input harus berupa boolean"),
     privilege: z.number("Input harus berupa angka").gte(1, "Privilage minimal yang dapat diberikan adalah 11 (User)")
         .lte(100, "Privilage maksimal yang bisa diberikan adalah 100 (Super Admin)"),
