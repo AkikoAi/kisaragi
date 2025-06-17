@@ -17,16 +17,20 @@ export async function POST(req: NextRequest) {
         try {
             const { username, isVerified, privilege } = await req.json();
             const validationResult = updateUser.safeParse({ username, isVerified, privilege });
-            if (!validationResult.success) return NextResponse.json({ status: false, msg: ksr_status.unauthorized });
-            if (privilege < 91 && validationResult.data.privilege >= 61) {
+            if (!validationResult.success) return NextResponse.json({ status: false, msg: JSON.parse(validationResult.error.message) });
+            if (data.privilege < 91 && validationResult.data.privilege >= 61) {
                 // privilege bukanlah super admin
                 // User memberikan privilege lebih besar dari dirinya
+                console.log("Gate ajkqwerqj", data.privilege, validationResult.data.privilege);
                 return NextResponse.json({ status: false, msg: ksr_status.privilege_escalation_attempt });
             }
 
             const updateResult = await prisma.user.update({
                 where: { username: validationResult.data.username },
-                data: { isVerified: validationResult.data.isVerified, privilege: validationResult.data.privilege }
+                data: {
+                    isVerified: validationResult.data.isVerified,
+                    privilege: validationResult.data.privilege
+                }
             });
 
             return NextResponse.json({ status: true, data: updateResult });
@@ -86,14 +90,22 @@ export async function GET(req: NextRequest) {
         if (data.privilege < 61) return NextResponse.json({ status: false, msg: ksr_status.unauthorized });
 
         try {
-            const { username, limit, page } = await req.json();
+            const { searchParams } = new URL(req.url);
+            const username = searchParams.get("username") || undefined;
+            const limit = Number(searchParams.get("limit"));
+            const page = Number(searchParams.get("page"));
             const validationResult = userSearch.safeParse({ username, limit, page });
             if (!validationResult.success) return NextResponse.json({ status: false, msg: JSON.parse(validationResult.error.message) });
             const users = await prisma.user.findMany({
                 where: {
-                    privilege: {
-                        lt: 61
-                    }
+                    ...(data.privilege < 61 ? {
+                        privilege: {
+                            lt: 61
+                        }
+                    } : {}),
+                    ...(validationResult.data.username ? {
+                        username: validationResult.data.username
+                    } : {})
                 },
                 take: validationResult.data.limit,
                 skip: validationResult.data.limit * validationResult.data.page - validationResult.data.limit
@@ -101,6 +113,7 @@ export async function GET(req: NextRequest) {
 
             return NextResponse.json({ status: true, data: users });
         } catch (e) {
+            console.log(e);
             addLogsFE(e);
             return NextResponse.json({ status: false, msg: ksr_status[500] });
         }
