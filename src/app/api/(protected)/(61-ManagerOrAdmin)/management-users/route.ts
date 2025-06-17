@@ -100,7 +100,7 @@ export async function GET(req: NextRequest) {
                 } : {})
             },
             take: validationResult.data.limit,
-            skip: validationResult.data.limit * validationResult.data.page - validationResult.data.limit
+            skip: (validationResult.data.page - 1) * validationResult.data.limit
         });
 
         return NextResponse.json({ status: true, data: users });

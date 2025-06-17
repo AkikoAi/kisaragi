@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
 
         const Board = await prisma.warehouseCupBoard.findMany({
             take: input.data.limit,
-            skip: input.data.limit * input.data.page - input.data.limit,
+            skip: (input.data.page - 1) * input.data.limit,
             orderBy: {
                 name: "asc"// Mengurutkan dari terkecil ke terbesar Contoh (a,b,c,d,...)
             },

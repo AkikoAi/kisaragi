@@ -67,7 +67,7 @@ export async function GET(req: NextRequest) {
 
         const Item = await prisma.warehouseItem.findMany({
             take: input.data.limit,
-            skip: input.data.limit * input.data.page - input.data.limit,
+            skip: (input.data.page - 1) * input.data.limit,
             orderBy: {
                 createdAt: 'desc'// Diurutkan dari yang terbaru ditambahkan
             }
