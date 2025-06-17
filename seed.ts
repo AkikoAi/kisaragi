@@ -1,6 +1,6 @@
 import { hashPassword } from "@/utils/ksr_jwt";
 import prisma from "./src/utils/db";
-
+console.log("seeder");
 async function seed() {
     try {
         console.info("menambahkan seed")
@@ -12,7 +12,8 @@ async function seed() {
             update: {
                 password: pass,
                 limit: 3,
-                isVerified: true
+                isVerified: true,
+                privilege: 100
             },
             create: {
                 isVerified: true,
