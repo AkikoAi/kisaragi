@@ -4,6 +4,7 @@ import { verifyTokenJWT } from "@/utils/ksr_jwt";
 import { Metadata } from "next"
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import ManagementUsers from "./ManagementUsers";
 
 /**
 export const metadata: Metadata = {
@@ -20,7 +21,7 @@ export default async function Page() {
         </div>
 
         return (<>
-            Hello world
+            <ManagementUsers />
         </>)
 
     } catch (e) {
