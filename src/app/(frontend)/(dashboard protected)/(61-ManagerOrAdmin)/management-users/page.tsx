@@ -5,6 +5,7 @@ import { Metadata } from "next"
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import ManagementUsers from "./ManagementUsers";
+import DataAccessLayer from "../../DataAccessLayer";
 
 /**
 export const metadata: Metadata = {
@@ -13,19 +14,10 @@ export const metadata: Metadata = {
  */
 
 export default async function Page() {
-    try {
-        const cookie = await cookies();
-        const token = cookie.get("Auth")?.value as string;
-        const data = verifyTokenJWT(token);
-        if (data.privilege < 61) return <div className="mt-10"><Unauthorized />
-        </div>
+    const data = await DataAccessLayer();
+    if (data.privilege < 61) return <div className="mt-10"><Unauthorized /></div>
 
-        return (<>
-            <ManagementUsers />
-        </>)
-
-    } catch (e) {
-        return redirect("/login");
-    }
-
+    return (<>
+        <ManagementUsers />
+    </>)
 }

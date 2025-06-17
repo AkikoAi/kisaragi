@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { FaCrown } from "react-icons/fa";
 import Dashboard91 from "./Dashboard-91";
 import Dashboard61 from "./Dashboard-61";
+import DataAccessLayer from "../DataAccessLayer";
 
 
 export const metadata: Metadata = {
@@ -12,23 +13,10 @@ export const metadata: Metadata = {
 }
 
 export default async function Page() {
-    try {
-        const cookie = await cookies();
-        const token = cookie.get("Auth")?.value as string;
-        const data = verifyTokenJWT(token);
+    const data = await DataAccessLayer();
 
-
-
-        return (<>
-            {data.privilege >= 91 && <Dashboard91 />}
-            {data.privilege >= 61 && <Dashboard61 />}
-
-            <p className="flex items-center gap-2">
-                Hello {data.name} {data.privilege > 90 ? <FaCrown /> : <></>}
-            </p>
-            {Object.entries(data).map(([name, value]) => <p key={name}>{name} : {value}</p>)}
-        </>)
-    } catch (e) {
-        return redirect("/login");
-    }
+    return (<>
+        {data.privilege >= 91 && <Dashboard91 />}
+        {data.privilege >= 61 && <Dashboard61 />}
+    </>)
 }

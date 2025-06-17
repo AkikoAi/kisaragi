@@ -1,31 +1,23 @@
 import prisma from "@/utils/db";
-import { verifyTokenJWT } from "@/utils/ksr_jwt";
 import { addLogsFE } from "@/utils/ksr_logs";
 import ksr_status from "@/utils/ksr_status";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
+import DataAccessLayer from "../../DataAccessLayer";
 
 export async function GET(req: NextRequest) {
+    const data = await DataAccessLayer();
+
+    // 61 Manager/Admin
+    if (data.privilege < 61) return NextResponse.json({ status: false, msg: ksr_status.unauthorized });
+
     try {
-        const cookie = await cookies();
-        const token = cookie.get("Auth")?.value as string;
-        const data = verifyTokenJWT(token);
-
-        // 61 Manager/Admin
-        if (data.privilege < 61) return NextResponse.json({ status: false, msg: ksr_status.unauthorized });
-
-        try {
-            const info = await getPostgresInfo();
-            return NextResponse.json({ status: true, data: info });
-        } catch (e) {
-            addLogsFE(e)
-            return NextResponse.json({ status: false, msg: ksr_status[500] })
-        }
-
+        const info = await getPostgresInfo();
+        return NextResponse.json({ status: true, data: info });
     } catch (e) {
-        return redirect("/login");
+        addLogsFE(e)
+        return NextResponse.json({ status: false, msg: ksr_status[500] })
     }
+
 }
 
 
