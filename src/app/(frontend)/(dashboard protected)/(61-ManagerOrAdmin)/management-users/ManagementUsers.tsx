@@ -110,20 +110,20 @@ export default function ManagementUsers() {
     return (
         <section className="mt-10 px-4">
             <h2 className="text-2xl font-semibold mb-4">Manajemen Pengguna</h2>
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center mb-4">
                 <form onSubmit={doSearch}>
                     <input
                         type="text"
                         placeholder="Cari pengguna..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="mb-4 p-2 border rounded w-full max-w-sm"
+                        className="p-2 border rounded w-full max-w-sm"
                     />
                 </form>
                 <button
                     onClick={() => fetchUsers()}
                     disabled={loading}
-                    className="flex gap-2 items-center px-4 py-2 rounded-md border border-gray-300 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer disabled:opacity-50"
+                    className="inset-y-0 flex gap-2 items-center px-4 py-2 rounded-md border border-gray-300 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer disabled:opacity-50"
                 >
                     <RiRefreshLine className={loading ? "animate-spin" : ""} />
                     Segarkan
