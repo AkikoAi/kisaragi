@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
         const transactionResult = await prisma.$transaction(async (tx) => {
             // mencari username
             const userData = await tx.user.findUnique({
-                where: { username }, select:
+                where: { username, isDeleted: false }, select:
                     { id: true, password: true, username: true, name: true, role: true, privilege: true, limit: true, isVerified: true }
             })
             // Memeriksa apakah user ada?
