@@ -1,7 +1,7 @@
 import { z } from "zod/v4";
 
 export const LoginValidation = z.object({
-    username: z.string("Input harus berupa string").trim(),
+    username: z.string("Input harus berupa string").min(3, "username tidak boleh kurang dari 3 karakter").trim(),
     password: z.string("Input harus berupa string").min(8, "Minimal harus 8 karakter").trim()
 })
 
@@ -68,12 +68,12 @@ export const userSearch = z.object({
     page: z.number("Input harus berupa number").gte(1, "Page paling kecil adalah 1"),
     limit: z.number("Input harus berupa number").gte(10, "Minimal data yang dapat ditampilkan adalah 10")
         .lte(100, "Maximal data yang dapat ditampilkan adalah 100"),
-    username: z.string("Input harus berupa string").min(3, "Minimal 3 karakter").trim().optional()
+    username: z.string("Input harus berupa string").min(3, "username tidak boleh kurang dari 3 karakter").trim().optional()
 });
 
 const deleteUserActionEnum = ["restore", "delete"];
 export const deleteUser = z.object({
-    username: z.string("Input harus berupa string").trim(),
+    username: z.string("Input harus berupa string").min(3, "username tidak boleh kurang dari 3 karakter").trim(),
     action: z.string("Input harus berupa string").trim().toLowerCase(),
 }).check((ctx) => {
     if (!deleteUserActionEnum.includes(ctx.value.action)) {
@@ -87,8 +87,8 @@ export const deleteUser = z.object({
 });
 
 export const updateUser = z.object({
-    username: z.string("Input harus berupa string").trim(),
+    username: z.string("Input harus berupa string").min(3, "username tidak boleh kurang dari 3 karakter").trim(),
     isVerified: z.boolean("Input harus berupa boolean"),
-    privilege:z.number("Input harus berupa angka").gte(11, "Minimal data yang dapat ditampilkan adalah 10")
-        .lte(100, "Maximal data yang dapat ditampilkan adalah 100"),
+    privilege: z.number("Input harus berupa angka").gte(1, "Privilage minimal yang dapat diberikan adalah 11 (User)")
+        .lte(100, "Privilage maksimal yang bisa diberikan adalah 100 (Super Admin)"),
 })
