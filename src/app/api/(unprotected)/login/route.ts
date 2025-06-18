@@ -23,7 +23,9 @@ export async function POST(req: NextRequest) {
             // mencari username
             const userData = await tx.user.findUnique({
                 where: { username, isDeleted: false }, select:
-                    { id: true, password: true, username: true, name: true, role: true, privilege: true, limit: true, isVerified: true }
+                {
+                    id: true, password: true, username: true, name: true, role: true, privilege: true, limit: true, isVerified: true,avatarUrl:true
+                }
             })
             // Memeriksa apakah user ada?
             if (!userData) return { status: false, msg: ksr_status.user_not_found };
