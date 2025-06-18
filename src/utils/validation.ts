@@ -87,11 +87,13 @@ export const deleteUser = z.object({
 });
 
 export const updateUser = z.object({
-    email: z.email("email yang dimasukkan tidak valid").trim().optional(),
+    email: z.email("email yang dimasukkan tidak valid").trim().optional().nullable(),
+    avatarUrl: z.url("email yang dimasukkan tidak valid").trim().optional().nullable(),
     name: z.string("Input harus berupa string").min(3, "Nama board minmal 3 karakter").trim(),
     username: z.string("Input harus berupa string").min(3, "username tidak boleh kurang dari 3 karakter").trim(),
     newUsername: z.string("Input harus berupa string").min(3, "username tidak boleh kurang dari 3 karakter").trim().optional(),
     isVerified: z.boolean("Input harus berupa boolean"),
+    role: z.string("Input harus berupa string").min(3, "Nama role minmal 3 karakter").trim(),
     privilege: z.number("Input harus berupa angka").gte(1, "Privilage minimal yang dapat diberikan adalah 11 (User)")
         .lte(100, "Privilage maksimal yang bisa diberikan adalah 100 (Super Admin)"),
 })

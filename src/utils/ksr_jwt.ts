@@ -39,6 +39,7 @@ export type verifyToken = {
     name: string;
     role: string;
     privilege: number;
+    avatarUrl: string | null;
 };
 
 export function verifyTokenJWT(token: string) {
