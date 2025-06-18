@@ -1,5 +1,6 @@
 "use client";
 
+import { redirect } from "next/navigation";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -27,7 +28,7 @@ export default function Register() {
             }
         }).then(r => r.json()).then(r => {
             if (!r.status) return alert(r.msg[0]?.message || r.msg);
-            return alert(r.msg);
+            return window.location.href = "/dashboard";
         }).catch(e => {
             return alert("Gagal mengirim form ke server");
         });
