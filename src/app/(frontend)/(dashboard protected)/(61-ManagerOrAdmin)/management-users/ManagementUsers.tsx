@@ -3,18 +3,20 @@
 import { useEffect, useState } from "react";
 import { FaCheck, FaEdit, FaTimes, FaTrash, FaUndo } from "react-icons/fa";
 import { RiRefreshLine } from "react-icons/ri";
+import Pagination from "../../../Components/Pagination";
 
 // User Type
 type User = {
-    email: string | null;
-    password: string;
     id: string;
     username: string;
+    email: string | null;
+    password: string;
     name: string;
-    limit: number;
     role: string;
     privilege: number;
+    limit: number;
     isVerified: boolean;
+    avatarUrl: string | null;
     createdAt: Date;
     updatedAt: Date;
     isDeleted: boolean;
@@ -31,20 +33,25 @@ export default function ManagementUsers() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalAction, setModalAction] = useState<Action>(null);
     const [onAction, setOnAction] = useState(false);
+    const [page, setPage] = useState<number>(1);
+    const [totalPages, setTotalPages] = useState<number>(1);
 
     const fetchUsers = async (username?: string) => {
         try {
             setLoading(true);
             setError(null);
             const requestPath = new URL("/api/management-users", window.location.origin);
-            requestPath.searchParams.set("page", "1");
+            requestPath.searchParams.set("page", page.toString());
             requestPath.searchParams.set("limit", "100");
             const query = username ?? searchTerm;
             if (query.length >= 3) requestPath.searchParams.set("username", query);
 
             const res = await fetch(requestPath.toString());
             const data = await res.json();
-            if (data.status) setUsers(data.data);
+            if (data.status) {
+                setUsers(data.data.users);
+                setTotalPages(Math.ceil(data.data.count / 100))
+            }
             else alert(data.msg);
         } catch {
             setError("Gagal memuat data pengguna.");
@@ -58,7 +65,8 @@ export default function ManagementUsers() {
         fetchUsers();
     };
 
-    useEffect(() => { fetchUsers(); }, []);
+    useEffect(() => { fetchUsers(); }, [page]);
+    //useEffect(() => { fetchUsers(); }, []);
 
     const handleAction = (user: User, action: Action) => {
         setSelectedUser(user);
@@ -74,6 +82,7 @@ export default function ManagementUsers() {
         try {
             let method = "POST";
             let body: any = { ...(manualUser || selectedUser), username: selectedUser.username };
+            body.email = body.email || undefined;
 
             if (modalAction === "disable") body.isVerified = false;
             else if (modalAction === "enable") body.isVerified = true;
@@ -84,7 +93,6 @@ export default function ManagementUsers() {
                 if (!confirm("Periksa kembali data sebelum mengonfirmasi perubahan")) {
                     return;
                 }
-                console.log(selectedUser, "ACTION");
             } else {
                 throw new Error("Aksi tidak dikenali");
             }
@@ -96,7 +104,7 @@ export default function ManagementUsers() {
             });
 
             const result = await res.json();
-            if (!result.status) return alert(result.msg);
+            if (!result.status) return alert(result.msg[0].message || result.msg);
             alert("Aksi berhasil");
             fetchUsers(body?.newUsername || selectedUser.username);
         } catch {
@@ -107,7 +115,7 @@ export default function ManagementUsers() {
         }
     };
 
-    const filteredUsers = users.filter(user =>
+    const filteredUsers = users.slice(0, 10).filter(user =>
         user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
         user.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -139,49 +147,59 @@ export default function ManagementUsers() {
             {error && <p className="text-red-500">{error}</p>}
 
             {!loading && !error && (
-                <div className="overflow-x-auto max-w-[99%] shadow rounded-lg">
-                    <table className="min-w-full bg-white dark:bg-gray-800 rounded-lg">
-                        <thead>
-                            <tr className="bg-gray-200 dark:bg-gray-700">
-                                <th className="py-2 px-4">Username</th>
-                                <th className="py-2 px-4">Nama</th>
-                                <th className="py-2 px-4">Role</th>
-                                <th className="py-2 px-4">Level Hak</th>
-                                <th className="py-2 px-4">Diverifikasi</th>
-                                <th className="py-2 px-4">Dihapus</th>
-                                <th className="py-2 px-4 text-center">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filteredUsers.map((user, index, arr) => (
-                                <tr key={index} className={`${index + 1 != arr.length ? "border-b dark:border-gray-600 " : ""}hover:bg-gray-50 dark:hover:bg-gray-700`}>
-                                    <td className="py-2 px-4">{user.username}</td>
-                                    <td className="py-2 px-4">{user.name}</td>
-                                    <td className="py-2 px-4 text-center">{user.role}</td>
-                                    <td className="py-2 px-4 text-center">{user.privilege}</td>
-                                    <td className="py-2 px-4">{user.isVerified ? <FaCheck className="text-green-500 mx-auto" /> : <FaTimes className="text-red-500 mx-auto" />}</td>
-                                    <td className="py-2 px-4">{user.isDeleted ? <FaCheck className="text-red-500 mx-auto" /> : <FaTimes className="text-green-500 mx-auto" />}</td>
-                                    <td className="py-2 px-8 md:px-4 text-center">
-                                        <div className="grid grid-cols-3 gap-8 md:gap-4">
-                                            <button onClick={() => handleAction(user, "edit")} className="text-blue-500 cursor-pointer"><FaEdit /></button>
-                                            {user.isDeleted ? (
-                                                <button onClick={() => handleAction(user, "restore")} className="text-lime-500 cursor-pointer"><FaUndo /></button>
-                                            ) : (
-                                                <button onClick={() => handleAction(user, "delete")} className="text-red-500 cursor-pointer"><FaTrash /></button>
-                                            )}
-                                            {user.isVerified ? (
-                                                <button onClick={() => handleAction(user, "disable")} className="text-yellow-500 cursor-pointer"><FaTimes /></button>
-                                            ) : (
-                                                <button onClick={() => handleAction(user, "enable")} className="text-green-500 cursor-pointer"><FaCheck /></button>
-                                            )}
-                                        </div>
-                                    </td>
+                <>
+                    <div className="overflow-x-auto max-w-[99%] shadow rounded-lg">
+                        <table className="min-w-full bg-white dark:bg-gray-800 rounded-lg">
+                            <thead>
+                                <tr className="bg-gray-200 dark:bg-gray-700">
+                                    <th className="py-2 px-4">Username</th>
+                                    <th className="py-2 px-4">Nama</th>
+                                    <th className="py-2 px-4">Email</th>
+                                    <th className="py-2 px-4">Role</th>
+                                    <th className="py-2 px-4">Level Hak</th>
+                                    <th className="py-2 px-4">Avatar</th>
+                                    <th className="py-2 px-4">Diverifikasi</th>
+                                    <th className="py-2 px-4">Dihapus</th>
+                                    <th className="py-2 px-4 text-center">Aksi</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            )}
+                            </thead>
+                            <tbody>
+                                {filteredUsers.map((user, index, arr) => (
+                                    <tr key={index} className={`${index + 1 != arr.length ? "border-b dark:border-gray-600 " : ""}hover:bg-gray-50 dark:hover:bg-gray-700`}>
+                                        <td className="py-2 px-4">{user.username}</td>
+                                        <td className="py-2 px-4">{user.name}</td>
+                                        <td className="py-2 px-4">{user.email}</td>
+                                        <td className="py-2 px-4 text-center">{user.role}</td>
+                                        <td className="py-2 px-4 text-center">{user.privilege}</td>
+                                        <td className="py-2 px-4">{user.avatarUrl ? <FaCheck className="text-green-500 mx-auto" /> : <FaTimes className="text-red-500 mx-auto" />}</td>
+                                        <td className="py-2 px-4">{user.isVerified ? <FaCheck className="text-green-500 mx-auto" /> : <FaTimes className="text-red-500 mx-auto" />}</td>
+                                        <td className="py-2 px-4">{user.isDeleted ? <FaCheck className="text-red-500 mx-auto" /> : <FaTimes className="text-green-500 mx-auto" />}</td>
+                                        <td className="py-2 px-8 md:px-4 text-center">
+                                            <div className="grid grid-cols-3 gap-8 md:gap-4">
+                                                <button onClick={() => handleAction(user, "edit")} className="text-blue-500 cursor-pointer"><FaEdit /></button>
+                                                {user.isDeleted ? (
+                                                    <button onClick={() => handleAction(user, "restore")} className="text-lime-500 cursor-pointer"><FaUndo /></button>
+                                                ) : (
+                                                    <button onClick={() => handleAction(user, "delete")} className="text-red-500 cursor-pointer"><FaTrash /></button>
+                                                )}
+                                                {user.isVerified ? (
+                                                    <button onClick={() => handleAction(user, "disable")} className="text-yellow-500 cursor-pointer"><FaTimes /></button>
+                                                ) : (
+                                                    <button onClick={() => handleAction(user, "enable")} className="text-green-500 cursor-pointer"><FaCheck /></button>
+                                                )}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    <Pagination
+                        currentPage={page}
+                        totalPages={totalPages}
+                        onPageChange={(newPage) => setPage(newPage)}
+                    />
+                </>)}
 
 
 
@@ -192,9 +210,24 @@ export default function ManagementUsers() {
                         <form className="space-y-4" onSubmit={(e) => {
                             e.preventDefault()
                             const formData = new FormData(e.currentTarget)
-                            const data = Object.assign({}, selectedUser, Object.fromEntries(formData), { privilege: Number(formData.get("privilege")), email: formData.get("email") || undefined, newUsername: (selectedUser.username !== formData.get('username') ? formData.get('username') || undefined : undefined) });
+                            console.log(formData)
+                            const data = Object.assign({}, selectedUser, Object.fromEntries(formData), {
+                                privilege: Number(formData.get("privilege")),
+                                email: formData.get("email") || undefined,
+                                newUsername: (selectedUser.username !== formData.get('username') ? formData.get('username') || undefined : undefined),
+                                avatarUrl: formData.get("avatarUrl") || undefined
+                            });
                             confirmAction(data);
                         }}>
+                            <div>
+                                <label className="block mb-1 text-sm">Avatar Url</label>
+                                <input
+                                    type="text"
+                                    name="avatarUrl"
+                                    defaultValue={selectedUser.avatarUrl || ""}
+                                    className="w-full p-2 border rounded"
+                                />
+                            </div>
                             <div>
                                 <label className="block mb-1 text-sm">Username</label>
                                 <input

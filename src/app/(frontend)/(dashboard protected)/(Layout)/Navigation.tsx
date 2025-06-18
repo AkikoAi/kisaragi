@@ -1,10 +1,31 @@
 "use client";
 
 import { verifyToken } from "@/utils/ksr_jwt";
+import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { FaCrown, FaIdBadge, FaLock, FaRegStar, FaStar } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
+import { GiFox } from "react-icons/gi";
 
+
+function ProfilePicture({ data }: { data: verifyToken }) {
+    console.log("Menambahkan profile picture")
+    return <div
+        className="relative flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+        {data.avatarUrl ? (
+            <Image
+                width={400}
+                height={400}
+                src={data.avatarUrl}
+                alt={"String"}
+                className="w-10 h-10 rounded-full"
+            />
+        ) : (
+            <GiFox className="w-10 h-10 text-orange-500" />
+        )}
+    </div>
+}
 
 export default function Navigation({ data }: { data: verifyToken }) {
     const [dropdownOpen, setDropdownOpen] = useState<"home" | "settings" | null>(null);
@@ -29,7 +50,7 @@ export default function Navigation({ data }: { data: verifyToken }) {
                         {dropdownOpen === "home" && (
                             <div className="absolute left-0 mt-2 w-60 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md shadow-lg z-10 dark:text-gray-200">
                                 <ul className="p-2">
-                                    <li className="py-1 px-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer">Pengguna</li>
+                                    <li className="py-1 px-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer"><Link href="/management-users">Pengguna</Link></li>
                                     <li className="py-1 px-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer">Laporan</li>
                                     <li className="py-1 px-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer">Pesan</li>
                                 </ul>
@@ -57,9 +78,15 @@ export default function Navigation({ data }: { data: verifyToken }) {
                 </div>
 
                 {/* User Info */}
-                <div className="text-sm text-gray-700 dark:text-gray-200">
-                    <p>{data.name}</p>
-                    <p className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">{data.role} {data.privilege >= 91 ? <FaCrown /> : data.privilege >= 61 ? <FaStar /> : data.privilege >= 31 ? <FaIdBadge /> : <FaLock />}</p>
+                <div className="flex items-center gap-4">
+
+                    <ProfilePicture data={data} />
+
+                    <div className="text-sm text-gray-700 dark:text-gray-200">
+                        <p>{data.name}</p>
+                        <p className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">{data.role} {data.privilege >= 91 ? <FaCrown /> : data.privilege >= 61 ? <FaStar /> : data.privilege >= 31 ? <FaIdBadge /> : <FaLock />}</p>
+                    </div>
+
                 </div>
             </div>
 
@@ -74,9 +101,15 @@ export default function Navigation({ data }: { data: verifyToken }) {
                     </button>
                 </div>
 
-                <div className="text-sm text-gray-700 dark:text-gray-200 text-right">
-                    <p>{data.name}</p>
-                    <p className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">{data.role} {data.privilege >= 91 ? <FaCrown /> : data.privilege >= 61 ? <FaStar /> : data.privilege >= 31 ? <FaIdBadge /> : <FaLock />}</p>
+                <div className="flex items-center gap-4">
+
+                    <ProfilePicture data={data} />
+
+                    <div className="text-sm text-gray-700 dark:text-gray-200 text-right">
+                        <p>{data.name}</p>
+                        <p className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">{data.role} {data.privilege >= 91 ? <FaCrown /> : data.privilege >= 61 ? <FaStar /> : data.privilege >= 31 ? <FaIdBadge /> : <FaLock />}</p>
+                    </div>
+
                 </div>
             </div>
 
