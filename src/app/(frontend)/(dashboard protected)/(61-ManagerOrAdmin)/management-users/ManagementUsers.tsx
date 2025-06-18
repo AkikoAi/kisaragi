@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { FaCheck, FaEdit, FaTimes, FaTrash, FaUndo } from "react-icons/fa";
 import { RiRefreshLine } from "react-icons/ri";
 import Pagination from "../../../Components/Pagination";
+//import { useErrorAudio } from "@/app/(frontend)/Components/AudioContext";
 
 // User Type
 type User = {
@@ -35,9 +36,11 @@ export default function ManagementUsers() {
     const [onAction, setOnAction] = useState(false);
     const [page, setPage] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(1);
+    //    const { playErrorSound } = useErrorAudio();
 
     const fetchUsers = async (username?: string) => {
         try {
+            //playErrorSound();
             setLoading(true);
             setError(null);
             const requestPath = new URL("/api/management-users", window.location.origin);

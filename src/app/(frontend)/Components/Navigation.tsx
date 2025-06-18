@@ -3,7 +3,7 @@
 import { verifyToken } from "@/utils/ksr_jwt";
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment, InputEvent, InputHTMLAttributes, ReactElement, useState } from "react";
+import { Fragment, InputEvent, InputHTMLAttributes, ReactElement, useEffect, useState } from "react";
 import { BiLogOut, BiX } from "react-icons/bi";
 import { CgEnter } from "react-icons/cg";
 import { FaBars, FaCog, FaUserTie } from "react-icons/fa";
@@ -55,6 +55,30 @@ function ProfilePicture({ data }: { data: verifyToken }) {
 
 export default function Navigation({ data }: { data: verifyToken }) {
     const [filteredMenu, setFilteredMenu] = useState<menuType[]>(menu);
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.ctrlKey && event.key.toLowerCase() === 'k') {
+                event.preventDefault();
+
+                // Ambil element checkbox
+                const ZillaGao = document.getElementById("ZillaGao") as HTMLAudioElement | null;
+                const checkbox = document.getElementById("menuViewModals") as HTMLInputElement | null;
+                if (checkbox) {
+                    if (!checkbox.checked && ZillaGao) {
+                        ZillaGao.play();
+                    }
+                    checkbox.checked = !checkbox.checked; // toggle
+                }
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
 
     function searchAction(searchInput: string) {
         if (!searchInput) {

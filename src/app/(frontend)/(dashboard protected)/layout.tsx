@@ -2,6 +2,7 @@
 
 import DataAccessLayer from "./DataAccessLayer";
 import Navigation from "../Components/Navigation";
+import zillaGao from "../Components/zillaGao";
 
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {
@@ -13,6 +14,6 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
                 {children}
             </main>
         </div>
-
+        <audio src={zillaGao} id="ZillaGao"></audio>
     </>);
 }
