@@ -1,8 +1,7 @@
 "use server"
 
-import { redirect } from "next/navigation";
-import Navigation from "./(Layout)/Navigation";
 import DataAccessLayer from "./DataAccessLayer";
+import Navigation from "../Components/Navigation";
 
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {
