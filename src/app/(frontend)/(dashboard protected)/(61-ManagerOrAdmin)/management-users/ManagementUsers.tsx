@@ -216,9 +216,9 @@ export default function ManagementUsers() {
                             console.log(formData)
                             const data = Object.assign({}, selectedUser, Object.fromEntries(formData), {
                                 privilege: Number(formData.get("privilege")),
-                                email: formData.get("email") || undefined,
+                                email: formData.get("email") || null,
                                 newUsername: (selectedUser.username !== formData.get('username') ? formData.get('username') || undefined : undefined),
-                                avatarUrl: formData.get("avatarUrl") || undefined
+                                avatarUrl: formData.get("avatarUrl") || null
                             });
                             confirmAction(data);
                         }}>

@@ -18,6 +18,7 @@ module.exports = verifyToken;
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
 import ksr_status from "./ksr_status"
+import DataAccessLayer from "./DataAccessLayer";
 
 const secret = "FOX CAME WITH TWO, ARE SENKO AND KUSOGAKI"
 
@@ -33,14 +34,11 @@ const secret = "FOX CAME WITH TWO, ARE SENKO AND KUSOGAKI"
 
  */
 export type verifyToken = {
-    username: string;
-    password: string;
     id: string;
-    name: string;
-    role: string;
-    privilege: number;
-    avatarUrl: string | null;
+    updatedAt: Date;
 };
+
+export type DataAccessLayer = Awaited<ReturnType<typeof DataAccessLayer>>;
 
 export function verifyTokenJWT(token: string) {
     try {
@@ -53,7 +51,7 @@ export function verifyTokenJWT(token: string) {
 
 export function signTokenJWT(data: any, exp?: number) {
     try {
-        const encoded = jwt.sign(data, secret, { expiresIn: exp || "1h" });
+        const encoded = jwt.sign(data, secret, { expiresIn: exp || "15m" });
         return encoded;
     } catch (e) {
         throw ksr_status[500]

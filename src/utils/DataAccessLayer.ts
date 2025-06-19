@@ -12,7 +12,7 @@ export default async function DataAccessLayer() {
         const data = verifyTokenJWT(auth);
         // melakukan pemeriksaan data
         const User = await prisma.user.findUnique({
-            where: { id: data.id }
+            where: { id: data.id, isDeleted: false, isVerified: true }
         });
         if (User) {
             return User;

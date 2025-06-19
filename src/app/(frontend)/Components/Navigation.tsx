@@ -1,12 +1,12 @@
 "use client";
 
-import { verifyToken } from "@/utils/ksr_jwt";
+import { DataAccessLayer, verifyToken } from "@/utils/ksr_jwt";
 import Image from "next/image";
 import Link from "next/link";
 import { Fragment, InputEvent, InputHTMLAttributes, ReactElement, useEffect, useState } from "react";
 import { BiLogOut, BiX } from "react-icons/bi";
 import { CgEnter } from "react-icons/cg";
-import { FaBars, FaCog, FaUserTie } from "react-icons/fa";
+import { FaBars, FaCog, FaCrown, FaIdBadge, FaLock, FaStar, FaUserTie } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 
 import { GiFox, GiFoxTail } from "react-icons/gi";
@@ -18,42 +18,20 @@ type menuType = {
     prefetch: boolean;
 }
 
-const menu: menuType[] = [
-    {
-        name: "Management User",
-        path: "/management-users",
-        prefetch: true
-    },
-    {
-        name: "Dashboard",
-        path: "/dashboard",
-        prefetch: true
-    },
-    {
-        name: "Logout",
-        path: "/api/logout",
-        prefetch: false
-    }
-]
-
-
-function ProfilePicture({ data }: { data: verifyToken }) {
+function ProfilePicture({ data }: { data: DataAccessLayer }) {
     return <div className="relative flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
-        {data.avatarUrl ? (
-            <Image
-                width={400}
-                height={400}
-                src={data.avatarUrl}
-                alt={`Foto profil ${data.name}`}
-                className="w-10 h-10 rounded-full"
-            />
-        ) : (
-            <GiFox className="w-10 h-10 text-orange-500" />
-        )}
+
+        <Image
+            width={400}
+            height={400}
+            src={data.avatarUrl || "/images/defaultAvatar.png"}
+            alt={`Foto profil ${data.name}`}
+            className="w-10 h-10 rounded-full"
+        />
     </div>
 }
 
-export default function Navigation({ data }: { data: verifyToken }) {
+export default function Navigation({ data, menu }: { menu: menuType[], data: DataAccessLayer }) {
     const [filteredMenu, setFilteredMenu] = useState<menuType[]>(menu);
 
     useEffect(() => {
@@ -62,12 +40,8 @@ export default function Navigation({ data }: { data: verifyToken }) {
                 event.preventDefault();
 
                 // Ambil element checkbox
-                const ZillaGao = document.getElementById("ZillaGao") as HTMLAudioElement | null;
                 const checkbox = document.getElementById("menuViewModals") as HTMLInputElement | null;
                 if (checkbox) {
-                    if (!checkbox.checked && ZillaGao) {
-                        ZillaGao.play();
-                    }
                     checkbox.checked = !checkbox.checked; // toggle
                 }
             }
@@ -114,8 +88,12 @@ export default function Navigation({ data }: { data: verifyToken }) {
                 <div>
                     <label
                         htmlFor="profileDropdown"
-                        className="cursor-pointer">
+                        className="cursor-pointer flex gap-3">
                         <ProfilePicture data={data} />
+                        <div className="text-sm text-gray-700 dark:text-gray-200">
+                            <p>{data.name}</p>
+                            <p className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">{data.role} {data.privilege >= 91 ? <FaCrown /> : data.privilege >= 61 ? <FaStar /> : data.privilege >= 31 ? <FaIdBadge /> : <FaLock />}</p>
+                        </div>
                     </label>
                 </div>
             </div>
