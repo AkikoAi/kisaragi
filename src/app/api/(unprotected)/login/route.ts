@@ -24,7 +24,12 @@ export async function POST(req: NextRequest) {
             const userData = await tx.user.findUnique({
                 where: { username, isDeleted: false }, select:
                 {
-                    id: true, password: true, username: true, name: true, role: true, privilege: true, limit: true, isVerified: true,avatarUrl:true
+                    id: true,
+                    limit: true,
+                    password: true,
+                    username: true,
+                    isVerified: true,
+                    updatedAt: true
                 }
             })
             // Memeriksa apakah user ada?
@@ -48,12 +53,8 @@ export async function POST(req: NextRequest) {
             // Jika user belum terverifikasi maka batalkan login
             if (!userData.isVerified) return { status: false, msg: ksr_status.user_not_verified };
 
-
-            // Memfilter hanya data yang diperlukan saya
-            const { limit, ...userDataFiltered } = userData;
-
             // Mengirim data yang diperlukan
-            return { status: true, data: userDataFiltered };
+            return { status: true, data: { id: userData.id, updatedAt: userData.updatedAt }, userData };
         });
         // END TRANSAKSI
 
@@ -61,7 +62,7 @@ export async function POST(req: NextRequest) {
         if (!transactionResult.status || !transactionResult.data) return NextResponse.json(transactionResult);
 
         // data yang diperlukan ada, maka persiapkan token dan simpan di cookie
-        addLogsUser(`${transactionResult.data.username} Berhasil login`);
+        addLogsUser(`${transactionResult.userData.username} Berhasil login`);
         const token = signTokenJWT(transactionResult.data);
         const cookie = await cookies();
         cookie.set("Auth", token, { httpOnly: true });

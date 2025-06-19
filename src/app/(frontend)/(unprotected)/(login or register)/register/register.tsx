@@ -28,7 +28,7 @@ export default function Register() {
             }
         }).then(r => r.json()).then(r => {
             if (!r.status) return alert(r.msg[0]?.message || r.msg);
-            return window.location.href = "/dashboard";
+            return window.location.href = "/login";
         }).catch(e => {
             return alert("Gagal mengirim form ke server");
         });

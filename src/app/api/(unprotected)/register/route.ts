@@ -46,13 +46,10 @@ export async function POST(req: NextRequest) {
                 }
             });
 
-            return { id: createUser.id, username: createUser.username, password: createUser.password, name: createUser.name, role: createUser.role, privilege: createUser.privilege };
+            return { data: { id: createUser.id, updatedAt: createUser.updatedAt }, userData: createUser };
         });
 
-        const cookie = await cookies();
-        const token = signTokenJWT(transaksi);
-        cookie.set("Auth", token, { httpOnly: true });
-        addLogsUser(`${transaksi.username} Berhasil melakukan registrasi dan otomatis masuk`);
+        addLogsUser(`${transaksi.userData.username} Berhasil melakukan registrasi dan diarahkan ke halaman login`);
 
         return NextResponse.json({ status: true, data: "OK" });
     } catch (e) {
