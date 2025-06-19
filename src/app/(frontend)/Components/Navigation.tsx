@@ -106,7 +106,7 @@ export default function Navigation({ data, menu }: { menu: menuType[], data: Dat
                             <BiX />
                         </label>
                         <div className="mx-auto mt-4 not-md:max-w-[99%] w-[37rem] flex items-center justify-center bg-white dark:bg-gray-800 rounded-xl">
-                            <div className="w-full max-w-[37rem] max-h-[90%] bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md space-y-4">
+                            <div className="w-full max-w-[37rem] bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md space-y-4">
                                 {/* Search Menu */}
                                 <div>
                                     <div className="relative flex items-center">
@@ -116,7 +116,7 @@ export default function Navigation({ data, menu }: { menu: menuType[], data: Dat
                                     </div>
                                 </div>
                                 <div className="mt-2 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 dark:text-gray-200">
-                                    <ul className="p-2">
+                                    <ul className="p-2 max-h-80 overflow-y-auto">
                                         {
                                             filteredMenu.length > 0 ? filteredMenu.map(({ name, path, prefetch }, index, arr) =>
                                                 <Fragment key={index}>
