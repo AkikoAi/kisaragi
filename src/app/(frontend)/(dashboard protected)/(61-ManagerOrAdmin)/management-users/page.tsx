@@ -5,7 +5,7 @@ import { Metadata } from "next"
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import ManagementUsers from "./ManagementUsers";
-import DataAccessLayer from "../../DataAccessLayer";
+import DataAccessLayer from "../../../../../utils/DataAccessLayer";
 
 /**
 export const metadata: Metadata = {

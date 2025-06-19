@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { FaCrown } from "react-icons/fa";
 import Dashboard91 from "./Dashboard-91";
 import Dashboard61 from "./Dashboard-61";
-import DataAccessLayer from "../DataAccessLayer";
+import DataAccessLayer from "../../../../utils/DataAccessLayer";
 
 
 export const metadata: Metadata = {

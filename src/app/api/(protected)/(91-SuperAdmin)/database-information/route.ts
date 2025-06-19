@@ -2,7 +2,7 @@ import prisma from "@/utils/db";
 import { addLogsFE } from "@/utils/ksr_logs";
 import ksr_status from "@/utils/ksr_status";
 import { NextRequest, NextResponse } from "next/server";
-import DataAccessLayer from "../../DataAccessLayer";
+import DataAccessLayer from "../../../../../utils/DataAccessLayer";
 
 export async function GET(req: NextRequest) {
     const data = await DataAccessLayer();

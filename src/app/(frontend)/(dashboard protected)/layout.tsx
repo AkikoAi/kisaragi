@@ -1,6 +1,6 @@
 "use server"
 
-import DataAccessLayer from "./DataAccessLayer";
+import DataAccessLayer from "../../../utils/DataAccessLayer";
 import Navigation from "../Components/Navigation";
 import zillaGao from "../Components/zillaGao";
 

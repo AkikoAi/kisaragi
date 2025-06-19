@@ -2,7 +2,7 @@ import { addLogsFE } from '@/utils/ksr_logs';
 import ksr_status from '@/utils/ksr_status';
 import { NextResponse } from 'next/server';
 import os from 'os';
-import DataAccessLayer from '../../DataAccessLayer';
+import DataAccessLayer from '../../../../../utils/DataAccessLayer';
 
 export async function GET() {
     const data = await DataAccessLayer();

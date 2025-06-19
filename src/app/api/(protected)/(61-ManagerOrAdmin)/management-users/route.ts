@@ -3,7 +3,7 @@ import { addLogsFE } from "@/utils/ksr_logs";
 import ksr_status from "@/utils/ksr_status";
 import { deleteUser, updateUser, userSearch } from "@/utils/validation";
 import { NextRequest, NextResponse } from "next/server";
-import DataAccessLayer from "../../DataAccessLayer";
+import DataAccessLayer from "../../../../../utils/DataAccessLayer";
 
 export async function POST(req: NextRequest) {
     const data = await DataAccessLayer();
