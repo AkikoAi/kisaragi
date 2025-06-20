@@ -14,6 +14,7 @@ export default async function DataAccessLayer() {
         const User = await prisma.user.findUnique({
             where: { id: data.id, isDeleted: false, isVerified: true }
         });
+        //const precission = User.updatedAt.getTime() == new Date(data.updatedAt).getTime();
         if (User) {
             return User;
         }
