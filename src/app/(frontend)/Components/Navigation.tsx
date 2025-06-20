@@ -75,7 +75,7 @@ export default function Navigation({ data, menu }: { menu: menuType[], data: Dat
     }
 
     return (
-        <nav className="w-full bg-gray-100 dark:bg-gray-800 shadow-md p-4">
+        <nav className="w-full bg-gray-100 dark:bg-gray-800 shadow-md p-4 fixed h-16 z-50">
             {/* Universal Navigation */}
             <div className="flex justify-between items-center h-8">
                 <div>
@@ -99,7 +99,7 @@ export default function Navigation({ data, menu }: { menu: menuType[], data: Dat
             </div>
             <div>
                 <input type="checkbox" id="menuViewModals" className="hidden peer" />
-                <div className="hidden peer-checked:block fixed inset-0 bg-black/90 z-50">
+                <div className="hidden peer-checked:block fixed inset-0 bg-black/90">
                     <div className="flex flex-col p-4">
                         <label htmlFor="menuViewModals"
                             className="cursor-pointer text-3xl">
