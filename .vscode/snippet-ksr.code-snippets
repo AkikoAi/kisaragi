@@ -38,7 +38,7 @@
 	"Auth": {
 		"prefix": "ksrAuth",
 		"body": [
-			"try {\r\tconst cookie = await cookies();\r\tconst token = cookie.get(\"Auth\")?.value as string;\r\tconst data = verifyTokenJWT(token);\r\r$0\r\r} catch (e) {\r\treturn redirect(\"/login\");\r\t}"
+			"const data = await DataAccessLayer();"
 		]
 	},
 	"falseResponse": {
@@ -51,6 +51,12 @@
 		"prefix": "ksrTrue",
 		"body": [
 			"return NextResponse.json({status:true,data:$0})"
+		]
+	},
+	"Privilege": {
+		"prefix": "ksrprivilege",
+		"body": [
+			"if (data.privilege < $0) return <div className=\"mt-10\"><Unauthorized /></div>"
 		]
 	}
 }
