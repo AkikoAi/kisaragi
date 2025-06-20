@@ -154,9 +154,11 @@ export default function Navigation({ data, menu }: { menu: menuType[], data: Dat
                 <input type="checkbox" id="profileDropdown" className="hidden peer" />
                 <div className="hidden peer-checked:block absolute right-0 mt-2 w-40 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md shadow-lg z-40 dark:text-gray-200">
                     <ul className="p-2">
-                        <li className="flex items-center gap-2 py-1 px-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer">
-                            <FaUserTie />
-                            Profile</li>
+                        <Link href="/profile">
+                            <li className="flex items-center gap-2 py-1 px-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer">
+                                <FaUserTie />
+                                Profile</li>
+                        </Link>
                         <hr />
                         <li className="flex items-center gap-2 py-1 px-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer">
                             <FaCog />Setting</li>

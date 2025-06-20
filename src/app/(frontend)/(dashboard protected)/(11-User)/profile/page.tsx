@@ -1,27 +1,17 @@
-import { Metadata } from "next"
-import Profile from "./profile"
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-import { verifyTokenJWT } from "@/utils/ksr_jwt";
+import DataAccessLayer from "@/utils/DataAccessLayer";
+import Profile from "./profile";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Profil Pengguna"
+    title: "Profile"
 }
 
-export default async function Page() {
-    try {
+export default async function ProfilePage() {
+    const data = await DataAccessLayer();
 
-        const cookie = await cookies();
-        const token = cookie.get("Auth")?.value;
-        if (!token) throw null;
-        const data = verifyTokenJWT(token);
-
-        return (
-            <>
-                <Profile User={data} />
-            </>)
-
-    } catch (e) {
-        return redirect("/login");
-    }
+    return (
+        <>
+            <Profile data={data} />
+        </>
+    );
 }
