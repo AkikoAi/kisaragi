@@ -100,7 +100,7 @@ export const updateUser = z.object({
 
 
 export const profilePost = z.object({
-    avatarUrl: z.url("URL avatar harus valid dong, jangan URL Fubuki palsu!").trim().optional().nullable(),
+    avatarUrl: z.string("URL avatar harus valid dong, jangan URL Fubuki palsu!").trim().optional().nullable(),
     email: z.email("Email harus valid, Fubuki nggak bisa kirim pesan ke dimensi lain!").trim().optional().nullable(),
     name: z.string("Nama wajib teks biar Shirakami bisa panggil!").min(3, "Minimal 3 huruf dong, jangan bikin Kurokami kecewa!").trim()
 });
