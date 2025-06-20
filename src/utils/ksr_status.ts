@@ -38,6 +38,8 @@ export default {
 
     user_not_verified2: "Kurokami mengawasi... Identitasmu masih samar. Selesaikan proses verifikasi untuk membuka gerbang dunia gelap ini.",
     user_not_verified3: "Fubuki dan Kurokami tidak bisa membiarkan pengunjung tak dikenal lewat begitu saja! Lengkapi verifikasi terlebih dahulu agar portal terbuka untukmu.",
-    upload_file_not_found: "File-nya ke mana ya...? Mungkin disembunyiin sama Kurokami lagi... Fubuki nggak nemu nih... "
+    upload_file_not_found: "File-nya ke mana ya...? Mungkin disembunyiin sama Kurokami lagi... Fubuki nggak nemu nih... ",
+
+    success_delete_account: "Satu akun telah lenyap... seperti bayangan di malam hari. Sampai bertemu lagi... atau mungkin tidak."
 }
 

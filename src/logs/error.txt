@@ -3,3 +3,79 @@ Invalid `prisma.user.findMany()` invocation:
 
 
 Transaction API error: Transaction already closed: A query cannot be executed on an expired transaction. The timeout for this transaction was 5000 ms, however 5326 ms passed since the start of the transaction. Consider increasing the interactive transaction timeout or doing less work in the transaction.
+[2025-06-20T11:26:33.864Z] : Failed to parse body as FormData.
+[2025-06-20T11:48:27.886Z] : 
+Invalid `prisma.user.update()` invocation:
+
+
+Unique constraint failed on the fields: (`email`)
+[2025-06-20T11:52:00.719Z] : 
+Invalid `prisma.user.update()` invocation:
+
+
+Unique constraint failed on the fields: (`email`)
+[2025-06-20T11:52:02.590Z] : 
+Invalid `prisma.user.update()` invocation:
+
+
+Unique constraint failed on the fields: (`email`)
+[2025-06-20T11:52:25.016Z] : 
+Invalid `prisma.user.update()` invocation:
+
+
+Unique constraint failed on the fields: (`email`)
+[2025-06-20T11:53:52.603Z] : 
+Invalid `prisma.user.update()` invocation:
+
+
+Unique constraint failed on the fields: (`email`)
+[2025-06-20T11:53:59.533Z] : 
+Invalid `prisma.user.update()` invocation:
+
+
+Unique constraint failed on the fields: (`email`)
+[2025-06-20T11:54:11.195Z] : 
+Invalid `prisma.user.update()` invocation:
+
+
+Unique constraint failed on the fields: (`email`)
+[2025-06-20T11:54:38.703Z] : 
+Invalid `prisma.user.update()` invocation:
+
+
+Unique constraint failed on the fields: (`email`)
+[2025-06-20T11:57:28.226Z] : 
+Invalid `prisma.user.update()` invocation:
+
+
+Unique constraint failed on the fields: (`email`)
+[2025-06-20T12:07:37.586Z] : 
+Invalid `prisma.user.update()` invocation:
+
+
+Unique constraint failed on the fields: (`email`)
+[2025-06-20T12:10:25.298Z] : 
+Invalid `prisma.user.update()` invocation:
+
+
+Unique constraint failed on the fields: (`email`)
+[2025-06-20T12:10:26.353Z] : 
+Invalid `prisma.user.update()` invocation:
+
+
+Unique constraint failed on the fields: (`email`)
+[2025-06-20T12:11:00.239Z] : 
+Invalid `prisma.user.update()` invocation:
+
+
+Unique constraint failed on the fields: (`email`)
+[2025-06-20T12:15:14.986Z] : 
+Invalid `prisma.user.update()` invocation:
+
+
+Unique constraint failed on the fields: (`email`)
+[2025-06-20T12:15:43.271Z] : 
+Invalid `prisma.user.update()` invocation:
+
+
+Unique constraint failed on the fields: (`email`)

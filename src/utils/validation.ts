@@ -104,3 +104,16 @@ export const profilePost = z.object({
     email: z.email("Email harus valid, Fubuki nggak bisa kirim pesan ke dimensi lain!").trim().optional().nullable(),
     name: z.string("Nama wajib teks biar Shirakami bisa panggil!").min(3, "Minimal 3 huruf dong, jangan bikin Kurokami kecewa!").trim()
 });
+
+export const deleteAccount = LoginValidation.extend({
+    confirmText: z.string("Tulis 'Saya sangat yakin dengan penghapusan akun saya' dulu ya~ Biar Fubuki nggak salah hapus!~").trim()
+}).check((ctx) => {
+    if (ctx.value.confirmText.trim() !== "Saya sangat yakin dengan penghapusan akun saya") {
+        ctx.issues.push({
+            code: "custom",
+            path: ["action"],
+            message: "Hmph! Teks konfirmasi salah. Mau hapus akun nggak sih? Ketik yang bener: 'Saya sangat yakin dengan penghapusan akun saya'!",
+            input: ctx.value
+        });
+    }
+});;

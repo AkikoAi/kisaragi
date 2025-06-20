@@ -38,8 +38,42 @@ export default function Profile({ data }: { data: DataAccessLayer }) {
         setUploading(false);
     };
 
+    const handleChangePassword = async (e: React.FormEvent<HTMLFormElement>) => {
+        if (process) return alert("Harap tunggu, proses sebelumnya belum selesai");
+        if (uploading) return alert("Harap tunggu, sedang mengupload gambar");
+        const formData = new FormData(e.currentTarget);
+
+        setProcess(true);
+        const res = await fetch("/api/change-password", {
+            body: formData,
+            method: "POST"
+        });
+
+        const result = await res.json();
+        setProcess(false);
+        if (!result.status) return alert(result.msg[0].message || result.msg);
+        alert(result.data);
+    }
+
+    const handleDeleteAccount = async (e: React.FormEvent<HTMLFormElement>) => {
+        if (process) return alert("Harap tunggu, proses sebelumnya belum selesai");
+        if (uploading) return alert("Harap tunggu, sedang mengupload gambar");
+        const formData = new FormData(e.currentTarget);
+
+        setProcess(true);
+        const res = await fetch("/api/delete-account", {
+            body: formData,
+            method: "DELETE"
+        });
+
+        const result = await res.json();
+        setProcess(false);
+        if (!result.status) return alert(result.msg[0].message || result.msg);
+        alert(result.data);
+        router.push("/login");
+    }
+
     const handleUpdateProfile = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
         if (process) return alert("Harap tunggu, proses sebelumnya belum selesai");
         if (uploading) return alert("Harap tunggu, sedang mengupload gambar");
         const formData = new FormData(e.currentTarget);
@@ -118,8 +152,8 @@ export default function Profile({ data }: { data: DataAccessLayer }) {
                                             <Image
                                                 src={avatarUrl}
                                                 alt="Avatar"
-                                                width={160}
-                                                height={160}
+                                                width={500}
+                                                height={500}
                                                 className="rounded-full w-full h-full"
                                             />
                                         ) : (
@@ -155,7 +189,7 @@ export default function Profile({ data }: { data: DataAccessLayer }) {
                                 </div>
 
                                 {/* Form Data */}
-                                <form className="space-y-4 w-full" onSubmit={handleUpdateProfile}>
+                                <form className="space-y-4 w-full" onSubmit={(e) => { e.preventDefault(); handleUpdateProfile(e) }}>
                                     <div>
                                         <label htmlFor="email" className="block text-sm font-medium mb-1">Email</label>
                                         <input
@@ -220,7 +254,7 @@ export default function Profile({ data }: { data: DataAccessLayer }) {
                         {tabSelected === "passwordChange" && (
                             <>
                                 <h2 className="text-xl font-semibold mb-4">Ganti Password</h2>
-                                <form className="space-y-4 w-full max-w-md">
+                                <form className="space-y-4 w-full max-w-md" onSubmit={(e) => { e.preventDefault(); handleChangePassword(e) }}>
                                     <div>
                                         <label htmlFor="oldPassword" className="block text-sm font-medium mb-1">Password Lama</label>
                                         <input
@@ -239,6 +273,15 @@ export default function Profile({ data }: { data: DataAccessLayer }) {
                                             className="w-full border border-gray-300 rounded px-3 py-2 dark:bg-gray-800 dark:border-gray-600 dark:text-white"
                                         />
                                     </div>
+                                    <div>
+                                        <label htmlFor="confirmNewPassword" className="block text-sm font-medium mb-1">Konfirmasi Password Baru</label>
+                                        <input
+                                            type="password"
+                                            id="confirmNewPassword"
+                                            name="confirmNewPassword"
+                                            className="w-full border border-gray-300 rounded px-3 py-2 dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+                                        />
+                                    </div>
                                     <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
                                         Ubah Password
                                     </button>
@@ -247,7 +290,7 @@ export default function Profile({ data }: { data: DataAccessLayer }) {
                         )}
                         {tabSelected === "deleteAccount" && (<>
                             <h2 className="text-xl font-semibold mb-4">Hapus Akun</h2>
-                            <form className="space-y-4 w-full max-w-md">
+                            <form className="space-y-4 w-full max-w-md" onSubmit={(e) => { e.preventDefault(); handleDeleteAccount(e) }}>
                                 <div>
                                     <label htmlFor="username" className="block text-sm font-medium mb-1">Username</label>
                                     <input
