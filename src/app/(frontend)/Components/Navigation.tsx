@@ -99,7 +99,7 @@ export default function Navigation({ data, menu }: { menu: menuType[], data: Dat
             </div>
             <div>
                 <input type="checkbox" id="menuViewModals" className="hidden peer" />
-                <div className="hidden peer-checked:block fixed inset-0 bg-black/90">
+                <div className="hidden peer-checked:block fixed inset-0 bg-black/90 z-[52]">
                     <div className="flex flex-col p-4">
                         <label htmlFor="menuViewModals"
                             className="cursor-pointer text-3xl">
@@ -152,7 +152,7 @@ export default function Navigation({ data, menu }: { menu: menuType[], data: Dat
 
             <div>
                 <input type="checkbox" id="profileDropdown" className="hidden peer" />
-                <div className="hidden peer-checked:block absolute right-0 mt-2 w-40 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md shadow-lg z-40 dark:text-gray-200">
+                <div className="hidden peer-checked:block absolute right-0 mt-2 w-40 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md shadow-lg dark:text-gray-200 z-[51]">
                     <ul className="p-2">
                         <Link href="/profile">
                             <li className="flex items-center gap-2 py-1 px-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer">
