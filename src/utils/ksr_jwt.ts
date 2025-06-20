@@ -51,7 +51,7 @@ export function verifyTokenJWT(token: string) {
 
 export function signTokenJWT(data: any, exp?: number) {
     try {
-        const encoded = jwt.sign(data, secret, { expiresIn: exp || "15m" });
+        const encoded = jwt.sign(data, secret, { expiresIn: exp || "2h" });
         return encoded;
     } catch (e) {
         throw ksr_status[500]
