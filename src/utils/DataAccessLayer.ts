@@ -12,10 +12,15 @@ export default async function DataAccessLayer() {
         const data = verifyTokenJWT(auth);
         // melakukan pemeriksaan data
         const User = await prisma.user.findUnique({
-            where: { id: data.id, isDeleted: false, isVerified: true }
+            where: {
+                id: data.id,
+                isDeleted: false,
+                isVerified: true
+            }
         });
         //const precission = User.updatedAt.getTime() == new Date(data.updatedAt).getTime();
         if (User) {
+            if (User.loginVersion !== data.loginVersion) throw new Error("username atau password berubah, silahkan login kembali");
             return User;
         }
         throw new Error("User tidak ditemukan atau authentikasi sudah tidak valid");

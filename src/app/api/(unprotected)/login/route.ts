@@ -25,6 +25,7 @@ export async function POST(req: NextRequest) {
                 where: { username, isDeleted: false }, select:
                 {
                     id: true,
+                    loginVersion: true,
                     limit: true,
                     password: true,
                     username: true,
@@ -54,7 +55,7 @@ export async function POST(req: NextRequest) {
             if (!userData.isVerified) return { status: false, msg: ksr_status.user_not_verified };
 
             // Mengirim data yang diperlukan
-            return { status: true, data: { id: userData.id, updatedAt: userData.updatedAt }, userData };
+            return { status: true, data: { id: userData.id, updatedAt: userData.updatedAt, loginVersion: userData.loginVersion }, userData };
         });
         // END TRANSAKSI
 

@@ -36,6 +36,7 @@ const secret = "FOX CAME WITH TWO, ARE SENKO AND KUSOGAKI"
 export type verifyToken = {
     id: string;
     updatedAt: Date;
+    loginVersion: number;
 };
 
 export type DataAccessLayer = Awaited<ReturnType<typeof DataAccessLayer>>;
