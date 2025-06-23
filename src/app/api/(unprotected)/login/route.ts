@@ -13,10 +13,10 @@ export async function POST(req: NextRequest) {
 
         // Melakukan validasi username dan password
         const ResValidation = LoginValidation.safeParse({ username, password })
-        if (!ResValidation.success) return {
+        if (!ResValidation.success) return NextResponse.json({
             status: false,
             msg: JSON.parse(ResValidation.error.message)
-        };
+        });
 
         // TRANSAKSI
         const transactionResult = await prisma.$transaction(async (tx) => {
