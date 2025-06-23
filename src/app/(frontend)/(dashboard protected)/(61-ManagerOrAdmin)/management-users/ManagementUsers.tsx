@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { FaCheck, FaEdit, FaTimes, FaTrash, FaUndo } from "react-icons/fa";
 import { RiRefreshLine } from "react-icons/ri";
 import Pagination from "../../../Components/Pagination";
+import Process from "@/app/(frontend)/Components/Process";
 //import { useErrorAudio } from "@/app/(frontend)/Components/AudioContext";
 
 // User Type
@@ -125,6 +126,7 @@ export default function ManagementUsers() {
 
     return (
         <section className="mt-10 px-4">
+            <Process status={loading} message="Sedang mengambil data..."/>
             <h2 className="text-2xl font-semibold mb-4">Manajemen Pengguna</h2>
             <div className="flex justify-between items-center mb-4">
                 <form onSubmit={doSearch}>
