@@ -107,7 +107,7 @@ export default function Profile({ data }: { data: DataAccessLayer }) {
         <>
             <Modals status={modals} loading={uploading || process} loadingMessage={!uploading ? "Memproses..." : "Sedang mengupload gambar..."} />
 
-            <section className="mt-10 px-4">
+            <section>
                 <h1 className="text-2xl font-bold text-center md:text-left w-full">Profile</h1>
 
                 <div className="mt-2 flex flex-col md:flex-row gap-6 items-start">

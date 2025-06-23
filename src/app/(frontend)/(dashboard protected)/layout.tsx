@@ -61,7 +61,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
             <Navigation data={data} menu={menu} />
 
             {/* Content */}
-            <main className="flex-1 relative container mx-auto px-4 py-6 mt-16">
+            <main className="flex-1 relative container mx-auto px-8 py-10 mt-16">
                 {children}
             </main>
         </div>

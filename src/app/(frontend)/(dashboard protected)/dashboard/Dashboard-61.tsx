@@ -30,7 +30,7 @@ export default function AdminPage() {
 
     return (
         <>
-            <section className="mt-10">
+            <section>
 
                 {/* Menu */}
                 <div className="flex justify-center space-x-4 mb-6">

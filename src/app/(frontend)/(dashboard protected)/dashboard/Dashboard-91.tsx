@@ -43,7 +43,7 @@ export default function PostgresInfoDashboard() {
 
     async function getDatabaseInformation() {
         try {
-            if(loading.includes("database")) return;
+            if (loading.includes("database")) return;
             Loading("database", "ADD")
             const res = await fetch("/api/database-information");
             const json = await res.json();
@@ -58,7 +58,7 @@ export default function PostgresInfoDashboard() {
 
     async function getServerInformation() {
         try {
-            if(loading.includes("server")) return
+            if (loading.includes("server")) return
             Loading("server", "ADD")
             const res = await fetch("/api/server-information");
             const json = await res.json();
@@ -79,7 +79,7 @@ export default function PostgresInfoDashboard() {
 
     return (
         <>
-            <section className="mt-10">
+            <section>
                 <div className="flex justify-between">
                     <h2 className="text-xl font-semibold">Postgres Server Info</h2>
                     <button

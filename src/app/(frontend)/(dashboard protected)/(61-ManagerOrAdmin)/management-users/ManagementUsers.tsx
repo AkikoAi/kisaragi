@@ -127,7 +127,7 @@ export default function ManagementUsers() {
     );
 
     return (
-        <section className="mt-10 px-4">
+        <section >
             <Modals status={modals} loading={loading} />
 
             <h2 className="text-2xl font-semibold mb-4">Manajemen Pengguna</h2>
