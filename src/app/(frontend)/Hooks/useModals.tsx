@@ -26,7 +26,7 @@ export function useModals() {
     modalsError: (msg?: string, duration?: number) => showModal('error', msg, duration),
     modalsWarning: (msg?: string, duration?: number) => showModal('warning', msg, duration),
     modalsDebug: (msg?: string, duration?: number) => showModal('debug', msg, duration),
-    modalsProcess: (msg?: string) => showModal('process', msg, 0), // manual dismiss
+    modalsProcess: (msg?: string, duration?: number) => showModal('process', msg, duration || 0), // manual dismiss
     closeModal: () => setModals(prev => ({ ...prev, show: false })),
   };
 }
