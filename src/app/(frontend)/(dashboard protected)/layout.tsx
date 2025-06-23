@@ -56,12 +56,15 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         .map(({ minPrifilege, ...filteredMenu }) => filteredMenu);
 
     return (<>
-        <div className="min-h-screen bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100 flex flex-col break-words w-full ">
+        <div className="min-h-screen w-full flex flex-col bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100 break-words">
+            {/* Navigation */}
             <Navigation data={data} menu={menu} />
-            <main className="flex-1 container mx-auto px-4 py-6 mt-16">
+
+            {/* Content */}
+            <main className="flex-1 relative container mx-auto px-4 py-6 mt-16">
                 {children}
             </main>
         </div>
-        {/*<audio src={zillaGao} id="ZillaGao"></audio> */}
+
     </>);
 }
