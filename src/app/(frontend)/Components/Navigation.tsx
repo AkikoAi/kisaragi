@@ -10,7 +10,7 @@ import { FaBars, FaCog, FaCrown, FaIdBadge, FaLock, FaStar, FaUserTie } from "re
 import { FiSearch } from "react-icons/fi";
 
 import { GiFox, GiFoxTail } from "react-icons/gi";
-import { MdWarning } from "react-icons/md";
+import { MdClose, MdWarning } from "react-icons/md";
 
 type menuType = {
     name: string;
@@ -81,7 +81,8 @@ export default function Navigation({ data, menu }: { menu: menuType[], data: Dat
                 <div>
                     <label
                         htmlFor="menuViewModals"
-                        className="cursor-pointer">
+                        tabIndex={0}
+                        className="cursor-pointer transition-colors dark:text-gray-300 hover:text-gray-800 dark:hover:text-white">
                         <FaBars />
                     </label>
                 </div>
@@ -90,8 +91,8 @@ export default function Navigation({ data, menu }: { menu: menuType[], data: Dat
                         htmlFor="profileDropdown"
                         className="cursor-pointer flex gap-3">
                         <ProfilePicture data={data} />
-                        <div className="text-sm text-gray-700 dark:text-gray-200">
-                            <p>{data.name}</p>
+                        <div className="text-sm text-gray-700 dark:text-gray-200 w-24">
+                            <p className="truncate max-w-24">{data.name}</p>
                             <p className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">{data.role} {data.privilege >= 91 ? <FaCrown /> : data.privilege >= 61 ? <FaStar /> : data.privilege >= 31 ? <FaIdBadge /> : <FaLock />}</p>
                         </div>
                     </label>
@@ -102,8 +103,9 @@ export default function Navigation({ data, menu }: { menu: menuType[], data: Dat
                 <div className="hidden peer-checked:block fixed inset-0 bg-black/90 z-[52]">
                     <div className="flex flex-col p-4">
                         <label htmlFor="menuViewModals"
-                            className="cursor-pointer text-3xl">
-                            <BiX />
+                            tabIndex={0}
+                            className="cursor-pointer text-3xl inline-flex items-center justify-center self-start w-fit focus:outline-none focus:ring-2 focus:ring-purple-500 rounded-full p-1 transition-colors dark:text-gray-300 hover:text-gray-800 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-700">
+                            <MdClose />
                         </label>
                         <div className="mx-auto mt-4 not-md:max-w-[99%] w-[37rem] flex items-center justify-center bg-white dark:bg-gray-800 rounded-xl">
                             <div className="w-full max-w-[37rem] bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md space-y-4">
@@ -121,13 +123,13 @@ export default function Navigation({ data, menu }: { menu: menuType[], data: Dat
                                             filteredMenu.length > 0 ? filteredMenu.map(({ name, path, prefetch }, index, arr) =>
                                                 <Fragment key={index}>
                                                     {prefetch ? <Link href={path || "#"} >
-                                                        <li className="flex items-center gap-2 my-2 py-3 px-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer">
+                                                        <li className="flex items-center gap-2 my-2 py-3 px-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer hover:ring-2 ring-blue-500 transition rounded-md">
                                                             <GiFoxTail />
                                                             {name}
                                                         </li>
                                                     </Link>
                                                         : <a href={path || "#"}>
-                                                            <li className="flex items-center gap-2 my-2 py-3 px-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer">
+                                                            <li className="flex items-center gap-2 my-2 py-3 px-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer hover:ring-2 ring-blue-500 transition rounded-md">
                                                                 <GiFoxTail />
                                                                 {name}
                                                             </li>
