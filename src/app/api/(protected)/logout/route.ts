@@ -9,7 +9,7 @@ export async function GET() {
         const token = cookie.get("Auth")?.value as string;
         const data = verifyTokenJWT(token);
 
-        addLogsUser(`${data.username} Logout`);
+        addLogsUser(`${data.id} Logout`);
         cookie.delete("Auth");
 
         return redirect("/login");
