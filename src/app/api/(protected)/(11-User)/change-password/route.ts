@@ -28,7 +28,8 @@ export async function POST(req: NextRequest) {
                 id: data.id
             },
             data: {
-                password: newHashPassword
+                password: newHashPassword,
+                loginVersion: { increment: 1 }
             }
         });
 

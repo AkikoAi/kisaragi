@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
                 name: validationResult.data.name,
                 email: validationResult.data.email,
                 avatarUrl: validationResult.data.avatarUrl,
-                ...(validationResult.data.newUsername ? { username: validationResult.data.newUsername } : {})
+                ...(validationResult.data.newUsername ? { username: validationResult.data.newUsername, loginVersion: { increment: 1 } } : {})
             }
         });
 
