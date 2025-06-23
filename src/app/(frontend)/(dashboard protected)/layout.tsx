@@ -46,6 +46,12 @@ const MenuOrigin = [
         path: "/api/logout",
         prefetch: false,
         minPrifilege: 1
+    },
+    {
+        name: "Database Studio",
+        path: "/database-studio",
+        prefetch: true,
+        minPrifilege: 91
     }
 ]
 
