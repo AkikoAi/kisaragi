@@ -89,7 +89,7 @@ export const deleteUser = z.object({
 
 export const updateUser = z.object({
     email: z.email("Fubuki: Email harus valid yaa, jangan email di alam mimpi!").trim().optional().nullable(),
-    avatarUrl: z.url("URL avatar harus valid dong, jangan URL Fubuki palsu!").trim().optional().nullable(),
+    avatarUrl: z.string("URL avatar harus valid dong, jangan URL Fubuki palsu!").trim().optional().nullable(),
     name: z.string("Nama harus teks, Fubuki mau tahu juga~").min(3, "Nama minimal 3 huruf yaa, Shirakami udah nunggu!").trim(),
     username: z.string("Username harus teks!").min(3, "Minimal 3 huruf, jangan 'x' doang ya!").trim(),
     newUsername: z.string("New username juga string dong!").min(3, "Minimal 3 huruf biar Kurokami suka!").trim().optional(),
