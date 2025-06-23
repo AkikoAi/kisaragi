@@ -36,7 +36,7 @@ export async function GET(req: NextRequest) {
     }
 }
 
-export async function PUT(req: NextResponse) {
+export async function PUT(req: NextRequest) {
     try {
 
         const cookie = await cookies();
@@ -73,7 +73,7 @@ export async function PUT(req: NextResponse) {
     }
 }
 
-export async function POST(req: NextResponse) {
+export async function POST(req: NextRequest) {
     try {
 
         const cookie = await cookies();
@@ -112,7 +112,7 @@ export async function POST(req: NextResponse) {
     }
 }
 
-export async function DELETE(req: NextResponse) {
+export async function DELETE(req: NextRequest) {
     try {
 
         const cookie = await cookies();
