@@ -1,0 +1,28 @@
+import { Prisma } from "@/generated/prisma";
+import DataAccessLayer from "@/utils/DataAccessLayer";
+import prisma from "@/utils/db";
+import { safeJson } from "@/utils/helper";
+import ksr_status from "@/utils/ksr_status";
+import { NextRequest, NextResponse } from "next/server";
+
+export async function GET(req: NextRequest) {
+    const data = await DataAccessLayer();
+    if (data.privilege < 91) return NextResponse.json({ status: false, msg: ksr_status.unauthorized })
+
+    console.log(Prisma.dmmf.datamodel)
+    /*models: [
+   {
+     name: 'User',
+     dbName: null,
+     schema: null,
+     fields: [Array],
+     primaryKey: null,
+     uniqueFields: [],
+     uniqueIndexes: [],
+     isGenerated: false,
+     documentation: 'Tabel utama User'
+   }*/
+    const result = Prisma.dmmf.datamodel.models.map(({ name, documentation, fields }) => ({ name, documentation, fields: fields.map(({ name, type }) => ({ name, type })) }))
+
+    return NextResponse.json({ status: true, data: result });
+}
