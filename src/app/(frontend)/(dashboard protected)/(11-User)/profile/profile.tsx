@@ -1,11 +1,14 @@
 "use client";
 
-import Process from "@/app/(frontend)/Components/Process";
 import type { DataAccessLayer } from "@/utils/ksr_jwt";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FormEvent, FormEventHandler, useState } from "react";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
+
+
+import Modals from "@/app/(frontend)/Components/Modals";
+import { useModals } from "@/app/(frontend)/Hooks/useModals";
 
 export default function Profile({ data }: { data: DataAccessLayer }) {
     const router = useRouter();
@@ -13,35 +16,33 @@ export default function Profile({ data }: { data: DataAccessLayer }) {
     const [avatarUrl, setAvatarUrl] = useState<string | null>(data.avatarUrl);
     const [uploading, setUploading] = useState<boolean>(false);
     const [process, setProcess] = useState<boolean>(false);
+    const { modals, modalsError, modalsSuccess, modalsWarning, modalsInfo } = useModals();
 
     const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (uploading) return alert("Harap tunggu, sedang mengupload gambar sebelumnya");
-        setUploading(true);
+        if (uploading) return modalsInfo("Harap tunggu, sedang mengupload gambar sebelumnya");
         const file = e.target.files?.[0];
-        if (!file) {
-            alert("Tidak ada file yang diupload !");
-            return setUploading(false)
-        };
+        if (!file) return modalsWarning("Tidak ada file yang diupload !");
 
         const formData = new FormData();
         formData.append('file', file);
 
+        setUploading(true);
         const res = await fetch('/api/upload-avatar', {
             method: 'POST',
             body: formData,
         });
-
         const data = await res.json();
+        setUploading(false);
+
         if (!data.status) {
-            alert(data.msg[0]?.message || data.msg);
+            modalsError(data.msg[0]?.message || data.msg);
         } else {
             setAvatarUrl(data.data);
         }
-        setUploading(false);
     };
 
     const handleChangePassword = async (e: React.FormEvent<HTMLFormElement>) => {
-        if (process) return alert("Harap tunggu, proses sebelumnya belum selesai");
+        if (process) return modalsInfo("Harap tunggu, proses sebelumnya belum selesai");
         const formData = new FormData(e.currentTarget);
 
         setProcess(true);
@@ -49,15 +50,15 @@ export default function Profile({ data }: { data: DataAccessLayer }) {
             body: formData,
             method: "POST"
         });
-
         const result = await res.json();
         setProcess(false);
-        if (!result.status) return alert(result.msg[0].message || result.msg);
-        alert(result.data);
+
+        if (!result.status) return modalsWarning(result.msg[0].message || result.msg);
+        modalsSuccess(result.data);
     }
 
     const handleDeleteAccount = async (e: React.FormEvent<HTMLFormElement>) => {
-        if (process) return alert("Harap tunggu, proses sebelumnya belum selesai");
+        if (process) return modalsInfo("Harap tunggu, proses sebelumnya belum selesai");
         const formData = new FormData(e.currentTarget);
 
         setProcess(true);
@@ -65,19 +66,22 @@ export default function Profile({ data }: { data: DataAccessLayer }) {
             body: formData,
             method: "DELETE"
         });
-
         const result = await res.json();
         setProcess(false);
-        if (!result.status) return alert(result.msg[0].message || result.msg);
-        alert(result.data);
+
+        if (!result.status) return modalsWarning(result.msg[0].message || result.msg);
+        modalsSuccess(result.data);
         router.push("/login");
     }
 
     const handleUpdateProfile = async (e: React.FormEvent<HTMLFormElement>) => {
-        if (process) return alert("Harap tunggu, proses sebelumnya belum selesai");
-        if (uploading) return alert("Harap tunggu, sedang mengupload gambar");
+        if (process) return modalsInfo("Harap tunggu, proses sebelumnya belum selesai");
+        if (uploading) return modalsInfo("Harap tunggu, sedang mengupload gambar");
         const formData = new FormData(e.currentTarget);
-        if (data.avatarUrl == avatarUrl && data.name == formData.get("name") && data.email == formData.get("email")) return alert("Tidak ada data yang berubah");
+        const nameChange = formData.get("name") == data.name;
+        const emailChange = formData.get("email") == data.email;
+        const avatarChange = data.avatarUrl == avatarUrl;
+        if (avatarChange && nameChange && emailChange) return modalsWarning("Tidak ada data yang berubah");
         setProcess(true);
 
 
@@ -93,16 +97,15 @@ export default function Profile({ data }: { data: DataAccessLayer }) {
         const result = await res.json();
         setProcess(false);
         if (result.status) {
-            router.refresh();
-            alert(result.data)
+            if (avatarChange || nameChange || emailChange) router.refresh();
+            modalsSuccess(result.data)
         }
-        else alert(result.msg[0]?.message || result.msg);
+        else modalsError(result.msg[0]?.message || result.msg);
     };
-
 
     return (
         <>
-            <Process status={process} />
+            <Modals status={modals} loading={uploading || process} loadingMessage={!uploading ? "Memproses..." : "Sedang mengupload gambar..."} />
 
             <section className="mt-10 px-4">
                 <h1 className="text-2xl font-bold text-center md:text-left w-full">Profile</h1>

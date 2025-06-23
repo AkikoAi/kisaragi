@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import { FaCheck, FaEdit, FaTimes, FaTrash, FaUndo } from "react-icons/fa";
 import { RiRefreshLine } from "react-icons/ri";
 import Pagination from "../../../Components/Pagination";
-import Process from "@/app/(frontend)/Components/Process";
-//import { useErrorAudio } from "@/app/(frontend)/Components/AudioContext";
+
+import { useModals } from "@/app/(frontend)/Hooks/useModals";
+import Modals from "@/app/(frontend)/Components/Modals";
 
 // User Type
 type User = {
@@ -37,12 +38,13 @@ export default function ManagementUsers() {
     const [onAction, setOnAction] = useState(false);
     const [page, setPage] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(1);
-    //    const { playErrorSound } = useErrorAudio();
+
+    const { modals, modalsWarning, modalsError, modalsSuccess } = useModals();
+
 
     const fetchUsers = async (username?: string) => {
         try {
             //playErrorSound();
-            setLoading(true);
             setError(null);
             const requestPath = new URL("/api/management-users", window.location.origin);
             requestPath.searchParams.set("page", page.toString());
@@ -50,18 +52,20 @@ export default function ManagementUsers() {
             const query = username ?? searchTerm;
             if (query.length >= 3) requestPath.searchParams.set("username", query);
 
+            setLoading(true);
             const res = await fetch(requestPath.toString());
             const data = await res.json();
+            setLoading(false);
+
             if (data.status) {
                 setUsers(data.data.users);
                 setTotalPages(Math.ceil(data.data.count / 100))
             }
-            else alert(data.msg);
+            else modalsWarning(data.msg);
         } catch {
             setError("Gagal memuat data pengguna.");
-        } finally {
-            setLoading(false);
         }
+
     };
 
     const doSearch = (e: React.FormEvent) => {
@@ -70,7 +74,6 @@ export default function ManagementUsers() {
     };
 
     useEffect(() => { fetchUsers(); }, [page]);
-    //useEffect(() => { fetchUsers(); }, []);
 
     const handleAction = (user: User, action: Action) => {
         setSelectedUser(user);
@@ -79,10 +82,9 @@ export default function ManagementUsers() {
     };
 
     const confirmAction = async (manualUser?: User) => {
-        if (onAction) return alert("Harap tunggu aksi sebelumnya selesai!");
-        if (!selectedUser || !selectedUser && !manualUser) return alert("User not selected!");
+        if (onAction) return modalsWarning("Harap tunggu aksi sebelumnya selesai!");
+        if (!selectedUser || !selectedUser && !manualUser) return modalsWarning("User not selected!");
 
-        setOnAction(true);
         try {
             let method = "POST";
             let body: any = { ...(manualUser || selectedUser), username: selectedUser.username };
@@ -98,24 +100,24 @@ export default function ManagementUsers() {
                     return;
                 }
             } else {
-                throw new Error("Aksi tidak dikenali");
+                return modalsError("Aksi Tidak dikenali");
             }
 
+            setOnAction(true);
             const res = await fetch("/api/management-users", {
                 method,
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body)
             });
-
             const result = await res.json();
-            if (!result.status) return alert(result.msg[0].message || result.msg);
-            alert("Aksi berhasil");
+            setOnAction(false);
+            setIsModalOpen(false);
+
+            if (!result.status) return modalsWarning(result.msg[0].message || result.msg);
+            modalsSuccess("Aksi berhasil");
             fetchUsers(body?.newUsername || selectedUser.username);
         } catch {
-            alert("Gagal mengirim perintah aksi ke server");
-        } finally {
-            setIsModalOpen(false);
-            setOnAction(false);
+            modalsError("Gagal mengirim perintah aksi ke server");
         }
     };
 
@@ -126,7 +128,8 @@ export default function ManagementUsers() {
 
     return (
         <section className="mt-10 px-4">
-            <Process status={loading} message="Sedang mengambil data..."/>
+            <Modals status={modals} loading={loading} />
+
             <h2 className="text-2xl font-semibold mb-4">Manajemen Pengguna</h2>
             <div className="flex justify-between items-center mb-4">
                 <form onSubmit={doSearch}>
