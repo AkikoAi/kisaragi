@@ -139,3 +139,17 @@ model WarehouseItem {
   updatedAt    DateTime           @updatedAt
   WarehouseLog WarehouseLog[]
 }
+
+/// Tabel yang menyimpan log aktivitas
+enum LogType {
+  ERROR
+  LOG
+  USER
+}
+
+model Logs {
+  id        String   @id @default(uuid())
+  message   String // Pesan log
+  type      LogType // Jenis log (ERROR, LOG, USER)
+  timestamp DateTime @default(now()) // Waktu aksi dilakukan
+}
