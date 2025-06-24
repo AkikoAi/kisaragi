@@ -1,5 +1,5 @@
 "use client";
-import  { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { RiRefreshLine } from "react-icons/ri";
 
 export default function PostgresInfoDashboard() {
@@ -32,15 +32,15 @@ export default function PostgresInfoDashboard() {
     const [error, setError] = useState<null | string>(null);
     const [errorServer, setErrorServer] = useState<null | string>(null);
 
-    const Loading = useCallback((id: "database" | "server", act: "DEL" | "ADD") => {
+    const Loading = (id: "database" | "server", act: "DEL" | "ADD") => {
         if (act === "ADD" && !loading.includes(id)) {
             setLoading((prev) => [...prev, id]);
         } else if (act === "DEL") {
             setLoading((prev) => prev.filter(item => item !== id));
         }
-    }, [loading]);
+    }
 
-    const getDatabaseInformation = useCallback(async () => {
+    const getDatabaseInformation = async () => {
         try {
             if (loading.includes("database")) return;
             Loading("database", "ADD");
@@ -53,9 +53,9 @@ export default function PostgresInfoDashboard() {
         } finally {
             Loading("database", "DEL");
         }
-    }, [Loading, loading]);
+    }
 
-    const getServerInformation = useCallback(async () => {
+    const getServerInformation = async () => {
         try {
             if (loading.includes("server")) return;
             Loading("server", "ADD");
@@ -68,12 +68,10 @@ export default function PostgresInfoDashboard() {
         } finally {
             Loading("server", "DEL");
         }
-    }, [Loading, loading]);
+    }
 
-    useEffect(() => {
-        getServerInformation();
-        getDatabaseInformation();
-    }, [getServerInformation, getDatabaseInformation]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => { getServerInformation(); getDatabaseInformation(); }, []);
 
 
     return (

@@ -1,6 +1,6 @@
 "use client";
 
-import  { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { RiRefreshLine } from "react-icons/ri";
 
 export default function AdminPage() {
@@ -8,7 +8,7 @@ export default function AdminPage() {
     const [loadingUserLogs, setLoadingUserLogs] = useState<boolean>(false);
     const [userLogs, setUserLogs] = useState<string[]>([]);
 
-    const getUserLogs = useCallback(() => {
+    const getUserLogs = () => {
         if (loadingUserLogs) return;
         setLoadingUserLogs(true);
         fetch("/api/user-logs").then(r => r.json()).then(r => {
@@ -22,11 +22,9 @@ export default function AdminPage() {
         }).finally(() => {
             setLoadingUserLogs(false);
         });
-    }, [loadingUserLogs])
-
-    useEffect(() => {
-        getUserLogs();
-    }, [getUserLogs])
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => { getUserLogs(); }, [])
 
     return (
         <>

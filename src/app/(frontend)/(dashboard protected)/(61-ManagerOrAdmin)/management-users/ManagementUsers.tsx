@@ -1,6 +1,6 @@
 "use client";
 
-import  { useEffect, useState, FormEvent, useCallback } from "react";
+import { useEffect, useState, FormEvent } from "react";
 import { FaCheck, FaEdit, FaTimes, FaTrash, FaUndo } from "react-icons/fa";
 import { RiRefreshLine } from "react-icons/ri";
 import Pagination from "../../../Components/Pagination";
@@ -52,7 +52,7 @@ export default function ManagementUsers() {
 
     const { modals, modalsWarning, modalsError, modalsSuccess } = useModals();
 
-    const fetchUsers = useCallback(async (username?: string): Promise<void> => {
+    const fetchUsers = async (username?: string): Promise<void> => {
         try {
             setError(null);
             const requestPath = new URL("/api/management-users", window.location.origin);
@@ -75,14 +75,15 @@ export default function ManagementUsers() {
         } catch {
             setError("Gagal memuat data pengguna.");
         }
-    }, [page, searchTerm, modalsWarning]);
+    }
 
     const doSearch = (e: FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
         fetchUsers();
     };
 
-    useEffect(() => { fetchUsers(); }, [fetchUsers]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => { fetchUsers(); }, []);
 
     const handleAction = (user: User, action: Action): void => {
         setSelectedUser(user);

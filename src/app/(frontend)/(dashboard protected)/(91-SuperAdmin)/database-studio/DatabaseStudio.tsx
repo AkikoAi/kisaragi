@@ -1,5 +1,4 @@
 "use client";
-import  { useCallback } from "react";
 import Modals from "@/app/(frontend)/Components/Modals";
 import { useModals } from "@/app/(frontend)/Hooks/useModals";
 import Link from "next/link";
@@ -24,7 +23,7 @@ export default function DatabaseStudio() {
 
     const { modals, modalsError, modalsInfo } = useModals();
 
-    const refreshModels = useCallback(async () => {
+    const refreshModels = async () => {
         setLoadingModels(true);
         const res = await fetch("/api/database-studio");
         const data = await res.json();
@@ -33,11 +32,10 @@ export default function DatabaseStudio() {
         if (!data.status) return modalsError(data.msg);
         setModels(data.data);
         modalsInfo("Berhasil mendapatkan data");
-    }, [modalsError, modalsInfo]); // dependensi yang dipakai di dalam function
+    }
 
-    useEffect(() => {
-        refreshModels();
-    }, [refreshModels]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => { refreshModels(); }, []);
 
 
     return (
