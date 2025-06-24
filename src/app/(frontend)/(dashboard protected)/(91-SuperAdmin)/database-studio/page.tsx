@@ -1,4 +1,4 @@
-import React from "react";
+
 import DataAccessLayer from "@/utils/DataAccessLayer";
 import DatabaseStudio from "./DatabaseStudio";
 import Unauthorized from "@/app/(frontend)/(unprotected)/(error)/unauthorized/Unauthorized";

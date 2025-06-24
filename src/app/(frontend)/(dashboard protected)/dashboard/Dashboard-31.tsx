@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import  { useState } from "react";
 
 export default function ModeratorPage() {
     const [selectedMenu, setSelectedMenu] = useState<"review" | "reports">("review");

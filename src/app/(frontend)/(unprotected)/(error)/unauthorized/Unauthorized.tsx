@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { GiFox } from "react-icons/gi";
 import { IoMdWarning } from "react-icons/io";
-import React from "react";
+
 
 export default function Unauthorized() {
     const router = useRouter();

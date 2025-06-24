@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactNode } from "react";
+import  { ReactNode } from "react";
 import { MdInfo, MdCheckCircle, MdError, MdWarning, MdBugReport } from "react-icons/md";
 import { ModalType } from "../Hooks/useModals";
 

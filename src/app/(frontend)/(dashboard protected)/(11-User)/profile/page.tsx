@@ -1,4 +1,4 @@
-import React from "react";
+
 import DataAccessLayer from "@/utils/DataAccessLayer";
 import Profile from "./profile";
 import { Metadata } from "next";

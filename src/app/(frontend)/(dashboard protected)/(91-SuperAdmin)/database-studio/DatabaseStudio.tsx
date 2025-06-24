@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback } from "react";
+import  { useCallback } from "react";
 import Modals from "@/app/(frontend)/Components/Modals";
 import { useModals } from "@/app/(frontend)/Hooks/useModals";
 import Link from "next/link";

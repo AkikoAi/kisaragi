@@ -3,7 +3,7 @@
 import { DataAccessLayer } from "@/utils/ksr_jwt";
 import Image from "next/image";
 import Link from "next/link";
-import React, { Fragment, useEffect, useState } from "react";
+import  { Fragment, useEffect, useState } from "react";
 import { BiLogOut } from "react-icons/bi";
 import { FaBars, FaCog, FaCrown, FaIdBadge, FaLock, FaStar, FaUserTie } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";

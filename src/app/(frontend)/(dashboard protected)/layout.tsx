@@ -3,7 +3,6 @@
 import DataAccessLayer from "@/utils/DataAccessLayer";
 import Navigation from "../Components/Navigation";
 //import zillaGao from "../Components/zillaGao";
-import React from "react";
 
 const MenuOrigin = [
     {

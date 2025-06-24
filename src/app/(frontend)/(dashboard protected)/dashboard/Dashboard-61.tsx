@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
+import  { useCallback, useEffect, useState } from "react";
 import { RiRefreshLine } from "react-icons/ri";
 
 export default function AdminPage() {

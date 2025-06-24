@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
+import  { useState, useEffect, useCallback } from "react";
 import { RiRefreshLine } from "react-icons/ri";
 
 export default function PostgresInfoDashboard() {
