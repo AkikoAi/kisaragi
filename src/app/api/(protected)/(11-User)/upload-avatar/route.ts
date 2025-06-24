@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { writeFile, access } from 'fs/promises';
-import path from 'path';
 import { createHash } from 'crypto';
 import ksr_status from '@/utils/ksr_status';
 import { addLogsFE } from '@/utils/ksr_logs';
+import minio from '@/utils/minio';
+import path from 'path';
 
 export async function POST(req: NextRequest) {
     try {
@@ -11,33 +11,38 @@ export async function POST(req: NextRequest) {
         const file: File | null = formData.get('file') as File;
 
         if (!file) {
-            return NextResponse.json({ status: false, msg: ksr_status.upload_file_not_found })
+            return NextResponse.json({ status: false, msg: ksr_status.upload_file_not_found });
         }
 
         const bytes = await file.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
-        // Buat hash SHA256 dari isi file
+        // Hash SHA256 dari isi file
         const hash = createHash('sha256').update(buffer).digest('hex');
 
-        // Ambil ekstensi file asli (misal .jpg, .png)
         const originalName = file.name;
-        const ext = path.extname(originalName);
-
+        const ext = path.extname(originalName); // Contoh: .jpg, .png
         const filename = `${hash}${ext}`;
-        const filePath = path.join(process.cwd(), 'public', 'uploads', filename);
 
+        // Cek apakah file sudah ada di MinIO
         try {
-            // Cek apakah file dengan hash ini sudah ada
-            await access(filePath);
-        } catch {
-            // File belum ada, simpan file
-            await writeFile(filePath, buffer);
+            await minio.statObject('uploads', filename);
+            // File sudah ada di MinIO
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            if (error.code === 'NotFound') {
+                // File belum ada, maka upload ke MinIO
+                await minio.putObject('uploads', filename, buffer, buffer.length, {
+                    'Content-Type': file.type || 'application/octet-stream',
+                });
+            } else {
+                throw error; // error MinIO selain NotFound
+            }
         }
-        // Kirim path file
-        return NextResponse.json({ status: true, data: `/uploads/${filename}` });
+
+        return NextResponse.json({ status: true, data: `http://kisaragi.fbk:9000/uploads/${filename}` });
     } catch (e) {
         addLogsFE(e);
-        return NextResponse.json({ status: false, msg: ksr_status[500] })
+        return NextResponse.json({ status: false, msg: ksr_status[500] });
     }
 }

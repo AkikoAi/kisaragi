@@ -73,6 +73,7 @@ export default function ManagementUsers() {
                 modalsWarning(typeof data.msg === "string" ? data.msg : data.msg[0]?.message || "Terjadi kesalahan.");
             }
         } catch {
+            setLoading(false);
             setError("Gagal memuat data pengguna.");
         }
     }
@@ -131,6 +132,8 @@ export default function ManagementUsers() {
             modalsSuccess("Aksi berhasil");
             fetchUsers(baseUser.newUsername || baseUser.username);
         } catch {
+            setOnAction(false);
+            setIsModalOpen(false);
             modalsError("Gagal mengirim perintah aksi ke server");
         }
     };

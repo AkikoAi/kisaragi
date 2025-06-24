@@ -24,14 +24,20 @@ export default function DatabaseStudio() {
     const { modals, modalsError, modalsInfo } = useModals();
 
     const refreshModels = async () => {
-        setLoadingModels(true);
-        const res = await fetch("/api/database-studio");
-        const data = await res.json();
-        setLoadingModels(false);
+        try {
 
-        if (!data.status) return modalsError(data.msg);
-        setModels(data.data);
-        modalsInfo("Berhasil mendapatkan data");
+            setLoadingModels(true);
+            const res = await fetch("/api/database-studio");
+            const data = await res.json();
+            setLoadingModels(false);
+
+            if (!data.status) return modalsError(data.msg);
+            setModels(data.data);
+            modalsInfo("Berhasil mendapatkan data");
+        } catch {
+            setLoadingModels(false);
+            modalsError("Gagal mendapatkan data, silakan coba lagi");
+        }
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

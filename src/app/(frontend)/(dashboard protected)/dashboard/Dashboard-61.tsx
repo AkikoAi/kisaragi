@@ -3,17 +3,22 @@
 import { useEffect, useState } from "react";
 import { RiRefreshLine } from "react-icons/ri";
 
+type userLogsType = {
+    id: string;
+    message: string;
+    timestamp: Date;
+}
 export default function AdminPage() {
     const [selectedMenu, setSelectedMenu] = useState<"users" | "logs" | "settings">("users");
     const [loadingUserLogs, setLoadingUserLogs] = useState<boolean>(false);
-    const [userLogs, setUserLogs] = useState<string[]>([]);
+    const [userLogs, setUserLogs] = useState<userLogsType[]>([]);
 
     const getUserLogs = () => {
         if (loadingUserLogs) return;
         setLoadingUserLogs(true);
         fetch("/api/user-logs").then(r => r.json()).then(r => {
             if (r.status) {
-                const data = r.data.reverse();
+                const data = r.data;
                 return setUserLogs(data);
             }
             return alert(r.msg);
@@ -80,7 +85,7 @@ export default function AdminPage() {
                             <hr className="my-4 border-gray-300 dark:border-gray-600" />
                             {/* Dummy Logs */}
                             <ul className="mt-2 space-y-1 text-sm overflow-y-auto max-h-40">
-                                {loadingUserLogs ? "Loading logs user..." : userLogs.map((value, index) => <li key={index}>{value}</li>)}
+                                {loadingUserLogs ? "Loading logs user..." : userLogs.map((value, index) => <li key={index}>{new Date(value.timestamp).toLocaleString("id-ID", { timeZone: "Asia/Jakarta" })} {value.message}</li>)}
                             </ul>
                         </div>
                     )}

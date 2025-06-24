@@ -4,7 +4,7 @@ import type { DataAccessLayer } from "@/utils/ksr_jwt";
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import {useState } from "react";
+import { useState } from "react";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 
 
@@ -26,53 +26,66 @@ export default function Profile({ data }: { data: DataAccessLayer }) {
 
         const formData = new FormData();
         formData.append('file', file);
+        try {
+            setUploading(true);
+            const res = await fetch('/api/upload-avatar', {
+                method: 'POST',
+                body: formData,
+            })
+            const data = await res.json();
+            setUploading(false);
 
-        setUploading(true);
-        const res = await fetch('/api/upload-avatar', {
-            method: 'POST',
-            body: formData,
-        });
-        const data = await res.json();
-        setUploading(false);
-
-        if (!data.status) {
-            modalsError(data.msg[0]?.message || data.msg);
-        } else {
-            setAvatarUrl(data.data);
+            if (!data.status) {
+                modalsError(data.msg[0]?.message || data.msg);
+            } else {
+                setAvatarUrl(data.data);
+            }
+        } catch {
+            setUploading(false);
+            modalsError("Terjadi kesalahan saat mengupload gambar");
         }
     };
 
     const handleChangePassword = async (e: React.FormEvent<HTMLFormElement>) => {
         if (process) return modalsInfo("Harap tunggu, proses sebelumnya belum selesai");
         const formData = new FormData(e.currentTarget);
+        try {
+            setProcess(true);
+            const res = await fetch("/api/change-password", {
+                body: formData,
+                method: "POST"
+            });
+            const result = await res.json();
+            setProcess(false);
 
-        setProcess(true);
-        const res = await fetch("/api/change-password", {
-            body: formData,
-            method: "POST"
-        });
-        const result = await res.json();
-        setProcess(false);
-
-        if (!result.status) return modalsWarning(result.msg[0].message || result.msg);
-        modalsSuccess(result.data);
+            if (!result.status) return modalsWarning(result.msg[0].message || result.msg);
+            modalsSuccess(result.data);
+        } catch {
+            setProcess(false);
+            modalsError("Terjadi kesalahan saat mengubah password");
+        }
     }
 
     const handleDeleteAccount = async (e: React.FormEvent<HTMLFormElement>) => {
         if (process) return modalsInfo("Harap tunggu, proses sebelumnya belum selesai");
         const formData = new FormData(e.currentTarget);
 
-        setProcess(true);
-        const res = await fetch("/api/delete-account", {
-            body: formData,
-            method: "DELETE"
-        });
-        const result = await res.json();
-        setProcess(false);
+        try {
+            setProcess(true);
+            const res = await fetch("/api/delete-account", {
+                body: formData,
+                method: "DELETE"
+            });
+            const result = await res.json();
+            setProcess(false);
 
-        if (!result.status) return modalsWarning(result.msg[0].message || result.msg);
-        modalsSuccess(result.data);
-        router.push("/login");
+            if (!result.status) return modalsWarning(result.msg[0].message || result.msg);
+            modalsSuccess(result.data);
+            router.push("/login");
+        } catch {
+            setProcess(false);
+            modalsError("Terjadi kesalahan saat menghapus akun");
+        }
     }
 
     const handleUpdateProfile = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -83,25 +96,29 @@ export default function Profile({ data }: { data: DataAccessLayer }) {
         const emailChange = formData.get("email") == data.email;
         const avatarChange = data.avatarUrl == avatarUrl;
         if (avatarChange && nameChange && emailChange) return modalsWarning("Tidak ada data yang berubah");
-        setProcess(true);
 
+        try {
+            setProcess(true);
+            // kirim ke server misalnya
+            const res = await fetch("/api/profile", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ name: formData.get("name"), avatarUrl, email: formData.get("email") || null })
+            });
 
-        // kirim ke server misalnya
-        const res = await fetch("/api/profile", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ name: formData.get("name"), avatarUrl, email: formData.get("email") || null })
-        });
-
-        const result = await res.json();
-        setProcess(false);
-        if (result.status) {
-            if (avatarChange || nameChange || emailChange) router.refresh();
-            modalsSuccess(result.data)
+            const result = await res.json();
+            setProcess(false);
+            if (result.status) {
+                if (avatarChange || nameChange || emailChange) router.refresh();
+                modalsSuccess(result.data)
+            }
+            else modalsError(result.msg[0]?.message || result.msg);
+        } catch {
+            setProcess(false);
+            modalsError("Terjadi kesalahan saat memperbarui profil");
         }
-        else modalsError(result.msg[0]?.message || result.msg);
     };
 
     return (

@@ -12,7 +12,7 @@ export async function GET() {
     if (data.privilege < 61) return NextResponse.json({ status: false, msg: ksr_status.unauthorized });
 
     try {
-        const data = await prisma.logs.findMany();
+        const data = await prisma.logs.findMany({ where: { type: "USER" }, orderBy: { timestamp: 'desc' } });
         return NextResponse.json({ status: true, data })
     } catch (error) {
         addLogsFE(error);
