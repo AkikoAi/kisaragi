@@ -1,6 +1,7 @@
 //"use server";
 
 import { Metadata } from "next";
+import React from "react";
 import Login from "./login";
 
 export const metadata: Metadata = {

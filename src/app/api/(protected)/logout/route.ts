@@ -13,7 +13,7 @@ export async function GET() {
         cookie.delete("Auth");
 
         return redirect("/login");
-    } catch (e) {
+    } catch {
         return redirect("/login");
     }
 }

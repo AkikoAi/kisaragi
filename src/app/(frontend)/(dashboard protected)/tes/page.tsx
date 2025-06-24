@@ -1,4 +1,6 @@
+import React from "react";
 import { FaUser, FaCogs, FaChartBar, FaEnvelope } from "react-icons/fa";
+
 
 export default function Page() {
   const cards = [

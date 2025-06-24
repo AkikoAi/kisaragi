@@ -82,7 +82,7 @@ async function seed() {
                 role: "user"
             }
         });
-        console.info("Selesai melakukan seeder", ADMIN);
+        console.info("Selesai melakukan seeder", ADMIN, SUPERADMIN, USER, MODERATOR);
     } catch (e) {
         console.error("Gagal melakukan seeder", e);
     }

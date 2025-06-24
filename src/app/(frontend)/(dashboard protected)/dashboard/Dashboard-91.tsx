@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { RiRefreshLine } from "react-icons/ri";
 
 export default function PostgresInfoDashboard() {
@@ -49,7 +49,7 @@ export default function PostgresInfoDashboard() {
             const json = await res.json();
             if (json.status) return setData(json.data);
             return setError("Failed to load data");
-        } catch (err) {
+        } catch {
             setError("Failed to load data");
         } finally {
             Loading("database", "DEL");
@@ -64,7 +64,7 @@ export default function PostgresInfoDashboard() {
             const json = await res.json();
             if (json.status) return setServerData(json.data);
             return setErrorServer("Failed to load data");
-        } catch (err) {
+        } catch {
             setErrorServer("Failed to load data");
         } finally {
             Loading("server", "DEL");

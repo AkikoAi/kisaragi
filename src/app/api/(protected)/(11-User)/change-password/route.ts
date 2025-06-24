@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
         if (!passwordResult) return NextResponse.json({ status: false, msg: ksr_status.oldpass_not_same })
 
         const newHashPassword = await hashPassword(validationResult.data.newPassword);
-        const changePassword = await prisma.user.update({
+        await prisma.user.update({
             where: {
                 id: data.id
             },

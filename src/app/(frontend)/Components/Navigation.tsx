@@ -1,15 +1,14 @@
 "use client";
 
-import { DataAccessLayer, verifyToken } from "@/utils/ksr_jwt";
+import { DataAccessLayer } from "@/utils/ksr_jwt";
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment, InputEvent, InputHTMLAttributes, ReactElement, useEffect, useState } from "react";
-import { BiLogOut, BiX } from "react-icons/bi";
-import { CgEnter } from "react-icons/cg";
+import React, { Fragment, useEffect, useState } from "react";
+import { BiLogOut } from "react-icons/bi";
 import { FaBars, FaCog, FaCrown, FaIdBadge, FaLock, FaStar, FaUserTie } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 
-import { GiFox, GiFoxTail } from "react-icons/gi";
+import { GiFoxTail } from "react-icons/gi";
 import { MdClose, MdWarning } from "react-icons/md";
 
 type menuType = {

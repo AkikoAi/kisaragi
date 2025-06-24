@@ -1,3 +1,4 @@
+import React from "react";
 import { GiFox } from "react-icons/gi";
 import { MdOutlineDangerous } from "react-icons/md";
 

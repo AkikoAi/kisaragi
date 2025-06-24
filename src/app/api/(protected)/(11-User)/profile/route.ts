@@ -5,7 +5,6 @@ import { addLogsFE } from "@/utils/ksr_logs";
 import ksr_status from "@/utils/ksr_status";
 import { profilePost } from "@/utils/validation";
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/react-native.js"
 
 
 export async function POST(req: NextRequest) {
@@ -17,7 +16,7 @@ export async function POST(req: NextRequest) {
         const validationResult = profilePost.safeParse({ email, name, avatarUrl });
         if (!validationResult.success) return NextResponse.json({ status: false, msg: JSON.parse(validationResult.error.message) });
         // Mulai mengubah data
-        const updateResult = await prisma.user.update({
+        await prisma.user.update({
             where: { id: data.id },
             data: {
                 email: validationResult.data.email,

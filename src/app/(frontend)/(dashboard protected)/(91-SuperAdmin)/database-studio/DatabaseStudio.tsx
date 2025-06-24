@@ -1,10 +1,11 @@
 "use client";
+import React from "react";
 import Modals from "@/app/(frontend)/Components/Modals";
 import { useModals } from "@/app/(frontend)/Hooks/useModals";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
-import { FaDatabase, FaTools } from "react-icons/fa";
+import { FaDatabase } from "react-icons/fa";
 import { MdClose, MdOutlineSchema, MdSettings } from "react-icons/md";
 
 type model = {
@@ -21,7 +22,7 @@ export default function DatabaseStudio() {
     const [loadingModels, setLoadingModels] = useState<boolean>(false);
     const [models, setModels] = useState<model[]>([]);
 
-    const { modals, modalsSuccess, modalsError, modalsInfo } = useModals();
+    const { modals, modalsError, modalsInfo } = useModals();
 
     async function refreshModels() {
         setLoadingModels(true);

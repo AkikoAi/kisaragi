@@ -57,7 +57,7 @@ export async function GET(req: NextRequest) {
         const cookie = await cookies();
         const Token = cookie.get("Auth")?.value;
         if (!Token) return NextResponse.json({ status: false, msg: ksr_status.token_invalid });
-        const User = verifyTokenJWT(Token);
+        verifyTokenJWT(Token);
         // Jika token tidak valid maka akan throw
 
         const { page, limit } = await req.json();
@@ -138,7 +138,7 @@ export async function DELETE(req: NextRequest) {
         const cookie = await cookies();
         const Token = cookie.get("Auth")?.value;
         if (!Token) return NextResponse.json({ status: false, msg: ksr_status.token_invalid });
-        const User = verifyTokenJWT(Token);
+        verifyTokenJWT(Token);
         // Jika token tidak valid maka akan throw
 
         const { ItemId } = await req.json()

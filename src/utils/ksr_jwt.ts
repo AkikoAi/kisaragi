@@ -45,16 +45,16 @@ export function verifyTokenJWT(token: string) {
     try {
         const decoded = jwt.verify(token, secret);
         return decoded as verifyToken
-    } catch (e) {
+    } catch {
         throw ksr_status[401]
     }
 }
 
-export function signTokenJWT(data: any, exp?: number) {
+export function signTokenJWT(data: { id: string, loginVersion: number, updatedAt: Date }, exp?: number) {
     try {
         const encoded = jwt.sign(data, secret, { expiresIn: exp || "2h" });
         return encoded;
-    } catch (e) {
+    } catch {
         throw ksr_status[500]
     }
 }

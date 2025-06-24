@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function Login() {
@@ -8,9 +8,8 @@ export default function Login() {
     //const username = document.querySelector("input#username");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [terms, setTerms] = useState<Boolean>(false);
-    const [seePassword, setSeePassword] = useState<Boolean>(false);
-    const [messageError, setMessageError] = useState("");
+    const [terms, setTerms] = useState<boolean>(false);
+    const [seePassword, setSeePassword] = useState<boolean>(false);
 
     function seePasswordAction() {
         setSeePassword((prev) => !prev);
@@ -31,7 +30,7 @@ export default function Login() {
         }).then(r => r.json()).then(r => {
             if (!r.status) return alert(r.msg[0]?.message || r.msg)
             return document.location.href = "/dashboard";
-        }).catch(e => {
+        }).catch(() => {
             alert("Gagal mengirim form ke server");
         });
 

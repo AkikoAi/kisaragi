@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RiRefreshLine } from "react-icons/ri";
 
 export default function AdminPage() {
     const [selectedMenu, setSelectedMenu] = useState<"users" | "logs" | "settings">("users");
-    const [loadingUserLogs, setLoadingUserLogs] = useState<Boolean>(false);
+    const [loadingUserLogs, setLoadingUserLogs] = useState<boolean>(false);
     const [userLogs, setUserLogs] = useState<string[]>([]);
 
     function getUserLogs() {
@@ -17,7 +17,7 @@ export default function AdminPage() {
                 return setUserLogs(data);
             }
             return alert(r.msg);
-        }).catch(e => {
+        }).catch(() => {
             return alert("Gagal mengambil data user logs");
         }).finally(() => {
             setLoadingUserLogs(false);

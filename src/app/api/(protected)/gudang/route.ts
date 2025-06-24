@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
         const cookie = await cookies();
         const Token = cookie.get("Auth")?.value;
         if (!Token) return NextResponse.json({ status: false, msg: ksr_status.token_invalid });
-        const User = verifyTokenJWT(Token);
+        verifyTokenJWT(Token);
         // Jika token tidak valid maka akan throw error
 
         const { limit, page, search } = await req.json();
@@ -42,7 +42,7 @@ export async function PUT(req: NextRequest) {
         const cookie = await cookies();
         const Token = cookie.get("Auth")?.value;
         if (!Token) return NextResponse.json({ status: false, msg: ksr_status.token_invalid });
-        const User = verifyTokenJWT(Token);
+        verifyTokenJWT(Token);
         // Jika token tidak valid maka akan throw error
 
         const { name } = await req.json();
@@ -79,7 +79,7 @@ export async function POST(req: NextRequest) {
         const cookie = await cookies();
         const Token = cookie.get("Auth")?.value;
         if (!Token) return NextResponse.json({ status: false, msg: ksr_status.token_invalid });
-        const User = verifyTokenJWT(Token);
+        verifyTokenJWT(Token);
         // Jika token tidak valid maka akan throw error
 
         const { id, name } = await req.json();
@@ -118,7 +118,7 @@ export async function DELETE(req: NextRequest) {
         const cookie = await cookies();
         const Token = cookie.get("Auth")?.value;
         if (!Token) return NextResponse.json({ status: false, msg: ksr_status.token_invalid });
-        const User = verifyTokenJWT(Token);
+        verifyTokenJWT(Token);
         // Jika token tidak valid maka akan throw error
 
         const { name } = await req.json();

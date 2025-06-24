@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import { useState } from "react";
 import { CiBookmarkPlus, CiTrash } from "react-icons/ci";
@@ -11,7 +12,7 @@ export default function Gudang() {
     const [isRefreshing, setRefreshing] = useState(false);
     const [newBoardName, setNewBoardName] = useState("");
     const [searchBoard, setSearchBoard] = useState("");
-    const [list, setList] = useState<{ id: string; name: string, jumlahItem: number }[]>([
+    const [list] = useState<{ id: string; name: string, jumlahItem: number }[]>([
         { id: "1", name: "Buku", jumlahItem: 200 },
         { id: "2", name: "Pena", jumlahItem: 200 },
         { id: "3", name: "Laptop", jumlahItem: 200 },

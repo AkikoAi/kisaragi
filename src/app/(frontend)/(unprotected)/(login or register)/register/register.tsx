@@ -1,14 +1,13 @@
 "use client";
 
-import { redirect } from "next/navigation";
-import { useState } from "react";
+import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function Register() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [terms, setTerms] = useState<Boolean>(false);
-    const [seePassword, setSeePassword] = useState<Boolean>(false);
+    const [terms, setTerms] = useState<boolean>(false);
+    const [seePassword, setSeePassword] = useState<boolean>(false);
     const [confirmPassword, setConfirmPassword] = useState("");
     const [name, setName] = useState("");
     //const [messageError, setMessageError] = useState("");
@@ -29,7 +28,7 @@ export default function Register() {
         }).then(r => r.json()).then(r => {
             if (!r.status) return alert(r.msg[0]?.message || r.msg);
             return window.location.href = "/login";
-        }).catch(e => {
+        }).catch(()=> {
             return alert("Gagal mengirim form ke server");
         });
     }

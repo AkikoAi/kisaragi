@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 
 export default function ModeratorPage() {
     const [selectedMenu, setSelectedMenu] = useState<"review" | "reports">("review");
@@ -8,7 +8,7 @@ export default function ModeratorPage() {
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 p-6">
             <h1 className="text-2xl font-bold mb-4 text-center">Moderator Dashboard</h1>
-            
+
             {/* Info Card */}
             <div className="mb-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow text-center">
@@ -32,9 +32,9 @@ export default function ModeratorPage() {
                         key={menu}
                         onClick={() => setSelectedMenu(menu as "review" | "reports")}
                         className={`px-4 py-2 rounded-md text-sm font-medium 
-                        ${selectedMenu === menu 
-                            ? "bg-green-600 text-white" 
-                            : "bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200"} 
+                        ${selectedMenu === menu
+                                ? "bg-green-600 text-white"
+                                : "bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200"} 
                         hover:bg-green-500 hover:text-white transition-colors`}
                     >
                         {menu.charAt(0).toUpperCase() + menu.slice(1)}

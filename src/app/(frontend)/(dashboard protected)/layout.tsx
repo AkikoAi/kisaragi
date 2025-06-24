@@ -2,7 +2,8 @@
 
 import DataAccessLayer from "@/utils/DataAccessLayer";
 import Navigation from "../Components/Navigation";
-import zillaGao from "../Components/zillaGao";
+//import zillaGao from "../Components/zillaGao";
+import React from "react";
 
 const MenuOrigin = [
     {
@@ -59,7 +60,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     const data = await DataAccessLayer();
     const menu = MenuOrigin
         .filter(({ minPrifilege }) => data.privilege >= minPrifilege)
-        .map(({ minPrifilege, ...filteredMenu }) => filteredMenu);
+        .map(({ minPrifilege, ...filteredMenu }) => filteredMenu || minPrifilege);
 
     return (<>
         <div className="min-h-screen w-full flex flex-col bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100 break-words">

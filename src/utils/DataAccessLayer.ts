@@ -2,7 +2,7 @@
 
 import { verifyTokenJWT } from "@/utils/ksr_jwt";
 import { cookies } from "next/headers";
-import { redirect, usePathname } from "next/navigation";
+import { redirect } from "next/navigation";
 import prisma from "./db";
 
 export default async function DataAccessLayer() {
@@ -24,7 +24,7 @@ export default async function DataAccessLayer() {
             return User;
         }
         throw new Error("User tidak ditemukan atau authentikasi sudah tidak valid");
-    } catch (e) {
+    } catch {
         return redirect("/login");
     }
 }

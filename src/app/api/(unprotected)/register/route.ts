@@ -1,9 +1,8 @@
 import prisma from "@/utils/db";
-import { checkPassword, hashPassword, signTokenJWT } from "@/utils/ksr_jwt";
+import { hashPassword } from "@/utils/ksr_jwt";
 import { addLogsFE, addLogsUser } from "@/utils/ksr_logs";
 import ksr_status from "@/utils/ksr_status";
 import { RegisterValidation } from "@/utils/validation";
-import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
@@ -40,7 +39,7 @@ export async function POST(req: NextRequest) {
                 }
             });
 
-            const createProfile = await tx.profile.create({
+            await tx.profile.create({
                 data: {
                     id: createUser.username
                 }

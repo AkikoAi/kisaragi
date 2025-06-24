@@ -1,6 +1,6 @@
 import DataAccessLayer from "@/utils/DataAccessLayer";
 import prisma from "@/utils/db";
-import { checkPassword, hashPassword } from "@/utils/ksr_jwt";
+import { checkPassword } from "@/utils/ksr_jwt";
 import { addLogsFE } from "@/utils/ksr_logs";
 import ksr_status from "@/utils/ksr_status";
 import { deleteAccount } from "@/utils/validation";
@@ -23,7 +23,7 @@ export async function DELETE(req: NextRequest) {
         const passwordResult = await checkPassword(data.password, validationResult.data.password);
         if (!passwordResult) return NextResponse.json({ status: false, msg: ksr_status.oldpass_not_same })
 
-        const changePassword = await prisma.user.update({
+        await prisma.user.update({
             where: {
                 id: data.id,
                 username: validationResult.data.username

@@ -1,10 +1,10 @@
 import prisma from "@/utils/db";
 import { addLogsFE } from "@/utils/ksr_logs";
 import ksr_status from "@/utils/ksr_status";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import DataAccessLayer from "../../../../../utils/DataAccessLayer";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
     const data = await DataAccessLayer();
 
     // 61 Manager/Admin
@@ -39,7 +39,7 @@ async function getPostgresInfo() {
   FROM pg_stat_activity
   WHERE state != 'idle';
 `;
-        const stats = await tx.$queryRaw<{
+        await tx.$queryRaw<{
             datname: string;
             numbackends: number;
             xact_commit: number;

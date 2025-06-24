@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, FormEvent } from "react";
 import { FaCheck, FaEdit, FaTimes, FaTrash, FaUndo } from "react-icons/fa";
 import { RiRefreshLine } from "react-icons/ri";
 import Pagination from "../../../Components/Pagination";
-
 import { useModals } from "@/app/(frontend)/Hooks/useModals";
 import Modals from "@/app/(frontend)/Components/Modals";
 
@@ -23,28 +22,38 @@ type User = {
     createdAt: Date;
     updatedAt: Date;
     isDeleted: boolean;
+    newUsername?: string;
 };
+
+type UserPost = Omit<User, 'email'> & { email: string };
 
 type Action = "edit" | "delete" | "enable" | "disable" | "restore" | null;
 
+type ApiResponse = {
+    status: boolean;
+    msg: string | { message: string }[];
+    data?: {
+        users: User[];
+        count: number;
+    };
+};
+
 export default function ManagementUsers() {
     const [users, setUsers] = useState<User[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const [searchTerm, setSearchTerm] = useState("");
+    const [searchTerm, setSearchTerm] = useState<string>("");
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [modalAction, setModalAction] = useState<Action>(null);
-    const [onAction, setOnAction] = useState(false);
+    const [onAction, setOnAction] = useState<boolean>(false);
     const [page, setPage] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(1);
 
     const { modals, modalsWarning, modalsError, modalsSuccess } = useModals();
 
-
-    const fetchUsers = async (username?: string) => {
+    const fetchUsers = async (username?: string): Promise<void> => {
         try {
-            //playErrorSound();
             setError(null);
             const requestPath = new URL("/api/management-users", window.location.origin);
             requestPath.searchParams.set("page", page.toString());
@@ -54,51 +63,55 @@ export default function ManagementUsers() {
 
             setLoading(true);
             const res = await fetch(requestPath.toString());
-            const data = await res.json();
+            const data: ApiResponse = await res.json();
             setLoading(false);
 
-            if (data.status) {
+            if (data.status && data.data) {
                 setUsers(data.data.users);
-                setTotalPages(Math.ceil(data.data.count / 100))
+                setTotalPages(Math.ceil(data.data.count / 100));
+            } else {
+                modalsWarning(typeof data.msg === "string" ? data.msg : data.msg[0]?.message || "Terjadi kesalahan.");
             }
-            else modalsWarning(data.msg);
         } catch {
             setError("Gagal memuat data pengguna.");
         }
-
     };
 
-    const doSearch = (e: React.FormEvent) => {
+    const doSearch = (e: FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
         fetchUsers();
     };
 
     useEffect(() => { fetchUsers(); }, [page]);
 
-    const handleAction = (user: User, action: Action) => {
+    const handleAction = (user: User, action: Action): void => {
         setSelectedUser(user);
         setModalAction(action);
         setIsModalOpen(true);
     };
 
-    const confirmAction = async (manualUser?: User) => {
+    const confirmAction = async (manualUser?: User): Promise<void> => {
         if (onAction) return modalsWarning("Harap tunggu aksi sebelumnya selesai!");
-        if (!selectedUser || !selectedUser && !manualUser) return modalsWarning("User not selected!");
+        if (!selectedUser && !manualUser) return modalsWarning("User not selected!");
 
         try {
-            let method = "POST";
-            let body: any = { ...(manualUser || selectedUser), username: selectedUser.username };
-            body.email = body.email || undefined;
+            let method: "POST" | "DELETE" = "POST";
+            let body: Partial<UserPost> | { username: string; action: "restore" | "delete" } | User = manualUser || selectedUser!;
+            const baseUser = manualUser || selectedUser!;
+
+            body = {
+                ...baseUser,
+                username: baseUser.username,
+                email: baseUser.email || undefined
+            };
 
             if (modalAction === "disable") body.isVerified = false;
             else if (modalAction === "enable") body.isVerified = true;
             else if (modalAction === "delete" || modalAction === "restore") {
                 method = "DELETE";
-                body = { username: selectedUser.username, action: modalAction };
+                body = { username: baseUser.username, action: modalAction };
             } else if (modalAction === "edit") {
-                if (!confirm("Periksa kembali data sebelum mengonfirmasi perubahan")) {
-                    return;
-                }
+                if (!confirm("Periksa kembali data sebelum mengonfirmasi perubahan")) return;
             } else {
                 return modalsError("Aksi Tidak dikenali");
             }
@@ -109,13 +122,13 @@ export default function ManagementUsers() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body)
             });
-            const result = await res.json();
+            const result: ApiResponse = await res.json();
             setOnAction(false);
             setIsModalOpen(false);
 
-            if (!result.status) return modalsWarning(result.msg[0].message || result.msg);
+            if (!result.status) return modalsWarning(typeof result.msg === "string" ? result.msg : result.msg[0]?.message || "Error");
             modalsSuccess("Aksi berhasil");
-            fetchUsers(body?.newUsername || selectedUser.username);
+            fetchUsers(baseUser.newUsername || baseUser.username);
         } catch {
             modalsError("Gagal mengirim perintah aksi ke server");
         }
@@ -125,6 +138,25 @@ export default function ManagementUsers() {
         user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
         user.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
+/*
+    const handleEditForm = (e: FormEvent<HTMLFormElement>): void => {
+        e.preventDefault();
+        if (!selectedUser) return;
+
+        const formData = new FormData(e.currentTarget);
+        const updatedUser: User = {
+            ...selectedUser,
+            avatarUrl: (formData.get("avatarUrl") as string) || null,
+            username: formData.get("username") as string,
+            name: formData.get("name") as string,
+            email: (formData.get("email") as string) || null,
+            role: formData.get("role") as string,
+            privilege: Number(formData.get("privilege")),
+            newUsername: selectedUser.username !== formData.get("username") ? (formData.get("username") as string) : undefined,
+        };
+
+        confirmAction(updatedUser);
+    };*/
 
     return (
         <section >
