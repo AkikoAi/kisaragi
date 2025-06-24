@@ -1,9 +1,9 @@
 
 import { addLogsFE } from "@/utils/ksr_logs";
 import ksr_status from "@/utils/ksr_status";
-import { readFileSync } from "fs";
 import { NextResponse } from "next/server";
 import DataAccessLayer from "../../../../../utils/DataAccessLayer";
+import prisma from "@/utils/db";
 
 
 export async function GET() {
@@ -12,8 +12,8 @@ export async function GET() {
     if (data.privilege < 61) return NextResponse.json({ status: false, msg: ksr_status.unauthorized });
 
     try {
-        const file = readFileSync("src/logs/user.txt")
-        return NextResponse.json({ status: true, data: file.toString("utf8").split('\n') });
+        const data = await prisma.logs.findMany();
+        return NextResponse.json({ status: true, data })
     } catch (error) {
         addLogsFE(error);
         return NextResponse.json({ status: false, msg: ksr_status[500] });
