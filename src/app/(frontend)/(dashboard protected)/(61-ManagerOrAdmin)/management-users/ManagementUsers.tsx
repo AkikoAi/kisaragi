@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, FormEvent } from "react";
+import React, { useEffect, useState, FormEvent, useCallback } from "react";
 import { FaCheck, FaEdit, FaTimes, FaTrash, FaUndo } from "react-icons/fa";
 import { RiRefreshLine } from "react-icons/ri";
 import Pagination from "../../../Components/Pagination";
@@ -52,7 +52,7 @@ export default function ManagementUsers() {
 
     const { modals, modalsWarning, modalsError, modalsSuccess } = useModals();
 
-    const fetchUsers = async (username?: string): Promise<void> => {
+    const fetchUsers = useCallback(async (username?: string): Promise<void> => {
         try {
             setError(null);
             const requestPath = new URL("/api/management-users", window.location.origin);
@@ -75,14 +75,14 @@ export default function ManagementUsers() {
         } catch {
             setError("Gagal memuat data pengguna.");
         }
-    };
+    }, [page, searchTerm, modalsWarning]);
 
     const doSearch = (e: FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
         fetchUsers();
     };
 
-    useEffect(() => { fetchUsers(); }, [page]);
+    useEffect(() => { fetchUsers(); }, [fetchUsers]);
 
     const handleAction = (user: User, action: Action): void => {
         setSelectedUser(user);
@@ -138,25 +138,25 @@ export default function ManagementUsers() {
         user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
         user.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
-/*
-    const handleEditForm = (e: FormEvent<HTMLFormElement>): void => {
-        e.preventDefault();
-        if (!selectedUser) return;
-
-        const formData = new FormData(e.currentTarget);
-        const updatedUser: User = {
-            ...selectedUser,
-            avatarUrl: (formData.get("avatarUrl") as string) || null,
-            username: formData.get("username") as string,
-            name: formData.get("name") as string,
-            email: (formData.get("email") as string) || null,
-            role: formData.get("role") as string,
-            privilege: Number(formData.get("privilege")),
-            newUsername: selectedUser.username !== formData.get("username") ? (formData.get("username") as string) : undefined,
-        };
-
-        confirmAction(updatedUser);
-    };*/
+    /*
+        const handleEditForm = (e: FormEvent<HTMLFormElement>): void => {
+            e.preventDefault();
+            if (!selectedUser) return;
+    
+            const formData = new FormData(e.currentTarget);
+            const updatedUser: User = {
+                ...selectedUser,
+                avatarUrl: (formData.get("avatarUrl") as string) || null,
+                username: formData.get("username") as string,
+                name: formData.get("name") as string,
+                email: (formData.get("email") as string) || null,
+                role: formData.get("role") as string,
+                privilege: Number(formData.get("privilege")),
+                newUsername: selectedUser.username !== formData.get("username") ? (formData.get("username") as string) : undefined,
+            };
+    
+            confirmAction(updatedUser);
+        };*/
 
     return (
         <section >

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import { FaUser, FaCogs, FaChartBar, FaEnvelope } from "react-icons/fa";
 
@@ -272,7 +273,9 @@ export default function Page() {
               key={card.id}
               className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow hover:shadow-lg transition-shadow flex flex-col"
             >
-              <img
+              <Image
+                width={80}
+                height={80}
                 src={card.image}
                 alt={card.title}
                 className="w-full h-48 object-cover"
@@ -421,21 +424,21 @@ export default function Page() {
         </form>
       </section>
       <section className="mt-10">
-           {/* Info Card */}
-                <div className="mb-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow text-center">
-                        <h2 className="font-semibold text-lg">Level</h2>
-                        <p className="text-blue-500 text-xl">61 - 90</p>
-                    </div>
-                    <div className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow text-center">
-                        <h2 className="font-semibold text-lg">Privilege</h2>
-                        <p>Manage Users, View Logs, Limited Settings</p>
-                    </div>
-                    <div className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow text-center">
-                        <h2 className="font-semibold text-lg">Status</h2>
-                        <p className="text-green-500">Active</p>
-                    </div>
-                </div>
+        {/* Info Card */}
+        <div className="mb-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow text-center">
+            <h2 className="font-semibold text-lg">Level</h2>
+            <p className="text-blue-500 text-xl">61 - 90</p>
+          </div>
+          <div className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow text-center">
+            <h2 className="font-semibold text-lg">Privilege</h2>
+            <p>Manage Users, View Logs, Limited Settings</p>
+          </div>
+          <div className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow text-center">
+            <h2 className="font-semibold text-lg">Status</h2>
+            <p className="text-green-500">Active</p>
+          </div>
+        </div>
 
       </section>
 

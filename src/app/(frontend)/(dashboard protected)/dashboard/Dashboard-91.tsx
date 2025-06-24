@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { RiRefreshLine } from "react-icons/ri";
 
 export default function PostgresInfoDashboard() {
@@ -32,19 +32,18 @@ export default function PostgresInfoDashboard() {
     const [error, setError] = useState<null | string>(null);
     const [errorServer, setErrorServer] = useState<null | string>(null);
 
-    function Loading(id: "database" | "server", act: "DEL" | "ADD") {
+    const Loading = useCallback((id: "database" | "server", act: "DEL" | "ADD") => {
         if (act === "ADD" && !loading.includes(id)) {
-            setLoading((prev) => [...prev, id]); // Tambahkan id
+            setLoading((prev) => [...prev, id]);
         } else if (act === "DEL") {
-            setLoading((prev) => prev.filter(item => item !== id)); // Hapus id
+            setLoading((prev) => prev.filter(item => item !== id));
         }
-    }
+    }, [loading]);
 
-
-    async function getDatabaseInformation() {
+    const getDatabaseInformation = useCallback(async () => {
         try {
             if (loading.includes("database")) return;
-            Loading("database", "ADD")
+            Loading("database", "ADD");
             const res = await fetch("/api/database-information");
             const json = await res.json();
             if (json.status) return setData(json.data);
@@ -54,12 +53,12 @@ export default function PostgresInfoDashboard() {
         } finally {
             Loading("database", "DEL");
         }
-    }
+    }, [Loading, loading]);
 
-    async function getServerInformation() {
+    const getServerInformation = useCallback(async () => {
         try {
-            if (loading.includes("server")) return
-            Loading("server", "ADD")
+            if (loading.includes("server")) return;
+            Loading("server", "ADD");
             const res = await fetch("/api/server-information");
             const json = await res.json();
             if (json.status) return setServerData(json.data);
@@ -69,13 +68,13 @@ export default function PostgresInfoDashboard() {
         } finally {
             Loading("server", "DEL");
         }
-    }
-
+    }, [Loading, loading]);
 
     useEffect(() => {
         getServerInformation();
         getDatabaseInformation();
-    }, []);
+    }, [getServerInformation, getDatabaseInformation]);
+
 
     return (
         <>

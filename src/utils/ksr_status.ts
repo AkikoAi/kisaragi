@@ -1,4 +1,4 @@
-export default {
+const messages = {
     400: "Hmmm... permintaanmu aneh, Fubuki tidak mengerti apa yang kamu mau~ (Bad Request)",
     403: "Ups! Ini wilayah rahasia Kurokami. Kamu dilarang masuk ya~ (Forbidden)",
     404: "Ekor Shirakami hilang! Halaman yang kamu cari nggak ada di sini~ (Not Found)",
@@ -43,3 +43,4 @@ export default {
     success_delete_account: "Satu akun telah lenyap... seperti bayangan di malam hari. Sampai bertemu lagi... atau mungkin tidak."
 }
 
+export default messages;

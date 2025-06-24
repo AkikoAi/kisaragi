@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { RiRefreshLine } from "react-icons/ri";
 
 export default function AdminPage() {
@@ -8,7 +8,7 @@ export default function AdminPage() {
     const [loadingUserLogs, setLoadingUserLogs] = useState<boolean>(false);
     const [userLogs, setUserLogs] = useState<string[]>([]);
 
-    function getUserLogs() {
+    const getUserLogs = useCallback(() => {
         if (loadingUserLogs) return;
         setLoadingUserLogs(true);
         fetch("/api/user-logs").then(r => r.json()).then(r => {
@@ -22,11 +22,11 @@ export default function AdminPage() {
         }).finally(() => {
             setLoadingUserLogs(false);
         });
-    }
+    }, [loadingUserLogs])
 
     useEffect(() => {
         getUserLogs();
-    }, [])
+    }, [getUserLogs])
 
     return (
         <>

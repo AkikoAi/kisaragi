@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useCallback } from "react";
 import Modals from "@/app/(frontend)/Components/Modals";
 import { useModals } from "@/app/(frontend)/Hooks/useModals";
 import Link from "next/link";
@@ -24,20 +24,21 @@ export default function DatabaseStudio() {
 
     const { modals, modalsError, modalsInfo } = useModals();
 
-    async function refreshModels() {
+    const refreshModels = useCallback(async () => {
         setLoadingModels(true);
-        const res = await fetch("/api/database-studio")
+        const res = await fetch("/api/database-studio");
         const data = await res.json();
         setLoadingModels(false);
 
         if (!data.status) return modalsError(data.msg);
         setModels(data.data);
         modalsInfo("Berhasil mendapatkan data");
-    }
+    }, [modalsError, modalsInfo]); // dependensi yang dipakai di dalam function
 
     useEffect(() => {
         refreshModels();
-    }, []);
+    }, [refreshModels]);
+
 
     return (
         <>
