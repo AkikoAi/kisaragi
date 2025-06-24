@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
 import { FaNetworkWired, FaShieldAlt, FaServer } from "react-icons/fa";
 import { MdSpeed, MdSecurity, MdPublic } from "react-icons/md";
 import { SiApacheairflow } from "react-icons/si";
@@ -7,14 +9,32 @@ import { SiApacheairflow } from "react-icons/si";
 export default function LandingPage() {
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100">
+      <div className="relative flex items-center justify-between px-6 py-4 bg-white dark:bg-gray-800 shadow-md">
+        <div className="flex items-center flex-col">
+          <Image
+            width={200}
+            height={200}
+            alt="Kisaragi Networks Logo"
+            src="/images/brand.png"
+            className="rounded-full w-10 h-10" />
+        </div>
+        <div className="flex items-center space-x-6">
+          <Link href="/register" className="text-lg text-blue-600 dark:text-blue-400 hover:underline">
+            Daftar
+          </Link>
+          <Link href="/login" className="text-lg text-blue-600 dark:text-blue-400 hover:underline">
+            Masuk
+          </Link>
+        </div>
+      </div>
       <section className="py-20 px-4 max-w-6xl mx-auto text-center">
         <div className="mb-10">
           <h1 className="text-4xl md:text-5xl font-extrabold flex justify-center items-center gap-3">
             <FaNetworkWired className="text-blue-500" />
-            ProxyMesh Enterprise
+            Kisaragi Networks
           </h1>
           <p className="mt-4 text-lg md:text-xl text-gray-600 dark:text-gray-300">
-            Solusi Jaringan Proxy Cepat, Aman, dan Andal untuk Bisnis Modern
+            Solusi Jaringan Proxy Cepat, Aman, dan Andal
           </p>
         </div>
 
@@ -53,7 +73,7 @@ export default function LandingPage() {
       </section>
 
       <footer className="text-center py-6 text-sm text-gray-500 dark:text-gray-400">
-        &copy; {new Date().getFullYear()} ProxyMesh Inc. All rights reserved.
+        &copy; {new Date().getFullYear()} Kisaragi Network. All rights reserved.
       </footer>
     </main>
   );
