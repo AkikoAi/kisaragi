@@ -23,7 +23,7 @@ export default function Modals({ status, loading, loadingMessage }: ModalsProps)
     if (loading) {
         const { bg, icon, message: messageDefault } = typeStyles['process'];
         return (
-            <div className={`fixed top-20 left-1/2 -translate-x-1/2 text-white text-sm px-4 py-2 rounded shadow border ${bg} flex items-center gap-2`}>
+            <div className={`z-40 fixed top-20 left-1/2 -translate-x-1/2 text-white text-sm px-4 py-2 rounded shadow border ${bg} flex items-center gap-2`}>
                 {icon}
                 <span>{loadingMessage || messageDefault}</span>
             </div>
@@ -36,7 +36,7 @@ export default function Modals({ status, loading, loadingMessage }: ModalsProps)
     const { bg, icon, message: messageDefault } = typeStyles[status.type];
 
     return (
-        <div className={`fixed top-20 left-1/2 -translate-x-1/2 text-white text-sm px-4 py-2 rounded shadow border ${bg} flex items-center gap-2`}>
+        <div className={`z-40 fixed top-20 left-1/2 -translate-x-1/2 text-white text-sm px-4 py-2 rounded shadow border ${bg} flex items-center gap-2`}>
             {icon}
             <span>{status.message || messageDefault}</span>
         </div>

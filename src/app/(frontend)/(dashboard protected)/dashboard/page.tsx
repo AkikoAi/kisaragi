@@ -12,8 +12,7 @@ export const metadata: Metadata = {
 export default async function Page() {
     const data = await DataAccessLayer();
 
-    return (<>
-        {data.privilege >= 91 && <Dashboard91 />}
-        {data.privilege >= 61 && <Dashboard61 />}
-    </>)
+    if (data.privilege >= 91) return <Dashboard91 />;
+    if (data.privilege >= 61) return <Dashboard61 />;
+    return <div className="p-4 text-center">Anda tidak memiliki akses ke halaman ini.</div>;
 }

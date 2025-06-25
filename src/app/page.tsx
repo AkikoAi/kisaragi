@@ -1,9 +1,36 @@
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { JSX } from "react";
 import { FaNetworkWired, FaShieldAlt, FaServer } from "react-icons/fa";
 import { MdSpeed, MdSecurity, MdPublic } from "react-icons/md";
 import { SiApacheairflow } from "react-icons/si";
+
+export const metadata: Metadata = {
+  title: "Kisaragi Networks - Proxy Jaringan Premium",
+  description: "Proxy Jaringan Premium untuk Kecepatan, Keamanan, dan Anonimitas Maksimal.",
+  openGraph: {
+    title: "Kisaragi Networks - Proxy Jaringan Premium",
+    description: "Proxy Jaringan Premium untuk Kecepatan, Keamanan, dan Anonimitas Maksimal.",
+    url: "http://kisaragi.fbk",
+    siteName: "Kisaragi Networks",
+    images: [
+      {
+        url: "/images/brand.png",
+        width: 1200,
+        height: 630,
+        alt: "Kisaragi Networks Logo"
+      }
+    ],
+    type: "website"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kisaragi Networks - Proxy Jaringan Premium",
+    description: "Proxy Jaringan Premium untuk Kecepatan, Keamanan, dan Anonimitas Maksimal.",
+    images: ["/images/brand.png"]
+  }
+}
 
 // Reusable FeatureCard component
 const FeatureCard = ({ icon, title, description }: { icon: JSX.Element, title: string, description: string }) => (
@@ -14,7 +41,7 @@ const FeatureCard = ({ icon, title, description }: { icon: JSX.Element, title: s
   </div>
 );
 
-export default function LandingPage() {
+export default async function LandingPage() {
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 flex flex-col">
 

@@ -21,6 +21,7 @@ export default defineConfig([
         },
         extends: compat.extends(
             "next/core-web-vitals",
+            //"react-hooks/exhaustive-deps",
             "next/typescript"
         ),
     },

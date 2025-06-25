@@ -18,6 +18,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
+    "recharts": "^3.0.0",
+    "systeminformation": "^5.27.6",
     "zod": "^3.25.61"
   },
   "devDependencies": {
