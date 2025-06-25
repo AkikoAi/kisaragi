@@ -32,7 +32,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9.29.0",
-    "eslint-config-next": "15.3.3",
+    "eslint-config-next": "^15.3.4",
     "eslint-plugin-next": "^0.0.0",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^16.2.0",
