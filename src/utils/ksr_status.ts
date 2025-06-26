@@ -1,4 +1,4 @@
-const messages = {
+const ksr_status = {
     400: "Hmmm... permintaanmu aneh, Fubuki tidak mengerti apa yang kamu mau~ (Bad Request)",
     403: "Ups! Ini wilayah rahasia Kurokami. Kamu dilarang masuk ya~ (Forbidden)",
     404: "Ekor Shirakami hilang! Halaman yang kamu cari nggak ada di sini~ (Not Found)",
@@ -40,7 +40,9 @@ const messages = {
     user_not_verified3: "Fubuki dan Kurokami tidak bisa membiarkan pengunjung tak dikenal lewat begitu saja! Lengkapi verifikasi terlebih dahulu agar portal terbuka untukmu.",
     upload_file_not_found: "File-nya ke mana ya...? Mungkin disembunyiin sama Kurokami lagi... Fubuki nggak nemu nih... ",
 
-    success_delete_account: "Satu akun telah lenyap... seperti bayangan di malam hari. Sampai bertemu lagi... atau mungkin tidak."
+    success_delete_account: "Satu akun telah lenyap... seperti bayangan di malam hari. Sampai bertemu lagi... atau mungkin tidak.",
+    belum_absen_hari_ini: "Fubuki belum melihatmu absen hari ini. Yuk, absen dulu sebelum pergi!",
+    belum_absen: "Cie yang belum absen~ Fubuki liat loh~"
 }
 
-export default messages;
+export default ksr_status;

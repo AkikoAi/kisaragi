@@ -117,3 +117,10 @@ export const deleteAccount = LoginValidation.extend({
         });
     }
 });;
+
+export const absenPost = z.object({
+    location: z
+        .string("Fubuki bingung~ formatnya harus [Latitude],[Longitude] ya!")
+        .min(3, "Ehhh?! Lokasinya mana nih? Kasih yang bener dong~!")
+        .trim(),
+})

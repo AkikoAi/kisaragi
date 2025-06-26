@@ -39,6 +39,7 @@ model User {
   updatedAt    DateTime       @updatedAt
   isDeleted    Boolean        @default(false)
   WarehouseLog WarehouseLog[]
+  Attendance   Attendance[]
 }
 
 /// Tabel Profile, One-to-One dengan User
@@ -53,6 +54,38 @@ model Profile {
   User      User     @relation(fields: [id], references: [username], onDelete: Cascade) // Relasi wajib ke User
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+/// Tabel absensi karyawan lengkap dengan waktu masuk dan keluar
+model Attendance {
+  id     String @id @default(uuid()) // Primary Key UUID unik untuk tiap absensi
+  // Relasi ke User yang melakukan absensi
+  userId String // FK ke User yang melakukan absensi
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade) // Relasi ke User
+
+  // Informasi absensi
+  terlambat  Boolean @default(false) // Apakah terlambat masuk
+  keterangan String? // Keterangan tambahan jika ada
+
+  // Waktu,ip dan lokasi masuk
+  clockIn   DateTime @default(now()) // Waktu masuk, default sekarang
+  clockInIp String? // IP address saat clock-in
+
+  // Lokasi saat clock-in
+  clockInLocation String // lokasi saat clock-in
+
+  // Waktu, ip dan lokasi keluar
+  clockOut   DateTime? // Waktu keluar, bisa null jika belum keluar
+  clockOutIp String? // IP address saat clock-out
+
+  // Lokasi saat clock-out
+  clockOutLocation String? // lokasi saat clock-in
+
+  isDeleted Boolean @default(false) // Tandai apakah absensi ini sudah dihapus atau tidak
+
+  // waktu dibuat dan diupdate
+  createdAt DateTime @default(now()) // Waktu dibuat
+  updatedAt DateTime @updatedAt // Waktu terakhir diupdate
 }
 
 /**

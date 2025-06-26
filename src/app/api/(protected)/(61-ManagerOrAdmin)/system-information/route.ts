@@ -1,9 +1,12 @@
 import { NextResponse } from "next/server";
 import si from "systeminformation";
 import ksr_status from "@/utils/ksr_status";
+import DataAccessLayer from "@/utils/DataAccessLayer";
 
 export async function GET() {
     try {
+        const data = await DataAccessLayer();
+        if (data.privilege < 61) return NextResponse.json({ status: false, msg: ksr_status.unauthorized });
         // Ambil informasi sistem
         const [
             mem,
@@ -18,15 +21,8 @@ export async function GET() {
             //si.currentLoad(),
             //si.disksIO()
         ]);
-        console.log(
-            //  mem,
-            //  fsSize,
-            //  networkStats,
-            //   currentLoad,
-            //diskIO
-        )
 
-        const data = {
+        const sistemResult = {
             ram: {
                 total: mem.total,
                 used: mem.used,
@@ -55,7 +51,7 @@ export async function GET() {
             }))
         };
 
-        return NextResponse.json({ status: true, data });
+        return NextResponse.json({ status: true, sistemResult });
     } catch (e) {
         console.error(e);
         return NextResponse.json({ status: false, msg: ksr_status[500] })
