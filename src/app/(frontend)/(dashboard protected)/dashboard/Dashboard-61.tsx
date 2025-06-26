@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { RiRefreshLine } from "react-icons/ri";
-import SystemStats from "./Statistic-91";
 
 type userLogsType = {
     id: string;
@@ -34,9 +33,6 @@ export default function AdminPage() {
 
     return (
         <>
-            <section>
-                <SystemStats />
-            </section>
             <section className="mt-10">
 
                 {/* Menu */}

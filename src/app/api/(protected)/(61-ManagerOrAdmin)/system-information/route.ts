@@ -51,7 +51,7 @@ export async function GET() {
             }))
         };
 
-        return NextResponse.json({ status: true, sistemResult });
+        return NextResponse.json({ status: true, data: sistemResult });
     } catch (e) {
         console.error(e);
         return NextResponse.json({ status: false, msg: ksr_status[500] })

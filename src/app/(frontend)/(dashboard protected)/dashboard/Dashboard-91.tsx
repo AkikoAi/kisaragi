@@ -90,15 +90,22 @@ interface NetworkChartDataPoint {
     down: number;
 }
 
+interface StatsTotal {
+    diskUsed: number;
+    diskTotal: number;
+
+}
+
 export default function PostgresInfoDashboard() {
     const [pgData, setPgData] = useState<PgStats | null>(null);
     const [serverData, setServerData] = useState<ServerStats | null>(null);
     const [stats, setStats] = useState<SystemStats | null>(null);
+    const [statsTotal, setStatsTotal] = useState<StatsTotal | null>(null);
     const [networkHistory, setNetworkHistory] = useState<NetworkChartDataPoint[]>([]);
     const [loading, setLoading] = useState<("database" | "server")[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [errorServer, setErrorServer] = useState<string | null>(null);
-    const [intervalMs, setIntervalMs] = useState<number | null>(10000); // default 10 detik
+    const [intervalMs, setIntervalMs] = useState<number | null>(null); // default 10 detik
     const isMounted = useRef(true);
 
     const toggleLoading = (id: "database" | "server", action: "ADD" | "DEL") => {
@@ -147,6 +154,10 @@ export default function PostgresInfoDashboard() {
 
             const current: SystemStats = json.data;
             setStats(current);
+            const totalDiskUsed = current.disk.reduce((acc, disk) => acc + disk.used, 0);
+            const totalDiskSize = current.disk.reduce((acc, disk) => acc + disk.size, 0);
+            setStatsTotal({ diskTotal: totalDiskSize, diskUsed: totalDiskUsed });
+            console.log(!stats || !statsTotal, !statsTotal, statsTotal);
 
             if (current.network.length > 0) {
                 const iface = current.network[0];
@@ -164,12 +175,13 @@ export default function PostgresInfoDashboard() {
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => { getDatabaseInformation(); getServerInformation(); }, []);
+    useEffect(() => { getDatabaseInformation(); getServerInformation(); fetchSystemStats(); }, []);
 
     useEffect(() => {
         isMounted.current = true;
 
         const poll = async () => {
+
             if (!isMounted.current || intervalMs === null) return;
 
             await fetchSystemStats(); // tunggu fetch selesai
@@ -184,6 +196,7 @@ export default function PostgresInfoDashboard() {
             isMounted.current = false;
         };
     }, [intervalMs]);
+
 
 
 
@@ -218,7 +231,7 @@ export default function PostgresInfoDashboard() {
                 </div>
             </div>
             <div className="space-y-6">
-                {!stats ? (
+                {!stats || !statsTotal ? (
                     <div className="flex items-center justify-center p-4 text-center">
                         <p>Memuat statistik sistem...</p>
                     </div>
@@ -237,8 +250,8 @@ export default function PostgresInfoDashboard() {
                                             <Pie
                                                 dataKey="value"
                                                 data={[
-                                                    { name: "Digunakan", value: +(stats.ram.used / 1024 / 1024).toFixed(2) },
-                                                    { name: "Tersisa", value: +(stats.ram.free / 1024 / 1024).toFixed(2) },
+                                                    { name: "Digunakan", value: +(stats.ram.used / stats.ram.total * 100).toFixed(2) },
+                                                    { name: "Tersisa", value: +(stats.ram.free / stats.ram.total * 100).toFixed(2) },
                                                 ]}
                                                 cx="50%"
                                                 cy="50%"
@@ -254,17 +267,38 @@ export default function PostgresInfoDashboard() {
                                     </ResponsiveContainer>
                                 </div>
                                 <div className="h-60 flex flex-col justify-center space-y-2">
-                                    <div className="flex justify-between">
-                                        <span className="font-medium">Total</span>
-                                        <span className="text-sm">{(stats.ram.total / 1024 / 1024 / 1024).toFixed(2)} GB</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="font-medium">Digunakan</span>
+                                    <div className="flex justify-between items-center">
+                                        <div className="flex items-center gap-2">
+                                            <span
+                                                className="inline-block w-3 h-3 rounded-full bg-[#0088FE]"
+                                            />
+                                            <span className="font-medium">
+                                                Digunakan
+                                            </span>
+                                        </div>
                                         <span className="text-sm">{(stats.ram.used / 1024 / 1024 / 1024).toFixed(2)} GB</span>
                                     </div>
-                                    <div className="flex justify-between">
-                                        <span className="font-medium">Sisa</span>
+                                    <div className="flex justify-between items-center">
+                                        <div className="flex items-center gap-2">
+                                            <span
+                                                className="inline-block w-3 h-3 rounded-full bg-[#FF8042]"
+                                            />
+                                            <span className="font-medium">
+                                                Tersisa
+                                            </span>
+                                        </div>
                                         <span className="text-sm">{((stats.ram.total - stats.ram.used) / 1024 / 1024 / 1024).toFixed(2)} GB</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <div className="flex items-center gap-2">
+                                            <span
+                                                className="inline-block w-3 h-3 rounded-full dark:bg-white bg-black"
+                                            />
+                                            <span className="font-medium">
+                                                Total
+                                            </span>
+                                        </div>
+                                        <span className="text-sm">{(stats.ram.total / 1024 / 1024 / 1024).toFixed(2)} GB</span>
                                     </div>
                                 </div>
                             </div>
@@ -284,7 +318,7 @@ export default function PostgresInfoDashboard() {
                                                 dataKey="value"
                                                 data={stats.disk.map((disk) => ({
                                                     name: `${disk.mount} (${disk.type})`,
-                                                    value: disk.usePercent,
+                                                    value: Number((disk.used / statsTotal.diskTotal * 100).toFixed(2)),// Menghitung persentase penggunaan
                                                 }))}
                                                 cx="50%"
                                                 cy="50%"
@@ -316,6 +350,19 @@ export default function PostgresInfoDashboard() {
                                             </span>
                                         </div>
                                     ))}
+                                    <div className="flex justify-between items-center">
+                                        <div className="flex items-center gap-2">
+                                            <span
+                                                className="inline-block w-3 h-3 rounded-full dark:bg-white bg-black"
+                                            />
+                                            <span className="font-medium">
+                                                TOTAL
+                                            </span>
+                                        </div>
+                                        <span className="text-sm">
+                                            {(statsTotal.diskUsed / 1024 / 1024 / 1024).toFixed(1)} GB / {(statsTotal.diskTotal / 1024 / 1024 / 1024).toFixed(1)} GB — {(statsTotal.diskUsed / statsTotal.diskTotal * 100).toFixed(2)}%
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
