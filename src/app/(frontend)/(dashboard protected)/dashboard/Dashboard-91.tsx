@@ -1,19 +1,14 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { FaHdd, FaMemory, FaMicrochip, FaNetworkWired } from "react-icons/fa";
+import { FaHdd, FaMemory, FaMicrochip } from "react-icons/fa";
 import { RiRefreshLine } from "react-icons/ri";
 import {
-    Area,
-    AreaChart,
-    CartesianGrid,
     Cell,
     Pie,
     PieChart,
     ResponsiveContainer,
-    Tooltip,
-    XAxis,
-    YAxis,
+    Tooltip
 } from "recharts";
 
 const COLORS = ["#0088FE", "#FF8042", "#00C49F", "#FFBB28"];
@@ -84,12 +79,6 @@ interface ServerStats {
     uptimeSeconds: number;
 }
 
-interface NetworkChartDataPoint {
-    name: string;
-    up: number;
-    down: number;
-}
-
 interface StatsTotal {
     diskUsed: number;
     diskTotal: number;
@@ -101,7 +90,6 @@ export default function PostgresInfoDashboard() {
     const [serverData, setServerData] = useState<ServerStats | null>(null);
     const [stats, setStats] = useState<SystemStats | null>(null);
     const [statsTotal, setStatsTotal] = useState<StatsTotal | null>(null);
-    const [networkHistory, setNetworkHistory] = useState<NetworkChartDataPoint[]>([]);
     const [loading, setLoading] = useState<("database" | "server")[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [errorServer, setErrorServer] = useState<string | null>(null);
@@ -158,19 +146,6 @@ export default function PostgresInfoDashboard() {
             const totalDiskSize = current.disk.reduce((acc, disk) => acc + disk.size, 0);
             setStatsTotal({ diskTotal: totalDiskSize, diskUsed: totalDiskUsed });
             console.log(!stats || !statsTotal, !statsTotal, statsTotal);
-
-            if (current.network.length > 0) {
-                const iface = current.network[0];
-                const newPoint: NetworkChartDataPoint = {
-                    name: new Date().toLocaleTimeString(),
-                    up: iface.tx_bytes / 1024 / 1024,
-                    down: iface.rx_bytes / 1024 / 1024,
-                };
-                setNetworkHistory((prev) => {
-                    const updated = [...prev, newPoint];
-                    return updated.length > 10 ? updated.slice(-10) : updated;
-                });
-            }
         } catch { }
     };
 
@@ -364,57 +339,6 @@ export default function PostgresInfoDashboard() {
                                         </span>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        {/* Network */}
-                        <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4">
-                            <div className="flex items-center gap-3 mb-4">
-                                <FaNetworkWired className="text-xl text-indigo-500" />
-                                <h2 className="text-lg font-semibold">Statistik Jaringan</h2>
-                            </div>
-                            <div className="h-60 mb-4">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <AreaChart
-                                        data={networkHistory.map((entry, i) => ({
-                                            name: `${i + 1}s`,
-                                            up: entry.up,
-                                            down: entry.down,
-                                        }))}
-                                        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-                                    >
-                                        <CartesianGrid strokeDasharray="3 3" />
-                                        <XAxis dataKey="name" />
-                                        <YAxis unit=" MB" />
-                                        <Tooltip />
-                                        <Area
-                                            type="monotone"
-                                            dataKey="up"
-                                            stackId="1"
-                                            stroke="#8884d8"
-                                            fill="#8884d8"
-                                            name="Upload"
-                                        />
-                                        <Area
-                                            type="monotone"
-                                            dataKey="down"
-                                            stackId="1"
-                                            stroke="#ffc658"
-                                            fill="#ffc658"
-                                            name="Download"
-                                        />
-                                    </AreaChart>
-                                </ResponsiveContainer>
-                            </div>
-                            <div className="space-y-3">
-                                {stats.network.map((net, i) => (
-                                    <div key={i} className="flex flex-col sm:flex-row justify-between">
-                                        <span className="font-medium">{net.iface}</span>
-                                        <span className="text-sm">
-                                            RX: {(net.rx_bytes / 1024 / 1024).toFixed(1)} MB — TX: {(net.tx_bytes / 1024 / 1024).toFixed(1)} MB
-                                        </span>
-                                    </div>
-                                ))}
                             </div>
                         </div>
                     </>

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npx tsx ./seed.ts && next dev",
+    "dev": "npx tsx ./seed.ts && next dev --turbopack",
     "build": "prisma generate && npx tsx ./seed-prod.ts && next build",
     "start": "next start",
     "lint": "next lint"

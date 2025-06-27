@@ -1,4 +1,7 @@
+"use server";
 import { NextResponse } from "next/server";
+//console.log(process, process.platform,"LINE 3 ROUTE.TS SYSTEM INFORMATION");
+
 import si from "systeminformation";
 import ksr_status from "@/utils/ksr_status";
 import DataAccessLayer from "@/utils/DataAccessLayer";
@@ -11,13 +14,13 @@ export async function GET() {
         const [
             mem,
             fsSize,
-            networkStats,
+           // networkStats,
             //   currentLoad,
             //    diskIO
         ] = await Promise.all([
             si.mem(),
             si.fsSize(),
-            si.networkStats(),
+           // si.networkStats(),
             //si.currentLoad(),
             //si.disksIO()
         ]);
@@ -41,14 +44,15 @@ export async function GET() {
                 used: disk.used,
                 usePercent: disk.use,
                 mount: disk.mount
-            })),
+            }))
+            /*,
             network: networkStats.map(net => ({
                 iface: net.iface,
                 rx_bytes: net.rx_bytes,
                 tx_bytes: net.tx_bytes,
                 rx_sec: net.rx_sec,
                 tx_sec: net.tx_sec
-            }))
+            }))*/
         };
 
         return NextResponse.json({ status: true, data: sistemResult });
