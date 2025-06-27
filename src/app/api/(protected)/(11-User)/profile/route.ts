@@ -1,9 +1,9 @@
-import { Prisma } from "./src/generated/prisma";
-import DataAccessLayer from "./src/utils/DataAccessLayer";
-import prisma from "./src/utils/db";
-import { addLogsFE } from "./src/utils/ksr_logs";
-import ksr_status from "./src/utils/ksr_status";
-import { profilePost } from "./src/utils/validation";
+import { Prisma } from "@/generated/prisma";
+import DataAccessLayer from "@/utils/DataAccessLayer";
+import prisma from "@/utils/db";
+import { addLogsFE } from "@/utils/ksr_logs";
+import ksr_status from "@/utils/ksr_status";
+import { profilePost } from "@/utils/validation";
 import { NextRequest, NextResponse } from "next/server";
 
 

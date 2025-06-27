@@ -1,6 +1,6 @@
 "use server";
 
-import { verifyTokenJWT } from "./src/utils/ksr_jwt";
+import { verifyTokenJWT } from "@/utils/ksr_jwt";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import prisma from "./db";

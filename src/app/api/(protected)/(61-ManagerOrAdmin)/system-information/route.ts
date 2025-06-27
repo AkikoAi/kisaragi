@@ -3,8 +3,8 @@ import { NextResponse } from "next/server";
 //console.log(process, process.platform,"LINE 3 ROUTE.TS SYSTEM INFORMATION");
 
 import si from "systeminformation";
-import ksr_status from "./src/utils/ksr_status";
-import DataAccessLayer from "./src/utils/DataAccessLayer";
+import ksr_status from "@/utils/ksr_status";
+import DataAccessLayer from "@/utils/DataAccessLayer";
 
 export async function GET() {
     try {

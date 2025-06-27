@@ -1,8 +1,8 @@
-import prisma from "./src/utils/db";
-import { hashPassword } from "./src/utils/ksr_jwt";
-import { addLogsFE, addLogsUser } from "./src/utils/ksr_logs";
-import ksr_status from "./src/utils/ksr_status";
-import { RegisterValidation } from "./src/utils/validation";
+import prisma from "@/utils/db";
+import { hashPassword } from "@/utils/ksr_jwt";
+import { addLogsFE, addLogsUser } from "@/utils/ksr_logs";
+import ksr_status from "@/utils/ksr_status";
+import { RegisterValidation } from "@/utils/validation";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {

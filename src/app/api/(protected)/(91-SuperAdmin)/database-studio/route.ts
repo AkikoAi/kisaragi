@@ -1,6 +1,6 @@
-import { Prisma } from "./src/generated/prisma";
-import DataAccessLayer from "./src/utils/DataAccessLayer";
-import ksr_status from "./src/utils/ksr_status";
+import { Prisma } from "@/generated/prisma";
+import DataAccessLayer from "@/utils/DataAccessLayer";
+import ksr_status from "@/utils/ksr_status";
 import { NextResponse } from "next/server";
 
 export async function GET() {

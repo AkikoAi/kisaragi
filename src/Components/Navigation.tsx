@@ -1,6 +1,6 @@
 "use client";
 
-import { DataAccessLayer } from "./src/utils/ksr_jwt";
+import { DataAccessLayer } from "@/utils/ksr_jwt";
 import Image from "next/image";
 import Link from "next/link";
 import  { Fragment, useEffect, useState } from "react";

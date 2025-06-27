@@ -2,8 +2,8 @@
 import { Metadata } from "next";
 import Dashboard91 from "./Dashboard-91";
 import Dashboard61 from "./Dashboard-61";
-import DataAccessLayer from "./src/utils/DataAccessLayer";
-import AbsenCard from "./src/components/Dashboard-Absen";
+import DataAccessLayer from "@/utils/DataAccessLayer";
+import AbsenCard from "@/components/Dashboard-Absen";
 
 
 export const metadata: Metadata = {

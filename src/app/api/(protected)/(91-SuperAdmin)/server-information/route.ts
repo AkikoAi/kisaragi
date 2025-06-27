@@ -1,5 +1,5 @@
-import { addLogsFE } from './src/utils/ksr_logs';
-import ksr_status from './src/utils/ksr_status';
+import { addLogsFE } from '@/utils/ksr_logs';
+import ksr_status from '@/utils/ksr_status';
 import { NextResponse } from 'next/server';
 import os from 'os';
 import DataAccessLayer from '../../../../../utils/DataAccessLayer';

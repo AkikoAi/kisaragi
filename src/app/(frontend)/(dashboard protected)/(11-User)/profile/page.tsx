@@ -1,8 +1,8 @@
 
-import DataAccessLayer from "./src/utils/DataAccessLayer";
+import DataAccessLayer from "@/utils/DataAccessLayer";
 import Profile from "./profile";
 import { Metadata } from "next";
-import Unauthorized from "./src/app/(frontend)/(unprotected)/(error)/unauthorized/Unauthorized";
+import Unauthorized from "@/app/(frontend)/(unprotected)/(error)/unauthorized/Unauthorized";
 
 export const metadata: Metadata = {
     title: "Profile"

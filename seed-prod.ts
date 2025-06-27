@@ -1,5 +1,5 @@
-import { hashPassword } from "./src/utils/ksr_jwt";
-import prisma from "./src/utils/db";
+import { hashPassword } from "@/utils/ksr_jwt";
+import prisma from "@/utils/db";
 console.log("seeder");
 async function seed() {
     try {
