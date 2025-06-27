@@ -8,7 +8,7 @@ import Modals from "../../Components/Modals";
 export default function AbsenCard() {
     const [loading, setLoading] = useState<boolean>(true);
     const [hasClockedIn, setHasClockedIn] = useState<boolean>(false);
-    const { modals, modalsError, modalsSuccess } = useModals();
+    const { modals, modalsError } = useModals();
 
     function handleSubmit(type: "in" | "out") {
         const formData = new FormData();
@@ -29,14 +29,14 @@ export default function AbsenCard() {
                 });
                 const json = await res.json();
                 setHasClockedIn(json.status);
-            } catch (err) {
+            } catch {
                 modalsError("Fubuki tidak bisa menghubungi server~ coba lagi nanti ya!");
             } finally {
                 setLoading(false);
             }
         };
         checkTodayAbsence();
-    }, []);
+    }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
     return (<>
         <Modals status={modals} loading={false} />

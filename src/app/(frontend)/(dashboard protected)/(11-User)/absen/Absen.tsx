@@ -50,7 +50,7 @@ export default function AbsenForm() {
             } else {
                 modalsError(json.msg ?? "Ada yang error nih...");
             }
-        } catch (err) {
+        } catch {
             modalsError("Fubuki tidak bisa menghubungi server~ coba lagi nanti ya!");
         }
     };

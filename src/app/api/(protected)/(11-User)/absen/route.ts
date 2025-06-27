@@ -14,7 +14,7 @@ function getStartAndEndOfToday() {
     return { start, end };
 }
 
-export async function GET(req: NextRequest) {
+export async function GET() {
     const data = await DataAccessLayer();
     if (data.privilege < 11) {
         return NextResponse.json({ status: false, msg: ksr_status.unauthorized });

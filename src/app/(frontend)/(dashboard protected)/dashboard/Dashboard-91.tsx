@@ -195,7 +195,7 @@ export default function PostgresInfoDashboard() {
         return () => {
             isMounted.current = false;
         };
-    }, [intervalMs]);
+    }, [intervalMs]); // eslint-disable-line react-hooks/exhaustive-deps
 
 
 
