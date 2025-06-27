@@ -3,9 +3,9 @@
 import { useEffect, useState, FormEvent } from "react";
 import { FaCheck, FaEdit, FaTimes, FaTrash, FaUndo } from "react-icons/fa";
 import { RiRefreshLine } from "react-icons/ri";
-import Pagination from "../../../Components/Pagination";
-import { useModals } from "@/app/(frontend)/Hooks/useModals";
-import Modals from "@/app/(frontend)/Components/Modals";
+import { useModals } from "@/Hooks/useModals";
+import Modals from "@/Components/Modals";
+import Pagination from "@/Components/Pagination";
 
 // User Type
 type User = {
@@ -241,7 +241,7 @@ export default function ManagementUsers() {
                     <Pagination
                         currentPage={page}
                         totalPages={totalPages}
-                        onPageChange={(newPage) => setPage(newPage)}
+                        onPageChange={(newPage: any) => setPage(newPage)}
                     />
                 </>)}
 

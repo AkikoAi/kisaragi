@@ -1,5 +1,7 @@
 "use client";
 
+import Modals from "@/Components/Modals";
+import { useModals } from "@/Hooks/useModals";
 import type { DataAccessLayer } from "@/utils/ksr_jwt";
 
 import Image from "next/image";
@@ -7,9 +9,6 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 
-
-import Modals from "@/app/(frontend)/Components/Modals";
-import { useModals } from "@/app/(frontend)/Hooks/useModals";
 
 export default function Profile({ data }: { data: DataAccessLayer }) {
     const router = useRouter();

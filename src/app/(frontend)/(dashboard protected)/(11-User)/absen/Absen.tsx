@@ -1,8 +1,8 @@
 "use client";
 
+import Modals from "@/Components/Modals";
+import { useModals } from "@/Hooks/useModals";
 import { useEffect, useState } from "react";
-import { useModals } from "../../../Hooks/useModals";
-import Modals from "../../../Components/Modals";
 
 export default function AbsenForm() {
     const [location, setLocation] = useState<string>("");

@@ -1,8 +1,7 @@
 "use server"
 
+import Navigation from "@/Components/Navigation";
 import DataAccessLayer from "@/utils/DataAccessLayer";
-import Navigation from "../Components/Navigation";
-//import zillaGao from "../Components/zillaGao";
 
 const MenuOrigin = [
     {
