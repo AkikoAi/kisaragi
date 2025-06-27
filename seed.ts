@@ -1,6 +1,7 @@
 import { hashPassword } from "@/utils/ksr_jwt";
 import prisma from "./src/utils/db";
 console.log("seeder");
+//
 async function seed() {
     try {
         console.info("menambahkan seed")
