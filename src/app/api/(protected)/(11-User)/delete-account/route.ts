@@ -1,9 +1,9 @@
-import DataAccessLayer from "@/utils/DataAccessLayer";
-import prisma from "@/utils/db";
-import { checkPassword } from "@/utils/ksr_jwt";
-import { addLogsFE } from "@/utils/ksr_logs";
-import ksr_status from "@/utils/ksr_status";
-import { deleteAccount } from "@/utils/validation";
+import DataAccessLayer from "./src/utils/DataAccessLayer";
+import prisma from "./src/utils/db";
+import { checkPassword } from "./src/utils/ksr_jwt";
+import { addLogsFE } from "./src/utils/ksr_logs";
+import ksr_status from "./src/utils/ksr_status";
+import { deleteAccount } from "./src/utils/validation";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { NextRequest, NextResponse } from "next/server";
 

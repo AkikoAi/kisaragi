@@ -1,5 +1,5 @@
-import { verifyTokenJWT } from "@/utils/ksr_jwt";
-import { addLogsUser } from "@/utils/ksr_logs";
+import { verifyTokenJWT } from "./src/utils/ksr_jwt";
+import { addLogsUser } from "./src/utils/ksr_logs";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 

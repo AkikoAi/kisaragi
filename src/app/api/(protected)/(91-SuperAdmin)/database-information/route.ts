@@ -1,6 +1,6 @@
-import prisma from "@/utils/db";
-import { addLogsFE } from "@/utils/ksr_logs";
-import ksr_status from "@/utils/ksr_status";
+import prisma from "./src/utils/db";
+import { addLogsFE } from "./src/utils/ksr_logs";
+import ksr_status from "./src/utils/ksr_status";
 import { NextResponse } from "next/server";
 import DataAccessLayer from "../../../../../utils/DataAccessLayer";
 

@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createHash } from 'crypto';
-import ksr_status from '@/utils/ksr_status';
-import { addLogsFE } from '@/utils/ksr_logs';
-import minio from '@/utils/minio';
+import ksr_status from './src/utils/ksr_status';
+import { addLogsFE } from './src/utils/ksr_logs';
+import minio from './src/utils/minio';
 import path from 'path';
 
 export async function POST(req: NextRequest) {

@@ -1,7 +1,7 @@
 "use client";
 
 
-import SystemStatistic from "@/components/Dashboard-SystemStatistic";
+import SystemStatistic from "./src/components/Dashboard-SystemStatistic";
 import { useState, useEffect, useRef } from "react";
 import { FaMicrochip } from "react-icons/fa";
 

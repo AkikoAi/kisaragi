@@ -1,6 +1,6 @@
 "use server";
 
-import Unauthorized from "@/app/(frontend)/(unprotected)/(error)/unauthorized/Unauthorized";
+import Unauthorized from "./src/app/(frontend)/(unprotected)/(error)/unauthorized/Unauthorized";
 import ManagementUsers from "./ManagementUsers";
 import DataAccessLayer from "../../../../../utils/DataAccessLayer";
 

@@ -1,7 +1,7 @@
-import prisma from "@/utils/db";
-import { addLogsFE } from "@/utils/ksr_logs";
-import ksr_status from "@/utils/ksr_status";
-import { deleteUser, updateUser, userSearch } from "@/utils/validation";
+import prisma from "./src/utils/db";
+import { addLogsFE } from "./src/utils/ksr_logs";
+import ksr_status from "./src/utils/ksr_status";
+import { deleteUser, updateUser, userSearch } from "./src/utils/validation";
 import { NextRequest, NextResponse } from "next/server";
 import DataAccessLayer from "../../../../../utils/DataAccessLayer";
 

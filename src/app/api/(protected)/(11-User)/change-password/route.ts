@@ -1,9 +1,9 @@
-import DataAccessLayer from "@/utils/DataAccessLayer";
-import prisma from "@/utils/db";
-import { checkPassword, hashPassword } from "@/utils/ksr_jwt";
-import { addLogsFE } from "@/utils/ksr_logs";
-import ksr_status from "@/utils/ksr_status";
-import { ChangePasswordValidation } from "@/utils/validation";
+import DataAccessLayer from "./src/utils/DataAccessLayer";
+import prisma from "./src/utils/db";
+import { checkPassword, hashPassword } from "./src/utils/ksr_jwt";
+import { addLogsFE } from "./src/utils/ksr_logs";
+import ksr_status from "./src/utils/ksr_status";
+import { ChangePasswordValidation } from "./src/utils/validation";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {

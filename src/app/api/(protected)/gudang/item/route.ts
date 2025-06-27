@@ -1,10 +1,10 @@
 // CRUD
 
-import prisma from "@/utils/db";
-import { verifyTokenJWT } from "@/utils/ksr_jwt";
-import { addLogsFE } from "@/utils/ksr_logs";
-import ksr_status from "@/utils/ksr_status";
-import { gudangItem, gudangItemBaru, gudangItemUpdate } from "@/utils/validation";
+import prisma from "./src/utils/db";
+import { verifyTokenJWT } from "./src/utils/ksr_jwt";
+import { addLogsFE } from "./src/utils/ksr_logs";
+import ksr_status from "./src/utils/ksr_status";
+import { gudangItem, gudangItemBaru, gudangItemUpdate } from "./src/utils/validation";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 

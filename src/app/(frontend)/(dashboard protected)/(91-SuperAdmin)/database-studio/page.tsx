@@ -1,7 +1,7 @@
 
-import DataAccessLayer from "@/utils/DataAccessLayer";
+import DataAccessLayer from "./src/utils/DataAccessLayer";
 import DatabaseStudio from "./DatabaseStudio";
-import Unauthorized from "@/app/(frontend)/(unprotected)/(error)/unauthorized/Unauthorized";
+import Unauthorized from "./src/app/(frontend)/(unprotected)/(error)/unauthorized/Unauthorized";
 
 export default async function Page() {
     const data = await DataAccessLayer();

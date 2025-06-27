@@ -1,8 +1,8 @@
-import prisma from "@/utils/db";
-import { checkPassword, signTokenJWT } from "@/utils/ksr_jwt";
-import { addLogsFE, addLogsUser } from "@/utils/ksr_logs";
-import ksr_status from "@/utils/ksr_status";
-import { LoginValidation } from "@/utils/validation";
+import prisma from "./src/utils/db";
+import { checkPassword, signTokenJWT } from "./src/utils/ksr_jwt";
+import { addLogsFE, addLogsUser } from "./src/utils/ksr_logs";
+import ksr_status from "./src/utils/ksr_status";
+import { LoginValidation } from "./src/utils/validation";
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from "next/server";
 
