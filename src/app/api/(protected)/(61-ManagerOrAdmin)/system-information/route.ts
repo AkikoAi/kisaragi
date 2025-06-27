@@ -14,13 +14,15 @@ export async function GET() {
         const [
             mem,
             fsSize,
-           // networkStats,
+            cpu
+            // networkStats,
             //   currentLoad,
             //    diskIO
         ] = await Promise.all([
             si.mem(),
             si.fsSize(),
-           // si.networkStats(),
+            si.cpu()
+            // si.networkStats(),
             //si.currentLoad(),
             //si.disksIO()
         ]);
@@ -30,21 +32,27 @@ export async function GET() {
                 total: mem.total,
                 used: mem.used,
                 free: mem.free,
-                active: mem.active,
-                available: mem.available,
                 usedPercent: +(mem.used / mem.total * 100).toFixed(2),
             },
-            cpu: {
-                load: "??"// +(currentLoad.currentLoad).toFixed(2),
-            },
             disk: fsSize.map(disk => ({
-                fs: disk.fs,
                 type: disk.type,
                 size: disk.size,
                 used: disk.used,
                 usePercent: disk.use,
                 mount: disk.mount
-            }))
+            })),
+            cpu: {
+                speed: cpu.speed,
+                speedMin: cpu.speedMin,
+                speedMax: cpu.speedMax,
+                cores: cpu.cores,
+                physicalCores: cpu.physicalCores,
+                performanceCores: cpu.performanceCores,
+                efficiencyCores: cpu.efficiencyCores,
+                processors: cpu.processors,
+                manufacturer: cpu.manufacturer,
+                brand: cpu.brand,
+            }
             /*,
             network: networkStats.map(net => ({
                 iface: net.iface,

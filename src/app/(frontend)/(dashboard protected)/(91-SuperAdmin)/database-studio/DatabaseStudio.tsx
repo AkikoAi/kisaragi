@@ -1,6 +1,6 @@
 "use client";
-import Modals from "@/Components/Modals";
-import { useModals } from "@/Hooks/useModals";
+import Modals from "@/components/Modals";
+import { useModals } from "@/hooks/useModals";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";

@@ -1,6 +1,6 @@
 "use server"
 
-import Navigation from "@/Components/Navigation";
+import Navigation from "@/components/Navigation";
 import DataAccessLayer from "@/utils/DataAccessLayer";
 
 const MenuOrigin = [

@@ -3,9 +3,9 @@
 import { useEffect, useState, FormEvent } from "react";
 import { FaCheck, FaEdit, FaTimes, FaTrash, FaUndo } from "react-icons/fa";
 import { RiRefreshLine } from "react-icons/ri";
-import { useModals } from "@/Hooks/useModals";
-import Modals from "@/Components/Modals";
-import Pagination from "@/Components/Pagination";
+import { useModals } from "@/hooks/useModals";
+import Modals from "@/components/Modals";
+import Pagination from "@/components/Pagination";
 
 // User Type
 type User = {

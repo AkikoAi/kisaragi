@@ -1,7 +1,7 @@
 "use client";
 import  { ReactNode } from "react";
 import { MdInfo, MdCheckCircle, MdError, MdWarning, MdBugReport } from "react-icons/md";
-import { ModalType } from "../Hooks/useModals";
+import { ModalType } from "../hooks/useModals";
 
 type ModalsProps = {
     status: { show: boolean; type: ModalType; message: string | null };

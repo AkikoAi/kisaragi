@@ -1,7 +1,7 @@
 "use client";
 
-import Modals from "@/Components/Modals";
-import { useModals } from "@/Hooks/useModals";
+import Modals from "@/components/Modals";
+import { useModals } from "@/hooks/useModals";
 import type { DataAccessLayer } from "@/utils/ksr_jwt";
 
 import Image from "next/image";
