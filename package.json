@@ -1,48 +1,16 @@
 {
   "name": "ksr",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "dev": "npx tsx ./seed.ts && next dev --turbopack",
     "build": "prisma generate && npx tsx ./seed-prod.ts && next build",
     "start": "next start",
     "lint": "next lint"
   },
-  "packageManager": "pnpm@8.15.4",
-  "dependencies": {
-    "@prisma/client": "^6.9.0",
-    "@prisma/extension-accelerate": "^2.0.1",
-    "bcrypt": "^6.0.0",
-    "jsonwebtoken": "^9.0.2",
-    "minio": "^8.0.5",
-    "next": "15.3.3",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-icons": "^5.5.0",
-    "recharts": "^3.0.0",
-    "systeminformation": "^5.27.6",
-    "zod": "^3.25.61"
-  },
-  "devDependencies": {
-    "@eslint/compat": "^1.3.0",
-    "@eslint/eslintrc": "^3.3.1",
-    "@eslint/js": "^9.29.0",
-    "@next/eslint-plugin-next": "^15.3.4",
-    "@tailwindcss/postcss": "^4",
-    "@types/bcrypt": "^5.0.2",
-    "@types/jsonwebtoken": "^9.0.9",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9.29.0",
-    "eslint-config-next": "^15.3.4",
-    "eslint-plugin-next": "^0.0.0",
-    "eslint-plugin-react": "^7.37.5",
-    "globals": "^16.2.0",
-    "prisma": "^6.9.0",
-    "tailwindcss": "^4",
-    "tsx": "^4.20.3",
-    "typescript": "^5",
-    "typescript-eslint": "^8.35.0"
-  }
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.12.4"
 }
