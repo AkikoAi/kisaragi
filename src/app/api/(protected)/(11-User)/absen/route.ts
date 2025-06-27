@@ -4,7 +4,7 @@ import { addLogsFE } from "@/utils/ksr_logs";
 import ksr_status from "@/utils/ksr_status";
 import { absenPost } from "@/utils/validation";
 import { NextRequest, NextResponse } from "next/server";
-
+//
 function getStartAndEndOfToday() {
     const now = new Date();
     const start = new Date(now);
@@ -31,6 +31,11 @@ export async function GET() {
                     lte: end,
                 },
             },
+            select: {
+                id: true,
+                clockIn: true,
+                clockOut: true
+            }
         });
 
         if (absensi.length === 0) return NextResponse.json({ status: false, msg: ksr_status.belum_absen_hari_ini });

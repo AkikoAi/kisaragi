@@ -241,7 +241,11 @@ export default function ManagementUsers() {
                     <Pagination
                         currentPage={page}
                         totalPages={totalPages}
-                        onPageChange={(newPage: any) => setPage(newPage)}
+
+                        onPageChange={
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                            (newPage: any) => setPage(newPage)
+                        }
                     />
                 </>)}
 
