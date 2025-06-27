@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+// Tes
 export type ModalType = 'info' | 'success' | 'error' | 'warning' | 'debug' | 'process';
 
 export function useModals() {
