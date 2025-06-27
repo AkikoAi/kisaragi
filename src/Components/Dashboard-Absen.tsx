@@ -1,9 +1,9 @@
 "use client";
 
-import Modals from "@/components/Modals";
-import { useModals } from "@/hooks/useModals";
 import { useEffect, useState } from "react";
 import { FaUserCheck } from "react-icons/fa";
+import Modals from "./Modals";
+import { useModals } from "../hooks/useModals";
 
 interface AbsenResult {
     status: boolean;
