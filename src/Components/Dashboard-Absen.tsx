@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { FaUserCheck } from "react-icons/fa";
 import Modals from "./Modals";
-import { useModals } from "../hooks/useModals";
+import { useModals } from "../Hooks/useModals";
 
 interface AbsenResult {
     status: boolean;
