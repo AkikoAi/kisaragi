@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import Dashboard91 from "./Dashboard-91";
 import Dashboard61 from "./Dashboard-61";
 import DataAccessLayer from "@/utils/DataAccessLayer";
-import AbsenCard from "@/components/Dashboard-Absen";
+import AbsenCard from "@/Components/Dashboard-Absen";
 
 
 export const metadata: Metadata = {
