@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "packageManager": "pnpm@8.15.4",
   "dependencies": {
     "@prisma/client": "^6.9.0",
     "@prisma/extension-accelerate": "^2.0.1",
