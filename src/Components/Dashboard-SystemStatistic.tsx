@@ -34,7 +34,7 @@ export default function SystemStatistic({ stats, statsTotal }: { stats: SystemSt
                         <div>
                             <p className="font-semibold mb-1 text-zinc-700 dark:text-zinc-200">Speed (GHz)</p>
                             <span className="text-sm text-zinc-600 dark:text-zinc-300">
-                                {stats.cpu.speed.toFixed(2)} (min {stats.cpu.speedMin.toFixed(2)}, max {stats.cpu.speedMax.toFixed(2)})
+                                {stats.cpu.speed?.toFixed(2)} (min {stats.cpu.speedMin?.toFixed(2)}, max {stats.cpu.speedMax?.toFixed(2)})
                             </span>
                         </div>
 
