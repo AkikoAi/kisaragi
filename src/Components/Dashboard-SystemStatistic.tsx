@@ -1,8 +1,6 @@
 import { FaHdd, FaMemory } from "react-icons/fa";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
-import CPUCard from "./Dashboard-CPU";
-import { BsCpu, BsServer, BsSpeedometer2 } from "react-icons/bs";
-import { HiOutlineServer } from "react-icons/hi";
+import { BsCpu, BsServer } from "react-icons/bs";
 
 const COLORS = ["#0088FE", "#FF8042", "#00C49F", "#FFBB28"];
 
