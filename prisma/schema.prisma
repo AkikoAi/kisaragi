@@ -72,7 +72,7 @@ model Attendance {
   clockInIp String? // IP address saat clock-in
 
   // Lokasi saat clock-in
-  clockInLocation String // lokasi saat clock-in
+  clockInLocation String // lokasi saat clock-in "lon,lat"
 
   // Waktu, ip dan lokasi keluar
   clockOut   DateTime? // Waktu keluar, bisa null jika belum keluar

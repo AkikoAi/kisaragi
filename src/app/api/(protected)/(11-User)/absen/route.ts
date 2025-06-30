@@ -54,6 +54,7 @@ export async function PUT(req: NextRequest) {
     }
 
     try {
+        const ip = req.headers.get("x-forwarded-for")?.split(",")[0] || "unknown";
         const body = await req.formData();
         const location = body.get("location");
 
@@ -82,6 +83,7 @@ export async function PUT(req: NextRequest) {
 
             const result = await tx.attendance.create({
                 data: {
+                    clockInIp: ip,
                     userId: data.id,
                     clockInLocation: validationResult.data.location,
                 },
@@ -92,6 +94,7 @@ export async function PUT(req: NextRequest) {
 
         return NextResponse.json(transactionResult);
     } catch (error) {
+        console.error(error);
         addLogsFE(error);
         return NextResponse.json({ status: false, msg: ksr_status[500] });
     }
@@ -105,6 +108,7 @@ export async function POST(req: NextRequest) {
     }
 
     try {
+        const ip = req.headers.get("x-forwarded-for")?.split(",")[0] || "unknown";
         const body = await req.formData();
         const location = body.get("location");
 
@@ -135,6 +139,7 @@ export async function POST(req: NextRequest) {
             const result = await tx.attendance.update({
                 where: { id: existing.id },
                 data: {
+                    clockOutIp: ip,
                     clockOutLocation: validationResult.data.location,
                     clockOut: new Date(),
                 },

@@ -124,3 +124,36 @@ export const absenPost = z.object({
         .min(3, "Ehhh?! Lokasinya mana nih? Kasih yang bener dong~!")
         .trim(),
 })
+
+
+export const absensiGET = z.object({
+    start: z.string("Shirakami butuh tanggal mulai, jangan kosong ya!").min(3, "Hei string ISO, jangan bikin Kurokami kecewa!").trim().optional().nullable(),
+
+    end: z.string("Tanggal akhir itu penting untuk Kurokami!").min(3, "Kalau nggak ISO, Shirakami bakal pusing...").trim().optional().nullable(),
+
+    month: z.string().regex(/^\d+$/, "Month harus angka antara 0 sampai 11").transform(Number).refine(
+        (val) => val >= 0 && val <= 11,
+        "Bulan hanya dari 0 (Januari) sampai 11 (Desember), Kurokami tidak mau lebih!"
+    ).optional().nullable()
+}).check(({ value: data, ...ctx }) => {
+    const hasStartEnd = data.start && data.end;
+    const hasMonth = typeof data.month === "number";
+
+    if (!hasStartEnd && !hasMonth) {
+        ctx.issues.push({
+            code: 'custom',
+            message: "Shirakami perlu 'start & end' **atau** 'month', jangan dua-duanya kosong!",
+            path: ["validation"], // general error
+            input: data
+        });
+    }
+
+    if (hasStartEnd && hasMonth) {
+        ctx.issues.push({
+            code: 'custom',
+            input: data,
+            message: "Wah, Shirakami bingung! Jangan pakai 'start & end' **dan** 'month' sekaligus ya!",
+            path: ["validation"] // general error
+        });
+    }
+});

@@ -24,11 +24,10 @@ export default function PostgresInfoDashboard() {
             const totalDiskUsed = current.disk.reduce((acc, disk) => acc + disk.used, 0);
             const totalDiskSize = current.disk.reduce((acc, disk) => acc + disk.size, 0);
             setStatsTotal({ diskTotal: totalDiskSize, diskUsed: totalDiskUsed });
-            console.log(!stats || !statsTotal, !statsTotal, statsTotal);
         } catch { }
     };
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
     useEffect(() => { fetchSystemStats(); }, []);
 
     useEffect(() => {
@@ -49,7 +48,7 @@ export default function PostgresInfoDashboard() {
         return () => {
             isMounted.current = false;
         };
-    }, [intervalMs]); // eslint-disable-line react-hooks/exhaustive-deps
+    }, [intervalMs]);
 
 
 
