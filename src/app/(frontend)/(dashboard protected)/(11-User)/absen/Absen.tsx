@@ -106,6 +106,9 @@ export default function AbsensiPage() {
                         <p><span className="font-medium">Waktu Keluar:</span> {data.clockOut ? format(parseISO(data.clockOut), "dd MMM yyyy HH:mm", { locale: id }) : "-"}</p>
                         <p><span className="font-medium">IP Masuk:</span> {data.clockInIp}</p>
                         <p><span className="font-medium">IP Keluar:</span> {data.clockOutIp || "-"}</p>
+                        <p><span className="font-medium">Koordinat Masuk:</span> {data.clockInLocation || "-"}</p>
+                        <p><span className="font-medium">Koordinat Keluar:</span> {data.clockOutLocation || "-"}</p>
+
                     </div>
                 </div>
             </div>
