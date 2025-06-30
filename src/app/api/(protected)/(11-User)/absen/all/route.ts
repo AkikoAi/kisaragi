@@ -1,9 +1,3 @@
-export function getStartAndEndOfMonth(month: number, year: number) {
-    const start = new Date(year, month - 1, 1); // Bulan dimulai dari 0
-    const end = new Date(year, month, 0, 23, 59, 59, 999); // Hari terakhir bulan ini
-
-    return { start, end };
-}
 
 import { NextRequest, NextResponse } from "next/server";
 import DataAccessLayer from "@/utils/DataAccessLayer";
@@ -12,6 +6,13 @@ import { addLogsFE } from "@/utils/ksr_logs";
 import ksr_status from "@/utils/ksr_status";
 import { absensiGET } from "@/utils/validation";
 import { z } from "zod/v4";
+
+function getStartAndEndOfMonth(month: number, year: number) {
+    const start = new Date(year, month - 1, 1); // Bulan dimulai dari 0
+    const end = new Date(year, month, 0, 23, 59, 59, 999); // Hari terakhir bulan ini
+
+    return { start, end };
+}
 
 export async function GET(req: NextRequest) {
     const data = await DataAccessLayer();
