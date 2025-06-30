@@ -58,7 +58,7 @@ export default function AbsensiPage() {
         if (!data) return null;
 
         const toMapUrl = (coord: string) => {
-            const [lon, lat] = coord.split(",");
+            const [lat, lon] = coord.split(",");
             const url = new URL("https://www.openstreetmap.org/export/embed.html");
             url.searchParams.set("bbox", `${lon},${lat},${lon},${lat}`);
             url.searchParams.set("layer", "mapnik");

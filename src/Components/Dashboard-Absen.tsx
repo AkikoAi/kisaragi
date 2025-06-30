@@ -40,7 +40,7 @@ export default function AbsenCard() {
 
         setOnAction(true);
         const formData = new FormData();
-        formData.append("location", `${lokasi.lon},${lokasi.lat}`);
+        formData.append("location", `${lokasi.lat},${lokasi.lon}`);
         modalsInfo("Permintaan absensi sedang diproses...");
 
         try {
