@@ -116,44 +116,16 @@ export const deleteAccount = LoginValidation.extend({
             input: ctx.value
         });
     }
-});;
-
-export const absenPost = z.object({
-    location: z
-        .string("Fubuki bingung~ formatnya harus [Latitude],[Longitude] ya!")
-        .min(3, "Ehhh?! Lokasinya mana nih? Kasih yang bener dong~!")
-        .trim(),
-})
+});
 
 
 export const absensiGET = z.object({
-    start: z.string("Shirakami butuh tanggal mulai, jangan kosong ya!").min(3, "Hei string ISO, jangan bikin Kurokami kecewa!").trim().optional().nullable(),
-
-    end: z.string("Tanggal akhir itu penting untuk Kurokami!").min(3, "Kalau nggak ISO, Shirakami bakal pusing...").trim().optional().nullable(),
-
-    month: z.string().regex(/^\d+$/, "Month harus angka antara 0 sampai 11").transform(Number).refine(
-        (val) => val >= 0 && val <= 11,
-        "Bulan hanya dari 0 (Januari) sampai 11 (Desember), Kurokami tidak mau lebih!"
-    ).optional().nullable()
-}).check(({ value: data, ...ctx }) => {
-    const hasStartEnd = data.start && data.end;
-    const hasMonth = typeof data.month === "number";
-
-    if (!hasStartEnd && !hasMonth) {
-        ctx.issues.push({
-            code: 'custom',
-            message: "Shirakami perlu 'start & end' **atau** 'month', jangan dua-duanya kosong!",
-            path: ["validation"], // general error
-            input: data
-        });
-    }
-
-    if (hasStartEnd && hasMonth) {
-        ctx.issues.push({
-            code: 'custom',
-            input: data,
-            message: "Wah, Shirakami bingung! Jangan pakai 'start & end' **dan** 'month' sekaligus ya!",
-            path: ["validation"] // general error
-        });
-    }
+    month: z
+        .number("Month harus berupa angka dari 1 (Januari) sampai 12 (Desember), jangan aneh-aneh ya~")
+        .gte(1, "Bulan hanya boleh dari 1 (Januari) sampai 12 (Desember), Kurokami tidak mau kurang!")
+        .lte(12, "Bulan hanya boleh dari 1 (Januari) sampai 12 (Desember), Kurokami tidak mau lebih!"),
+    year: z.number("Shirakami butuh tahunnya juga dong~")
+        .int("Kurokami hanya mau tahun bulat, bukan pecahan waktu!")
+        .gte(2007, "Tahun minimal 2000 ya! Kita gak main ke masa lalu~")
+        .lte(2100, "Masa kamu dari masa depan?! Maksimal tahun 2100 aja ya~"),
 });
